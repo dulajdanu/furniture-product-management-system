@@ -10,4 +10,15 @@
 
 export const environment = {
   production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyDiXc50ty2qIgoRoTaNZn7DRv_MYUH0bNk",
+    authDomain: "furniture-webapp.firebaseapp.com",
+    databaseURL: "https://furniture-webapp.firebaseio.com",
+    projectId: "furniture-webapp",
+    storageBucket: "furniture-webapp.appspot.com",
+    messagingSenderId: "1088789492799",
+    appId: "1:1088789492799:web:682d9bfbe778389f74f48a",
+    measurementId: "G-93ZDC4D4LZ"
+  }
+
 };

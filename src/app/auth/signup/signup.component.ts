@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { NbRegisterComponent } from '@nebular/auth';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'ngx-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent extends NbRegisterComponent {
+export class SignupComponent implements OnInit {
 
+  constructor(private authService: AuthService) {
+
+  }
+
+  ngOnInit() {
+  }
   signUpForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -35,10 +41,15 @@ export class SignupComponent extends NbRegisterComponent {
     return this.signUpForm.get('agreeToConditons');
   }
 
+  // constructor(){
+  //   super( NbAuthService,  {},  ChangeDetectorRef,  Router)
+  // }
+
 
 
   registerUsr(val) {
     console.log(val);
+    this.authService.signUp(val['email'], val['password'], val['fullName'])
   }
 
 

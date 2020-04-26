@@ -7,7 +7,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent extends NbLoginComponent {
+export class LoginComponent implements OnInit {
+
+  ngOnInit() {
+  }
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),

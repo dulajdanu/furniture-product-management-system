@@ -15,6 +15,8 @@ import {
 } from '@nebular/theme';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -31,23 +33,8 @@ import { SignupComponent } from './signup/signup.component';
     NbCheckboxModule,
     ReactiveFormsModule,
 
-    NbAuthModule.forRoot({
-      strategies: [
-        NbPasswordAuthStrategy.setup({
-          name: 'email',
-          baseEndpoint: '',
-          login: {
-            // ...
-            endpoint: '/api/auth/login',
-          },
-          register: {
-            // ...
-            endpoint: '/api/auth/register',
-          },
-        }),
-      ],
-      forms: {},
-    }),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ]
 })
 export class AuthModule { }
