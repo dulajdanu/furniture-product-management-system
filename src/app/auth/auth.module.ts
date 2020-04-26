@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { NbAuthModule, NbPasswordAuthStrategy } from '@nebular/auth';
@@ -29,6 +29,7 @@ import { SignupComponent } from './signup/signup.component';
     NbInputModule,
     NbButtonModule,
     NbCheckboxModule,
+    ReactiveFormsModule,
 
     NbAuthModule.forRoot({
       strategies: [
