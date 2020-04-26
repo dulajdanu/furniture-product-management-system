@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbLoginComponent } from '@nebular/auth';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ngx-login',
@@ -8,10 +9,22 @@ import { NbLoginComponent } from '@nebular/auth';
 })
 export class LoginComponent extends NbLoginComponent {
 
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
 
-  login() {
-    console.log(this.user.email);
-    console.log(this.user.password);
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+
+  loginUsr(val) {
+    console.log(val['email']);
   }
 
 }
