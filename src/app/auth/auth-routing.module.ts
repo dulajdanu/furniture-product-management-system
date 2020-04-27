@@ -5,6 +5,7 @@ import { AuthComponent } from './auth.component';
 import { NbAuthComponent } from '@nebular/auth';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [{
   path: '', component: NbAuthComponent, children: [
@@ -15,6 +16,9 @@ const routes: Routes = [{
     {
       path: 'sign-up',
       component: SignupComponent
+    }, {
+      path: 'forgot-password',
+      component: ForgotPasswordComponent
     }
   ]
 }];

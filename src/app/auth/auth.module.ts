@@ -19,10 +19,11 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, SignupComponent],
+  declarations: [AuthComponent, LoginComponent, SignupComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

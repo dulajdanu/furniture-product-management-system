@@ -139,7 +139,20 @@ export class AuthService {
     }
   }
 
+  async resetPassword(email: string) //this function is used to reset password
+  {
+    await this.angularFireAuth.sendPasswordResetEmail(email).then(res => {
+      this.showToast('success', "You will receive a email to reset your password");
+    }).catch(val => {
+      console.log(val);
+      this.showToast('danger', val);
+
+    });
+  }
+
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
     this.toastrService.show(status, message, { status });
   }
+
+
 }
