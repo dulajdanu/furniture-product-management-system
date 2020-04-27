@@ -20,7 +20,8 @@ export class SignupComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
     rePassword: new FormControl('', [Validators.required,]),
-    agreeToConditons: new FormControl(false, Validators.requiredTrue)
+    agreeToConditons: new FormControl(false, Validators.requiredTrue),
+    userType: new FormControl('', Validators.required)
   });
 
   get fullName() {
@@ -41,17 +42,31 @@ export class SignupComponent implements OnInit {
   get agree() {
     return this.signUpForm.get('agreeToConditons');
   }
+  get userType() {
+    return this.signUpForm.get('userType');
+
+  }
 
   // constructor(){
   //   super( NbAuthService,  {},  ChangeDetectorRef,  Router)
   // }
+
+  userTypes = [ //user types to show in the signup page
+    { value: 0, label: "User" },
+    {
+      value: 1, label: "Manager"
+    },
+    {
+      value: 2, label: "Clerk"
+    }
+  ];
 
 
 
   registerUsr(val) {
     console.log(val);
     if (val['password'] === val['rePassword']) {
-      this.authService.signUp(val['email'], val['password'], val['fullName'])
+      this.authService.signUp(val['email'], val['password'], val['fullName'], val['userType'])
 
     }
     else {

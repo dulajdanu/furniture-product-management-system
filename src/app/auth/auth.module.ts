@@ -12,7 +12,8 @@ import {
   NbButtonModule,
   NbCheckboxModule,
   NbInputModule,
-  NbToastrModule
+  NbToastrModule,
+  NbRadioModule
 } from '@nebular/theme';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -37,6 +38,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireAuthModule,
     AngularFirestoreModule,
     NbToastrModule.forRoot(),
+    NbRadioModule
 
   ]
 })

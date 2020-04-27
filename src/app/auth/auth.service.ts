@@ -15,12 +15,12 @@ export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth, private afs: AngularFirestore, private toastrService: NbToastrService) { }
 
-  async  signUp(email: string, password: string, fullName: string) { //new user signup
+  async  signUp(email: string, password: string, fullName: string, type: number) { //new user signup
     await this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(res => {
       console.log('new account created');
       this.showToast('success', 'New account created successfully');
 
-      this.addNewUserData(email, fullName);
+      this.addNewUserData(email, fullName, type);
 
     }).catch(res => {
       console.log(res.toString());
@@ -29,18 +29,48 @@ export class AuthService {
     })
   }
 
-  async addNewUserData(email: string, fullName: string) { //adding new user data to the firestore databse
-    await this.afs.collection('users').doc(email).set({
-      email: email,
-      fullName: fullName
-    }).then(res => {
-      console.log(res);
-      console.log("new account data added");
+  async addNewUserData(email: string, fullName: string, type: number) { //adding new user data to the firestore databse
 
-    }).catch(res => {
-      console.log(res.toString());
 
-    });
+    if (type == 0) {
+      await this.afs.collection('users').doc(email).set({
+        email: email,
+        fullName: fullName
+      }).then(res => {
+        console.log(res);
+        console.log("new account data added");
+
+      }).catch(res => {
+        console.log(res.toString());
+
+      });
+    }
+    else if (type === 1) {
+      await this.afs.collection('managers').doc(email).set({
+        email: email,
+        fullName: fullName
+      }).then(res => {
+        console.log(res);
+        console.log("new account data added");
+
+      }).catch(res => {
+        console.log(res.toString());
+
+      });
+    }
+    else if (type == 2) {
+      await this.afs.collection('clerks').doc(email).set({
+        email: email,
+        fullName: fullName
+      }).then(res => {
+        console.log(res);
+        console.log("new account data added");
+
+      }).catch(res => {
+        console.log(res.toString());
+
+      });
+    }
   }
 
   async login(email: string, password: string) { //user login
