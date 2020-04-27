@@ -11,7 +11,8 @@ import {
   NbAlertModule,
   NbButtonModule,
   NbCheckboxModule,
-  NbInputModule
+  NbInputModule,
+  NbToastrModule
 } from '@nebular/theme';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -34,7 +35,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     ReactiveFormsModule,
 
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NbToastrModule.forRoot(),
+
   ]
 })
 export class AuthModule { }
