@@ -73,15 +73,70 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string) { //user login
-    this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
-      console.log(res.user.email);
-      this.showToast('success', 'You have successfully logged in');
-    }).catch(res => {
-      console.log(res);
-      this.showToast('danger', res);
+  async login(email: string, password: string, type: number) { //user login
+    if (type == 0) //if the person select the type as a user
+    {
+      await this.afs.collection('users').doc(email.trim()).ref.get().then(val => {
+        if (val.exists) {
+          this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
+            console.log(res.user.email);
+            this.showToast('success', 'You have successfully logged in');
+          }).catch(res => {
+            this.showToast('danger', res);
 
-    })
+          });
+        }
+        else {
+          this.showToast('danger', 'you are not a user of the system');
+
+        }
+      }).catch(val => {
+        this.showToast('danger', val);
+
+      });
+    }
+    else if (type == 1) //if the person select the type as a manager
+    {
+      await this.afs.collection('managers').doc(email.trim()).ref.get().then(val => {
+        if (val.exists) {
+          this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
+            console.log(res.user.email);
+            this.showToast('success', 'You have successfully logged in');
+          }).catch(res => {
+            this.showToast('danger', res);
+
+          });
+        }
+        else {
+          this.showToast('danger', 'you are not a Manager of the system');
+
+        }
+      }).catch(val => {
+        this.showToast('danger', val);
+
+      });
+    }
+    else if (type == 2) //if the person select the type as a clerk
+    {
+      await this.afs.collection('clerks').doc(email.trim()).ref.get().then(val => {
+        if (val.exists) {
+          this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
+            console.log(res.user.email);
+            this.showToast('success', 'You have successfully logged in');
+          }).catch(res => {
+            this.showToast('danger', res);
+
+          });
+        }
+        else {
+          this.showToast('danger', 'you are not a Clerk of the system');
+
+        }
+      }).catch(val => {
+        this.showToast('danger', val);
+
+      });
+    }
   }
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages

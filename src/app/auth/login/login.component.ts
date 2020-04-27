@@ -14,10 +14,20 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private atuhService: AuthService) { }
+  userTypes = [ //user types to show in the login page
+    { value: 0, label: "User" },
+    {
+      value: 1, label: "Manager"
+    },
+    {
+      value: 2, label: "Clerk"
+    }
+  ];
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
+    userType: new FormControl('', Validators.required)
   });
 
   get password() {
@@ -27,11 +37,15 @@ export class LoginComponent implements OnInit {
   get email() {
     return this.loginForm.get('email');
   }
+  get userType() {
+    return this.loginForm.get('userType');
+
+  }
 
 
   loginUsr(val) {
     console.log(val['email']);
-    this.atuhService.login(val['email'], val['password']);
+    this.atuhService.login(val['email'], val['password'], val['userType']);
   }
 
 }
