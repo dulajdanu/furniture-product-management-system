@@ -21,7 +21,7 @@
         <label class="label" for="input-email">Email address:</label>
         <input nbInput fullWidth name="email" id="input-email" formControlName="email">
         <ng-container *ngIf="email.invalid && email.touched">
-            <p class="error-message" *ngIf="email.errors?.required">
+            <p class="error-message" style="color: red;" *ngIf="email.errors?.required">
                 Email is required!
             </p>
             <!-- <p class="error-message" *ngIf="email.errors?.pattern">
@@ -35,7 +35,7 @@
         <input nbInput fullWidth formControlName="password" name="password" type="password" id="input-password"
             placeholder="Password" [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''">
         <ng-container *ngIf="password.invalid && password.touched ">
-            <p class="error-message" *ngIf="password.errors?.required">
+            <p class="error-message" style="color: red;" *ngIf="password.errors?.required">
                 Password is required!
             </p>
             <!-- <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">

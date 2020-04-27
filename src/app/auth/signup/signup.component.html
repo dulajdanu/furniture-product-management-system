@@ -21,7 +21,7 @@
         <input nbInput id="input-name" name="fullName" formControlName="fullName" placeholder="Full name" autofocus
             fullWidth>
         <ng-container *ngIf="fullName.touched && !fullName.valid">
-            <p class="error-message">
+            <p class="error-message" style="color: red;">
                 Full name is required!
             </p>
 
@@ -32,10 +32,10 @@
         <label class="label" for="input-email">Email address:</label>
         <input nbInput id="input-email" name="email" formControlName="email" placeholder="Email address" fullWidth>
         <ng-container *ngIf="!email.valid && email.touched">
-            <p class="error-message">
+            <p class="error-message" style="color: red;">
                 Email is required!
             </p>
-            <p class="error-message">
+            <p class="error-message" style="color: red;">
                 Email should be the real one!
             </p>
         </ng-container>
@@ -46,7 +46,7 @@
         <input nbInput formControlName="password" type="password" id="input-password" name="password"
             placeholder="Password" fullWidth>
         <ng-container *ngIf="password.invalid && password.touched">
-            <p class="error-message">
+            <p class="error-message" style="color: red;">
                 Password is required!
             </p>
             <!-- <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">
@@ -63,7 +63,7 @@
         <input nbInput formControlName="rePassword" type="password" id="input-re-password" name="rePass"
             placeholder="Confirm Password" fullWidth>
         <ng-container *ngIf="rePassword.invalid && rePassword.touched">
-            <p class="error-message">
+            <p class="error-message" style="color: red;">
                 Password confirmation is required!
             </p>
             <!-- <p class="error-message" *ngIf="password.value != rePass.value && !rePass.errors?.required">
