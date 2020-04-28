@@ -16,9 +16,10 @@ import {
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [ClerkComponent],
+  declarations: [ClerkComponent, HomeComponent],
   imports: [
     CommonModule,
     ClerkRoutingModule,
