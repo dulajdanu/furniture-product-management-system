@@ -34,10 +34,7 @@ export class ProfileComponent implements OnInit {
       icon: 'lock-outline',
     },
 
-    {
-      title: 'Logout',
-      icon: 'log-out-outline',
-    },
+
   ];
 
 

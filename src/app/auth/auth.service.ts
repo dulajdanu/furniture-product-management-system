@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth/';
 import { AngularFirestore } from '@angular/fire/firestore/';
 import { async } from '@angular/core/testing';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class AuthService {
 
 
 
-  constructor(private angularFireAuth: AngularFireAuth, private afs: AngularFirestore, private toastrService: NbToastrService) { }
+  constructor(private angularFireAuth: AngularFireAuth, private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router) { }
 
   async  signUp(email: string, password: string, fullName: string, type: number) { //new user signup
     await this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(res => {
@@ -152,6 +153,20 @@ export class AuthService {
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
     this.toastrService.show(status, message, { status });
+  }
+
+  async SignOut() { //signout function
+    this.angularFireAuth.signOut().then(res => {
+      localStorage.clear();
+      this.router.navigateByUrl('/auth/login');
+    }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+
+    // window.location.reload();
+
+    // window.location.reload();
   }
 
 

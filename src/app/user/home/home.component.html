@@ -2,6 +2,12 @@
     <nb-layout-header>
         <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
         <h4>welcome</h4>
+
+        <div style="position: absolute; right: 30px;">
+            <nb-user (click)="load()" style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
+
+        </div>
+
     </nb-layout-header>
     <nb-sidebar state="compacted">
         <nb-menu [items]="items"></nb-menu>

@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit {
       title: 'Home',
       icon: 'home-outline',
       home: true,
-      link: '/user/home'
+      link: '/user/home',
+
     },
     {
       title: 'Profile',
@@ -34,10 +35,11 @@ export class HomeComponent implements OnInit {
       icon: 'lock-outline',
     },
 
-    {
-      title: 'Logout',
-      icon: 'log-out-outline',
-    },
+
   ];
+
+  load() {
+    console.log('avatar clicled');
+  }
 
 }
