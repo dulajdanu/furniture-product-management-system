@@ -8,11 +8,16 @@ import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 })
 export class UserService {
 
+  email: string = "";
   constructor(
     private afs: AngularFirestore
-  ) { }
+  ) {
+    this.email = localStorage.getItem('email');
+  }
 
   getAppointments() {
-
+    return this.afs.collection('users').doc(this.email).collection("appointments").snapshotChanges();
   }
+
+
 }

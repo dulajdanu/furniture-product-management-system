@@ -15,7 +15,8 @@ import {
   NbLayoutModule,
   NbSidebarModule,
   NbMenuModule,
-  NbUserModule
+  NbUserModule,
+  NbCardModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -42,6 +43,8 @@ import { ProfileComponent } from './profile/profile.component';
     NbSidebarModule,
     NbMenuModule,
     NbUserModule,
+    NbCardModule,
+
 
 
   ]

@@ -14,5 +14,20 @@
 
     </nb-sidebar>
 
-    <nb-layout-column class="colored-column-success">Layout Content</nb-layout-column>
+    <nb-layout-column class="colored-column-success">
+
+        <nb-card *ngIf="numberOfOrders != 0;else orders">
+            <nb-card-body>
+                Card
+            </nb-card-body>
+        </nb-card>
+
+        <ng-template #orders>
+            <nb-card>
+                <nb-card-body>
+                    you dont have any meetings
+                </nb-card-body>
+            </nb-card>
+        </ng-template>
+    </nb-layout-column>
 </nb-layout>

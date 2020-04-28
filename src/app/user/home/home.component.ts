@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NbSidebarService, NbMenuItem } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ngx-home',
@@ -9,14 +11,18 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService) {
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private userService: UserService) {
   }
+
+  numberOfOrders: number = 0;
 
   toggle() {
     this.sidebarService.toggle(true);
     return false;
   }
   ngOnInit(): void {
+    this.getAppointments();
+
   }
   items: NbMenuItem[] = [
     {
@@ -44,5 +50,25 @@ export class HomeComponent implements OnInit {
     this.authService.SignOut();
 
   }
+
+  getAppointments() {
+
+    return this.userService.getAppointments().subscribe(res => {
+      console.log(res.length);
+      this.numberOfOrders = res.length;
+      res.forEach(element => {
+        console.log(element.payload.doc.id);
+      });
+
+    });
+  }
+  ngOnDestroy() {
+    // ...
+    console.log('on destroy called');
+    this.userService.getAppointments().subscribe().unsubscribe();
+  }
+
+
+
 
 }
