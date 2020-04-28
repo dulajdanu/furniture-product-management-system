@@ -82,6 +82,10 @@ export class AuthService {
           this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
             console.log(res.user.email);
             this.showToast('success', 'You have successfully logged in');
+            localStorage.setItem('email', email);
+            localStorage.setItem('type', "0");
+            this.router.navigateByUrl('/user/home')
+
           }).catch(res => {
             this.showToast('danger', res);
 
@@ -103,6 +107,10 @@ export class AuthService {
           this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
             console.log(res.user.email);
             this.showToast('success', 'You have successfully logged in');
+            localStorage.setItem('email', email);
+            localStorage.setItem('type', "1");
+            this.router.navigateByUrl('/manager/home')
+
           }).catch(res => {
             this.showToast('danger', res);
 
@@ -124,6 +132,9 @@ export class AuthService {
           this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
             console.log(res.user.email);
             this.showToast('success', 'You have successfully logged in');
+            localStorage.setItem('email', email);
+            localStorage.setItem('type', "2");
+            this.router.navigateByUrl('/clerk/home');
           }).catch(res => {
             this.showToast('danger', res);
 

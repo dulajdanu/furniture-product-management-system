@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbSidebarService, NbMenuItem } from '@nebular/theme';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'ngx-home',
@@ -8,7 +9,7 @@ import { NbSidebarService, NbMenuItem } from '@nebular/theme';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private sidebarService: NbSidebarService) {
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService) {
   }
 
   toggle() {
@@ -40,6 +41,8 @@ export class HomeComponent implements OnInit {
 
   load() {
     console.log('avatar clicled');
+    this.authService.SignOut();
+
   }
 
 }
