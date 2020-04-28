@@ -47,6 +47,9 @@ export const routes: Routes = [
   // },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+  { path: 'manager', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule) },
+  { path: 'clerk', loadChildren: () => import('./clerk/clerk.module').then(m => m.ClerkModule) },
   { path: '**', redirectTo: 'pages' },
 ];
 
