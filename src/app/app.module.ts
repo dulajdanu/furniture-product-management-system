@@ -47,6 +47,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    NbSidebarModule.forRoot(), //to create the sidebar
+    NbMenuModule.forRoot(), //to shwo the menu icons in the side bar
+
+
 
 
   ],

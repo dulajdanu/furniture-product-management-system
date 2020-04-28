@@ -12,7 +12,9 @@ import {
   NbInputModule,
   NbToastrModule,
   NbRadioModule,
-  NbLayoutModule
+  NbLayoutModule,
+  NbSidebarModule,
+  NbMenuModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -35,6 +37,8 @@ import { HomeComponent } from './home/home.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     NbLayoutModule,
+    NbSidebarModule,
+    NbMenuModule
 
   ]
 })
