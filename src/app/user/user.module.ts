@@ -19,9 +19,10 @@ import {
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [UserComponent, HomeComponent],
+  declarations: [UserComponent, HomeComponent, ProfileComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

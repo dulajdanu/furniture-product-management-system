@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NbSidebarService, NbMenuItem } from '@nebular/theme';
+import { NbMenuItem, NbSidebarService } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'ngx-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService) {
   }
@@ -39,5 +39,7 @@ export class HomeComponent implements OnInit {
       icon: 'log-out-outline',
     },
   ];
+
+
 
 }
