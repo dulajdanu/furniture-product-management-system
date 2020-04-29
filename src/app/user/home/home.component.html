@@ -23,11 +23,20 @@
         </nb-card>
 
         <ng-template #orders>
-            <nb-card>
+            <nb-card status="danger">
+                <nb-card-header> you dont have any meetings </nb-card-header>
+
+
                 <nb-card-body>
-                    you dont have any meetings
+                    To request for an appoinment click here
+                    <button (click)="request()" style="margin-left: 50px;" nbButton status="primary">Request</button>
+
+
                 </nb-card-body>
             </nb-card>
         </ng-template>
+        <div *ngIf="showRequestForm">
+            <ngx-request-form></ngx-request-form>
+        </div>
     </nb-layout-column>
 </nb-layout>

@@ -1,0 +1,70 @@
+<nb-card style="width: 700px;">
+    <nb-card-header>Request for a appointment</nb-card-header>
+    <nb-card-body>
+        <form aria-labelledby="title" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-control-group">
+                <label class="label" for="input-email">Email address:</label>
+                <input nbInput fullWidth name="email" id="input-email" formControlName="email">
+
+            </div>
+
+            <div class="form-control-group">
+                <label class="label" for="input-phone">Password:</label>
+                <input nbInput fullWidth name="phone" type="text" id="input-phone" placeholder="Phone number"
+                    formControlName="phone">
+
+
+            </div>
+            <div class="form-control-group">
+                <label class="label" for="input-phone">Preferred method for contact:</label>
+                <nb-radio-group formControlName="methodOfContact">
+                    <nb-radio *ngFor="let option of options" [value]="option.value">
+                        {{ option.label }}
+                    </nb-radio>
+                </nb-radio-group>
+
+                <ng-container *ngIf="methodOfContact.invalid && methodOfContact.touched">
+                    <p class="error-message" style="color: red;">
+                        Preferred method is required!
+                    </p>
+                    <!-- <p class="error-message" *ngIf="email.errors?.pattern">
+                        Email should be the real one!
+                    </p> -->
+                </ng-container>
+
+
+            </div>
+
+            <div class="form-control-group">
+                <label class="label" for="type">Type of the product:</label>
+                <div *ngFor="let type of types; let i=index">
+                    <label>
+                        <input type="checkbox" [value]="type.value" (change)="onCheckboxChange($event)" />
+                        {{type.name}}
+                    </label>
+
+                </div>
+
+                <ng-container *ngIf="this.requestForm.controls['checkTypes'].errors?.required">
+                    <p class="error">
+                        Checkbox is required, select atleast one value.
+                    </p>
+                    <!-- <p class="error-message" *ngIf="email.errors?.pattern">
+                        Email should be the real one!
+                    </p> -->
+                </ng-container>
+
+            </div>
+
+
+
+
+
+            <button nbButton fullWidth status="success" [disabled]="!requestForm.valid">
+                Log In
+            </button>
+        </form>
+
+    </nb-card-body>
+</nb-card>

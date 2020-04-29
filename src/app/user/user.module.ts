@@ -22,9 +22,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RequestFormComponent } from './request-form/request-form.component';
 
 @NgModule({
-  declarations: [UserComponent, HomeComponent, ProfileComponent],
+  declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

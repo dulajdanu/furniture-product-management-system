@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   }
 
   numberOfOrders: number = 0;
+  showRequestForm: boolean = false;
 
   toggle() {
     this.sidebarService.toggle(true);
@@ -66,6 +67,11 @@ export class HomeComponent implements OnInit {
     // ...
     console.log('on destroy called');
     this.userService.getAppointments().subscribe().unsubscribe();
+  }
+
+  request() {
+    console.log("show the form for the user");
+    this.showRequestForm = true;
   }
 
 
