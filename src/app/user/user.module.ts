@@ -16,7 +16,8 @@ import {
   NbSidebarModule,
   NbMenuModule,
   NbUserModule,
-  NbCardModule
+  NbCardModule,
+  NbDatepickerModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -45,6 +46,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
     NbMenuModule,
     NbUserModule,
     NbCardModule,
+    NbDatepickerModule,
 
 
 

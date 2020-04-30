@@ -24,6 +24,7 @@ import { AngularFireModule, } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { from } from 'rxjs';
 
 
 @NgModule({
@@ -49,6 +50,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFirestoreModule,
     NbSidebarModule.forRoot(), //to create the sidebar
     NbMenuModule.forRoot(), //to shwo the menu icons in the side bar
+    NbDatepickerModule.forRoot(), //to select the date
+
 
 
 

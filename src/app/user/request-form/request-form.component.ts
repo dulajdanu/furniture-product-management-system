@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'ngx-request-form',
@@ -9,6 +10,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 export class RequestFormComponent implements OnInit {
   usremail: string = "";
   phoneNum: string = "0776396993";
+  description: string = ""; //this is used if the user selected the other option
 
   constructor(private fb: FormBuilder) {
     this.usremail = localStorage.getItem('email');
@@ -20,7 +22,10 @@ export class RequestFormComponent implements OnInit {
     email: new FormControl({ value: localStorage.getItem('email'), disabled: true }, [Validators.required, Validators.email]),
     phone: new FormControl({ value: "077639690", disabled: true }, Validators.required),
     methodOfContact: new FormControl('', Validators.required),
-    checkTypes: this.fb.array([], Validators.required)
+    checkTypes: this.fb.array([], Validators.required),
+    descriptionOfOrder: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    date: new FormControl(new Date(), Validators.required)
   });
 
   onCheckboxChange(e) {
@@ -40,6 +45,23 @@ export class RequestFormComponent implements OnInit {
     }
   }
 
+  checkOtherType(): boolean {
+    let typesArr: Array<string> = this.requestForm.get('checkTypes').value;
+    let flag: number = 0;
+    typesArr.forEach(element => {
+      if (element == '7') {
+        flag = 1;
+      }
+
+    });
+
+    if (flag == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   options = [
     { value: 0, label: 'Phone' },
     { value: 1, label: 'E mail' },];
@@ -49,6 +71,16 @@ export class RequestFormComponent implements OnInit {
     { name: 'Gate', value: 0 },
     { name: 'Door', value: 1 },
     { name: 'Hand-Rail', value: 2 },
+    { name: 'Table', value: 3 },
+    { name: 'Chair', value: 4 },
+    { name: 'Wall-Art', value: 5 },
+    { name: 'Window Grill', value: 6 },
+    { name: 'Other', value: 7 },
+
+
+
+
+
 
 
   ];
@@ -56,10 +88,23 @@ export class RequestFormComponent implements OnInit {
     return this.requestForm.get('methodOfContact');
   }
 
+  get descriptionOfOrder() {
+    return this.requestForm.get('descriptionOfOrder');
+  }
+  get address() {
+    return this.requestForm.get('address');
+  }
+
   ngOnInit(): void {
   }
-  onSubmit() {
-    console.log(this.requestForm.value);
+  onSubmit(val) {
+    console.log(val);
+    let date: Date = val['date'];
+    let pipe = new DatePipe('en-US'); // Use your own locale
+
+    let formatDate = pipe.transform(date, 'MM-dd-y');
+    console.log(formatDate);
+
   }
 
 }
