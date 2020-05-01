@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { DatePipe } from '@angular/common';
 import { UserService } from '../user.service';
 import { HomeComponent } from '../home/home.component';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'ngx-request-form',
@@ -112,9 +113,10 @@ export class RequestFormComponent implements OnInit {
 
     val['date'] = formatDate; //change the date to a readable format
     val['status'] = 0 //0 is used to show the status of the appointment is pending
-
+    val['dateAdded'] = firebase.firestore.FieldValue.serverTimestamp(); //this is used to find in which time the document was added
     if ((this.checkOtherType() == true) && (this.description != '')) {
       val['desOfOtherType'] = this.description;
+
       this.uService.addewAppointment(val);
 
 

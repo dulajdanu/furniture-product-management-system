@@ -18,6 +18,10 @@ export class HomeComponent implements OnInit {
   showRequestForm: boolean = false;
   showCloseicon: boolean = false;
 
+  pendingAppointments: boolean = false;
+  ActiveAppointments: boolean = false;
+
+
 
 
 
@@ -64,6 +68,9 @@ export class HomeComponent implements OnInit {
       this.numberOfOrders = res.length;
       res.forEach(element => {
         console.log(element.payload.doc.id);
+        element.payload.doc.ref.get().then(res => {
+          console.log(res.data);
+        });
       });
 
     });
