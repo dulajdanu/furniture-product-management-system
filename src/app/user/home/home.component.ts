@@ -16,6 +16,11 @@ export class HomeComponent implements OnInit {
 
   numberOfOrders: number = 0;
   showRequestForm: boolean = false;
+  showCloseicon: boolean = false;
+
+
+
+
 
   toggle() {
     this.sidebarService.toggle(true);
@@ -72,6 +77,13 @@ export class HomeComponent implements OnInit {
   request() {
     console.log("show the form for the user");
     this.showRequestForm = true;
+    this.showCloseicon = true;
+
+  }
+  hide() {
+    this.showRequestForm = false;
+    this.showCloseicon = false;
+
   }
 
 

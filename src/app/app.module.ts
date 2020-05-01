@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { from } from 'rxjs';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { from } from 'rxjs';
     NbSidebarModule.forRoot(), //to create the sidebar
     NbMenuModule.forRoot(), //to shwo the menu icons in the side bar
     NbDatepickerModule.forRoot(), //to select the date
+    NbEvaIconsModule //to add icons
 
 
 

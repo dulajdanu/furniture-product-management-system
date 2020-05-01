@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../user.service';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'ngx-request-form',
@@ -12,7 +14,9 @@ export class RequestFormComponent implements OnInit {
   phoneNum: string = "0776396993";
   description: string = ""; //this is used if the user selected the other option
 
-  constructor(private fb: FormBuilder) {
+
+
+  constructor(private fb: FormBuilder, private uService: UserService) {
     this.usremail = localStorage.getItem('email');
     console.log(this.usremail);
   }
@@ -98,12 +102,31 @@ export class RequestFormComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit(val) {
-    console.log(val);
+    // console.log(val);
+
     let date: Date = val['date'];
     let pipe = new DatePipe('en-US'); // Use your own locale
 
     let formatDate = pipe.transform(date, 'MM-dd-y');
-    console.log(formatDate);
+    // console.log(formatDate);
+
+    val['date'] = formatDate; //change the date to a readable format
+    val['status'] = 0 //0 is used to show the status of the appointment is pending
+
+    if ((this.checkOtherType() == true) && (this.description != '')) {
+      val['desOfOtherType'] = this.description;
+      this.uService.addewAppointment(val);
+
+
+
+    }
+    else {
+      this.uService.addewAppointment(val);
+
+    }
+
+
+
 
   }
 

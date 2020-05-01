@@ -16,9 +16,18 @@
 
     <nb-layout-column class="colored-column-success">
 
-        <nb-card *ngIf="numberOfOrders != 0;else orders">
+        <nb-card *ngIf="numberOfOrders != 0;else orders" status="primary">
+            <nb-card-header> Request a new appointment </nb-card-header>
+
+
             <nb-card-body>
-                Card
+                To request for a an appoinment click here
+                <button (click)="request()" style="margin-left: 50px;" nbButton status="primary">Request</button>
+                <nb-icon (click)="hide()" *ngIf="showCloseicon" style="margin-left: 30px;" icon="close-outline"
+                    status="primary">
+                </nb-icon>
+
+
             </nb-card-body>
         </nb-card>
 
