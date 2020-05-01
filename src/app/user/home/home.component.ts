@@ -4,11 +4,30 @@ import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 
+
+
+export interface Appointment {
+  status: number;
+  descriptionOfOrder: string;
+  methodOfContact: number;
+  date: string;
+  dateAdded: Date;
+  address: string;
+  checkTypes: Array<string>
+}
+
+export interface AppointmentId extends Appointment {
+  id: string;
+}
+
+
 @Component({
   selector: 'ngx-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
+
 export class HomeComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private userService: UserService) {
@@ -20,6 +39,7 @@ export class HomeComponent implements OnInit {
 
   pendingAppointments: boolean = false;
   ActiveAppointments: boolean = false;
+
 
 
 
