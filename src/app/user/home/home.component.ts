@@ -56,9 +56,11 @@ export class HomeComponent implements OnInit {
         });
         if (this.pendingAppointments.length != 0) {
           this.is_there_pendingAppointments = true; //checking the pending appointments array is empty or not
+          this.no_of_pending = this.pendingAppointments.length;
         }
         if (this.activeAppointments.length != 0) {
           this.is_there_ActiveAppointments = true; //checking the active appointments array is empty or not
+          this.no_of_active = this.activeAppointments.length;
         }
       }
 
