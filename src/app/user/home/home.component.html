@@ -47,5 +47,20 @@
         <div *ngIf="showRequestForm">
             <ngx-request-form></ngx-request-form>
         </div>
+        <nb-card *ngIf="is_there_ActiveAppointments" status="primary">
+            <nb-card-header> You have Active Appointments </nb-card-header>
+
+
+            <nb-card-body>
+                To request for a an appoinment click here
+                <button (click)="request()" style="margin-left: 50px;" nbButton status="primary">Request</button>
+                <nb-icon (click)="hide()" *ngIf="showCloseicon" style="margin-left: 30px;" icon="close-outline"
+                    status="primary">
+                </nb-icon>
+
+
+            </nb-card-body>
+        </nb-card>
+
     </nb-layout-column>
 </nb-layout>
