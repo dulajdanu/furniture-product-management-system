@@ -47,11 +47,15 @@
 
                     <nb-card-body>
                         <nb-list>
-                            <nb-list-item style="display: block;" *ngFor="let appointment of newAppointments">
-                                <nb-icon (click)="hide()"
-                                    style="margin-left: 10px;margin-right: 10px;display: inline-block;"
-                                    icon="edit-2-outline" status="primary">
-                                </nb-icon>
+                            <nb-list-item style="display: block;"
+                                *ngFor="let appointment of newAppointments ;index as i">
+                                <button nbButton nbPopover="View order" nbPopoverTrigger="hint"
+                                    (click)="loadOrder(appointment['id'])" nbPopoverPlacement="bottom">
+
+                                    <nb-icon style="margin-left: 10px;margin-right: 10px;display: inline-block;"
+                                        icon="edit-2-outline" status="primary">
+                                    </nb-icon>
+                                </button>
                                 ID : {{ appointment['id'] }}
                                 <div style="display: inline;margin-left: 50px;">
 
@@ -65,9 +69,11 @@
 
 
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
                     </nb-card-body>
+
                 </nb-card>
 
                 <nb-card *ngIf="is_there_activeAppointments" status="primary">

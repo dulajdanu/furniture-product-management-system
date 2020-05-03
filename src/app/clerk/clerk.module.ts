@@ -18,14 +18,16 @@ import {
   NbUserModule,
   NbCardModule,
   NbDatepickerModule,
-  NbIconModule
+  NbIconModule,
+  NbPopoverModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
-  declarations: [ClerkComponent, HomeComponent],
+  declarations: [ClerkComponent, HomeComponent, OrderComponent],
   imports: [
     CommonModule,
     ClerkRoutingModule,
@@ -46,7 +48,8 @@ import { HomeComponent } from './home/home.component';
     NbUserModule,
     NbCardModule,
     NbDatepickerModule,
-    NbIconModule
+    NbIconModule,
+    NbPopoverModule
   ]
 })
 export class ClerkModule { }

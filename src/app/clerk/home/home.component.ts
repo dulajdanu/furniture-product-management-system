@@ -3,6 +3,7 @@ import { NbSidebarService, NbMenuItem } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ClerkService } from '../clerk.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 
@@ -30,7 +31,7 @@ export interface AppointmentId extends Appointment {
 
 export class HomeComponent implements OnInit {
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService) {
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router) {
 
     this.clerkService.getAppointments().subscribe(res => {
       console.log(res);
@@ -87,7 +88,9 @@ export class HomeComponent implements OnInit {
   no_of_new: number = 0;
 
 
-
+  loadOrder(val) {
+    this.router.navigateByUrl('/clerk/order');
+  }
 
 
 
@@ -142,17 +145,17 @@ export class HomeComponent implements OnInit {
     console.log('on destroy called');
   }
 
-  request() {
-    console.log("show the form for the user");
-    this.showRequestForm = true;
-    this.showCloseicon = true;
+  // request() {
+  //   console.log("show the form for the user");
+  //   this.showRequestForm = true;
+  //   this.showCloseicon = true;
 
-  }
-  hide() {
-    this.showRequestForm = false;
-    this.showCloseicon = false;
+  // }
+  // hide() {
+  //   this.showRequestForm = false;
+  //   this.showCloseicon = false;
 
-  }
+  // }
 
 
 
