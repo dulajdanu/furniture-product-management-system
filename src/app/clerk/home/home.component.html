@@ -41,16 +41,29 @@
                     status="primary">
                 </nb-icon> -->
 
-                <nb-card *ngIf="is_there_newAppointments" status="primary">
-                    <nb-card-header> There are {{no_of_new}} pending Appointment(s) </nb-card-header>
+                <nb-card *ngIf="is_there_newAppointments" status="danger">
+                    <nb-card-header> There are {{no_of_new}} new Appointment(s) </nb-card-header>
 
 
                     <nb-card-body>
                         <nb-list>
                             <nb-list-item style="display: block;" *ngFor="let appointment of newAppointments">
+                                <nb-icon (click)="hide()"
+                                    style="margin-left: 10px;margin-right: 10px;display: inline-block;"
+                                    icon="edit-2-outline" status="primary">
+                                </nb-icon>
                                 ID : {{ appointment['id'] }}
                                 <div style="display: inline;margin-left: 50px;">
+
                                     Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
+
+
+                                </div>
+                                <div style="display: inline;margin-left: 50px;">
+
+                                    Added by : {{appointment['email']}}
+
+
                                 </div>
                             </nb-list-item>
                         </nb-list>
