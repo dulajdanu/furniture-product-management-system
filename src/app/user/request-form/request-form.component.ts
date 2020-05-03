@@ -89,6 +89,11 @@ export class RequestFormComponent implements OnInit {
 
 
   ];
+
+  get email() {
+    return this.requestForm.get('email');
+  }
+
   get methodOfContact() {
     return this.requestForm.get('methodOfContact');
   }
@@ -103,7 +108,7 @@ export class RequestFormComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit(val) {
-    // console.log(val);
+    // console.log(val['email']);
 
     let date: Date = val['date'];
     let pipe = new DatePipe('en-US'); // Use your own locale
@@ -111,6 +116,8 @@ export class RequestFormComponent implements OnInit {
     let formatDate = pipe.transform(date, 'MM-dd-y');
     // console.log(formatDate);
 
+    val['email'] = localStorage.getItem('email');
+    val['phone'] = "0776396993"; //change this to phone number of the user
     val['date'] = formatDate; //change the date to a readable format
     val['status'] = 0 //0 is used to show the status of the appointment is pending
     val['dateAdded'] = firebase.firestore.FieldValue.serverTimestamp(); //this is used to find in which time the document was added
