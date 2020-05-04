@@ -17,9 +17,14 @@
     <nb-layout-column class="colored-column-success">
         <nb-card>
             <nb-card-header>Order ID : {{appointmentId}}</nb-card-header>
-            <nb-card-header>Order Status : {{appointmentStatusMSg}}</nb-card-header>
+            <nb-card-header>Order Status : <div>
+                    {{appointmentStatusMSg}}</div>
+            </nb-card-header>
             <nb-card-header>
                 Date added : {{appointment.dateAdded.seconds*1000  | date: 'yyyy-MM-dd'}}
+            </nb-card-header>
+            <nb-card-header>
+                Date allocated for the appointment : {{appointment.date}}
             </nb-card-header>
             <nb-card-header>
                 Method of contact : {{appointMentMethodOfContact}}
@@ -39,11 +44,11 @@
                     <p>{{item}}</p>
                 </div>
             </nb-card-header>
-            <nb-card-body
-                style="font-weight: 600;font-size: 0.9375;line-height: 1.5rem;font-family: 'Open Sans'sans-serif;">
-                Description : {{appointment.descriptionOfOrder}}
+            <nb-card-body style="font-weight: 600;font-size: 0.9375;line-height: 1.5rem;font-family: 'Open Sans'sans-serif;word-wrap: break-word;
+                ">
+                Description :
+                <p>{{appointment.descriptionOfOrder}}</p>
             </nb-card-body>
-            <nb-card-footer>By Wikipedia</nb-card-footer>
         </nb-card>
 
 
