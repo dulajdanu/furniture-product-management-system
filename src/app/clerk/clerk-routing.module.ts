@@ -10,7 +10,7 @@ const routes: Routes = [{ path: '', component: ClerkComponent }, {
   component: HomeComponent
 },
 {
-  path: 'order',
+  path: 'order/:id',
   component: OrderComponent
 }
 ];

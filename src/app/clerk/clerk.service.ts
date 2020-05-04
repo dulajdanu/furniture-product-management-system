@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore/';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore/';
 import { async } from '@angular/core/testing';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { Router } from '@angular/router';
@@ -10,14 +10,15 @@ import { map } from 'rxjs/operators';
 })
 export class ClerkService {
 
-  private appointmentCollection: AngularFirestoreCollection<Appointment>;
+  private appointmentCollection: AngularFirestoreCollection<Appointment>; //reference to the appointment document collection
   appointments: Observable<AppointmentId[]>;
-
+  private appointmentDoc: AngularFirestoreDocument<Appointment>;
+  appointment: Observable<Appointment>;
   email: string = "";
   constructor(
     private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router
   ) {
-    this.email = localStorage.getItem('email');
+    this.email = localStorage.getItem('email'); //getiing the email of the clerk
   }
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
@@ -34,10 +35,18 @@ export class ClerkService {
         return { id, ...data };
       }))
     );
-    this.appointments.subscribe(res => {
-      console.log(res);
-    });
+    // this.appointments.subscribe(res => {
+    //   console.log(res);
+    // });
     return this.appointments;
+  }
+
+
+  //this function is used to get details of a specific order 
+  getAppointmentData(val: string) { //val is the id of the document
+    this.appointmentDoc = this.afs.doc<Appointment>(`appointments/${val}`); //referencing to the document that we want to get
+    this.appointment = this.appointmentDoc.valueChanges();
+    return this.appointment;
   }
 }
 
@@ -46,7 +55,7 @@ export interface Appointment {
   descriptionOfOrder: string;
   methodOfContact: number;
   date: string;
-  dateAdded: Date;
+  dateAdded: any;
   address: string;
   checkTypes: Array<string>
 }

@@ -1,1 +1,36 @@
-<h4> order page</h4>
+<nb-layout>
+    <nb-layout-header>
+        <a href="#"><i class="nb-menu"></i></a>
+        <h4>Order ID{{appointmentId}} </h4>
+
+        <div style="position: absolute; right: 30px;">
+            <nb-user style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
+
+        </div>
+
+    </nb-layout-header>
+    <!-- <nb-sidebar state="compacted">
+        <nb-menu [items]="items"></nb-menu>
+
+    </nb-sidebar> -->
+
+    <nb-layout-column class="colored-column-success">
+        <nb-card>
+            <nb-card-header>Order ID : {{appointmentId}}</nb-card-header>
+            <nb-card-header>Order Status : {{appointmentStatusMSg}}</nb-card-header>
+            <nb-card-header>
+                Date added : {{appointment.dateAdded.seconds*1000  | date: 'yyyy-MM-dd'}}
+            </nb-card-header>
+
+            <nb-card-body>
+                A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+                Originally, nebula was a name for any diffuse astronomical object,
+                including galaxies beyond the Milky Way.
+            </nb-card-body>
+            <nb-card-footer>By Wikipedia</nb-card-footer>
+        </nb-card>
+
+
+
+    </nb-layout-column>
+</nb-layout>

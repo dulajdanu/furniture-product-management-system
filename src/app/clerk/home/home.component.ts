@@ -31,7 +31,8 @@ export interface AppointmentId extends Appointment {
 
 export class HomeComponent implements OnInit {
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router) {
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router,
+  ) {
 
     this.clerkService.getAppointments().subscribe(res => {
       console.log(res);
@@ -89,7 +90,8 @@ export class HomeComponent implements OnInit {
 
 
   loadOrder(val) {
-    this.router.navigateByUrl('/clerk/order');
+    this.router.navigate(['/clerk/order/', val]);
+    // console.log(val);
   }
 
 
