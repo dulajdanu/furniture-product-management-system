@@ -57,7 +57,9 @@ export interface Appointment {
   date: string;
   dateAdded: any;
   address: string;
-  checkTypes: Array<string>
+  checkTypes: Array<string>;
+  email: string;
+  phone: string
 }
 
 export interface AppointmentId extends Appointment {

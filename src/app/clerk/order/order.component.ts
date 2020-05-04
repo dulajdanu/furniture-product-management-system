@@ -13,8 +13,10 @@ export class OrderComponent implements OnInit {
     dateAdded: new Date
   }; //this variable is used to store the document data
   appointmentStatus: number = 0; //the status of the appointment is initally set to 0
-  appointmentStatusMSg: string = "Penidng"; // this is used to show the appointment view
-
+  appointmentStatusMSg: string = "Pending"; // this is used to show the appointment view
+  appointMentMethodOfContact: string = "Phone";
+  typesRequired: Array<string> = [];; //what are the requests of the user in the short hand format
+  typesRequiredStringArray: Array<string> = []; //converting the requests of the user in short hand format to a readable format
   constructor(private route: ActivatedRoute, private clerkService: ClerkService) {
 
     this.appointmentId = this.route.snapshot.paramMap.get('id');
@@ -23,22 +25,67 @@ export class OrderComponent implements OnInit {
 
     this.clerkService.getAppointmentData(this.appointmentId).subscribe(res => {
       console.log(res);
+      this.typesRequired = [];
+      this.typesRequiredStringArray = [];
       this.appointment = res;
       this.appointmentStatus = this.appointment.status;
       console.log(this.appointment.dateAdded);
 
+      if (this.appointmentStatus == 0) {
+
+      }
+      else if (this.appointmentStatus == 1) {
+        this.appointmentStatusMSg = "Active";
+      }
+      else {
+        this.appointmentStatusMSg = "Completed";
+      }
+
+      if (this.appointment.methodOfContact == 0) {
+
+      }
+      else {
+        this.appointMentMethodOfContact = "E - mail"
+      }
+
+      this.appointment.checkTypes.forEach(element => {
+        this.typesRequired.push(element);
+      });
+      console.log(this.typesRequired);
+      this.typesRequired.forEach(element => {
+        switch (element) {
+          case "0":
+            this.typesRequiredStringArray.push("Gate");
+            break;
+          case "1":
+            this.typesRequiredStringArray.push("Door");
+            break;
+          case "2":
+            this.typesRequiredStringArray.push("Hand-Rail");
+            break;
+          case "3":
+            this.typesRequiredStringArray.push("Table");
+            break;
+          case "4":
+            this.typesRequiredStringArray.push("Chair");
+            break;
+          case "5":
+            this.typesRequiredStringArray.push("Wall-Art");
+            break;
+          case "6":
+            this.typesRequiredStringArray.push("Window Grill");
+            break;
+          case "7":
+            this.typesRequiredStringArray.push("Other");
+            break;
+
+        }
+      });
+
 
 
     })
-    if (this.appointmentStatus == 0) {
 
-    }
-    else if (this.appointmentStatus == 1) {
-      this.appointmentStatusMSg = "Active";
-    }
-    else {
-      this.appointmentStatusMSg = "Completed";
-    }
 
 
   }
@@ -58,5 +105,7 @@ export interface Appointment {
   date: string;
   dateAdded: any;
   address: string;
-  checkTypes: Array<string>
+  checkTypes: Array<string>;
+  email: string;
+  phone: string
 }

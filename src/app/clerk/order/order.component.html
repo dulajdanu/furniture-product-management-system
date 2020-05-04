@@ -21,11 +21,27 @@
             <nb-card-header>
                 Date added : {{appointment.dateAdded.seconds*1000  | date: 'yyyy-MM-dd'}}
             </nb-card-header>
+            <nb-card-header>
+                Method of contact : {{appointMentMethodOfContact}}
+            </nb-card-header>
+            <nb-card-header>
+                E Mail and Phone number : {{appointment.email}} <div style="display: inline-block;width: 30px;"></div>
+                {{appointment.phone}}
+            </nb-card-header>
 
-            <nb-card-body>
-                A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-                Originally, nebula was a name for any diffuse astronomical object,
-                including galaxies beyond the Milky Way.
+            <nb-card-header>
+                Address : {{appointment.address}}
+            </nb-card-header>
+            <nb-card-header>
+                Types required
+                <hr>
+                <div *ngFor="let item of typesRequiredStringArray">
+                    <p>{{item}}</p>
+                </div>
+            </nb-card-header>
+            <nb-card-body
+                style="font-weight: 600;font-size: 0.9375;line-height: 1.5rem;font-family: 'Open Sans'sans-serif;">
+                Description : {{appointment.descriptionOfOrder}}
             </nb-card-body>
             <nb-card-footer>By Wikipedia</nb-card-footer>
         </nb-card>
