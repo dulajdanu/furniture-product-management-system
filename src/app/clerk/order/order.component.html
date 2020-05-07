@@ -51,6 +51,29 @@
             </nb-card-body>
         </nb-card>
 
+        <nb-card>
+            <nb-card-body>
+                <button nbButton status="success">Confirm</button>
+                <div style="width: 50px;display: inline-block;"></div>
+                <button nbButton status="danger" (click)="showCancelAppointmentDialogBox=true">Cancel</button>
+
+            </nb-card-body>
+
+
+        </nb-card>
+
+        <nb-card *ngIf="showCancelAppointmentDialogBox">
+            <nb-card-body>
+                <p>Are you sure you want to cancel the order</p>
+                <button nbButton status="success" (click)="cancelAppointment(appointmentId)">Yes</button>
+                <div style="width: 50px;display: inline-block;"></div>
+                <button nbButton status="danger" (click)="showCancelAppointmentDialogBox = false">No</button>
+
+            </nb-card-body>
+
+
+        </nb-card>
+
 
 
     </nb-layout-column>

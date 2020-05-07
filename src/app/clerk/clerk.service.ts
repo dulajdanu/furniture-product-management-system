@@ -48,6 +48,26 @@ export class ClerkService {
     this.appointment = this.appointmentDoc.valueChanges();
     return this.appointment;
   }
+
+  cancelAppointment(id: string, emailOftheClient: string) {
+    console.log(id);
+    console.log(emailOftheClient);
+    this.afs.collection('appointments').doc(id).update({
+      'status': 3
+    }).then(res => {
+      this.afs.collection('users').doc(emailOftheClient).collection('appointments').doc(id).update({
+        'status': 3
+      }).then(res => {
+        this.showToast('success', 'appointment cancelled successfully');
+
+      }).catch(res => {
+        this.showToast('danger', res);
+
+      });
+    }).catch(res => {
+      this.showToast('danger', res);
+    });
+  }
 }
 
 export interface Appointment {

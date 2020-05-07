@@ -17,6 +17,8 @@ export class OrderComponent implements OnInit {
   appointMentMethodOfContact: string = "Phone";
   typesRequired: Array<string> = [];; //what are the requests of the user in the short hand format
   typesRequiredStringArray: Array<string> = []; //converting the requests of the user in short hand format to a readable format
+  showCancelAppointmentDialogBox: boolean = false;
+  clientEmail: string = "";
   constructor(private route: ActivatedRoute, private clerkService: ClerkService) {
 
     this.appointmentId = this.route.snapshot.paramMap.get('id');
@@ -30,6 +32,8 @@ export class OrderComponent implements OnInit {
       this.appointment = res;
       this.appointmentStatus = this.appointment.status;
       console.log(this.appointment.dateAdded);
+      this.clientEmail = this.appointment.email;
+
 
       if (this.appointmentStatus == 0) {
 
@@ -93,6 +97,13 @@ export class OrderComponent implements OnInit {
   appointmentId: string = "";
   ngOnInit() {
     this.appointment.dateAdded = "";
+  }
+
+  cancelAppointment(appointmentId: string, ) {
+    console.log(appointmentId);
+    console.log(this.clientEmail);
+    this.clerkService.cancelAppointment(appointmentId, this.clientEmail);
+
   }
 
 

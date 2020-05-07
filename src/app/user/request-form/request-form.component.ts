@@ -16,7 +16,6 @@ export class RequestFormComponent implements OnInit {
   description: string = ""; //this is used if the user selected the other option
 
 
-
   constructor(private fb: FormBuilder, private uService: UserService) {
     this.usremail = localStorage.getItem('email');
     console.log(this.usremail);
