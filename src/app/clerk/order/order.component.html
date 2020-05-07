@@ -53,7 +53,7 @@
 
         <nb-card>
             <nb-card-body>
-                <button nbButton status="success">Confirm</button>
+                <button nbButton status="success" (click)="confirmAppointment(appointmentId)">Confirm</button>
                 <div style="width: 50px;display: inline-block;"></div>
                 <button nbButton status="danger" (click)="showCancelAppointmentDialogBox=true">Cancel</button>
 

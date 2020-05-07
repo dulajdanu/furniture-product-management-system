@@ -19,7 +19,7 @@ export class OrderComponent implements OnInit {
   typesRequiredStringArray: Array<string> = []; //converting the requests of the user in short hand format to a readable format
   showCancelAppointmentDialogBox: boolean = false;
   clientEmail: string = "";
-  constructor(private route: ActivatedRoute, private clerkService: ClerkService) {
+  constructor(private route: ActivatedRoute, private clerkService: ClerkService, private router: Router) {
 
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
@@ -103,6 +103,11 @@ export class OrderComponent implements OnInit {
     console.log(appointmentId);
     console.log(this.clientEmail);
     this.clerkService.cancelAppointment(appointmentId, this.clientEmail);
+
+  }
+  confirmAppointment(appointmentId) {
+    this.clerkService.confirmAppointment(appointmentId, this.clientEmail);
+    this.router.navigate(['confirmOrder'], { relativeTo: this.route });
 
   }
 

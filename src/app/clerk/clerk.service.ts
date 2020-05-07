@@ -68,6 +68,11 @@ export class ClerkService {
       this.showToast('danger', res);
     });
   }
+
+  confirmAppointment(id: string, emailOftheClient: string) {
+    console.log(id);
+    console.log(emailOftheClient);
+  }
 }
 
 export interface Appointment {

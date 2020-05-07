@@ -25,9 +25,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
-
+import { ConfirmorderComponent } from './confirmorder/confirmorder.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 @NgModule({
-  declarations: [ClerkComponent, HomeComponent, OrderComponent],
+  declarations: [ClerkComponent, HomeComponent, OrderComponent, ConfirmorderComponent],
   imports: [
     CommonModule,
     ClerkRoutingModule,
@@ -49,7 +50,8 @@ import { OrderComponent } from './order/order.component';
     NbCardModule,
     NbDatepickerModule,
     NbIconModule,
-    NbPopoverModule
+    NbPopoverModule,
+    NgxMaterialTimepickerModule
   ]
 })
 export class ClerkModule { }

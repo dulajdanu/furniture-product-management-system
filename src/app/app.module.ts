@@ -26,6 +26,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { from } from 'rxjs';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbSidebarModule.forRoot(), //to create the sidebar
     NbMenuModule.forRoot(), //to shwo the menu icons in the side bar
     NbDatepickerModule.forRoot(), //to select the date
-    NbEvaIconsModule //to add icons
+    NbEvaIconsModule, NgbModule,//to add icons
+    NgxMaterialTimepickerModule
 
 
 

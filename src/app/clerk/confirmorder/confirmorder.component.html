@@ -1,0 +1,58 @@
+<nb-layout>
+    <nb-layout-header>
+        <a href="#"><i class="nb-menu"></i></a>
+        <h4>Order ID{{appointmentId}} </h4>
+
+        <div style="position: absolute; right: 30px;">
+            <nb-user style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
+
+        </div>
+
+    </nb-layout-header>
+    <!-- <nb-sidebar state="compacted">
+        <nb-menu [items]="items"></nb-menu>
+
+    </nb-sidebar> -->
+    <h4>dsds</h4>
+
+    <nb-layout-column class="colored-column-success">
+
+        <div>
+            <form [formGroup]="confirmOrderForm">
+                <nb-card>
+                    <nb-card-header>Pick a date for the appointment</nb-card-header>
+
+                    <nb-card-body>
+
+                        <input nbInput placeholder="Pick Date" [nbDatepicker]="formpicker"
+                            formControlName="dateFortheAppointment">
+                        <nb-datepicker #formpicker></nb-datepicker>
+                    </nb-card-body>
+                </nb-card>
+                <nb-card>
+                    <nb-card-header>Pick a time for the appointment</nb-card-header>
+
+                    <nb-card-body>
+                        <input [ngxTimepicker]="default" [value]="'05:11 pm'" formControlName="timeFortheAppointment">
+                        <ngx-material-timepicker #default></ngx-material-timepicker>
+                    </nb-card-body>
+                </nb-card>
+                <nb-card>
+
+                    <nb-card-body>
+                        <button (click)="confirm()">
+                            Confirm
+                        </button>
+                    </nb-card-body>
+                </nb-card>
+            </form>
+        </div>
+
+
+
+
+
+
+    </nb-layout-column>
+
+</nb-layout>
