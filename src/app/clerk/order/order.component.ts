@@ -124,5 +124,6 @@ export interface Appointment {
   address: string;
   checkTypes: Array<string>;
   email: string;
-  phone: string
+  phone: string;
+  confirmedBy: string
 }

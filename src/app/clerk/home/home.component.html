@@ -87,6 +87,19 @@
                                 <div style="display: inline;margin-left: 50px;">
                                     Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
                                 </div>
+                                <div style="display: inline;margin-left: 50px;">
+
+                                    Added by : {{appointment['email']}}
+
+
+                                </div>
+                                <div style="display: inline;margin-left: 50px;">
+
+                                    Appointment confirmed by : {{appointment['confirmedBy']}}
+
+
+                                </div>
+
                             </nb-list-item>
                         </nb-list>
 

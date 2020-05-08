@@ -77,7 +77,24 @@ export class ClerkService {
         'status': 1
       }
     ).then(res => {
-      this.afs.collection('clerks').doc(localStorage.getItem('email')).collection('appointments').doc(id).set(val).then().catch(res => {
+      this.afs.collection('clerks').doc(localStorage.getItem('email')).collection('appointments').doc(id).set(val).then(res => {
+
+        this.afs.collection('appointments').doc(id).update({
+          status: 1,
+          confirmedBy: localStorage.getItem('email')
+        }).then(
+          res => {
+            this.showToast('success', 'appointment confirmed successfully');
+            this.router.navigateByUrl("/clerk/home");
+          }
+        ).catch(res => {
+          this.showToast('danger', res);
+
+        });
+
+      }
+
+      ).catch(res => {
         this.showToast('danger', res);
 
       });
@@ -99,7 +116,8 @@ export interface Appointment {
   address: string;
   checkTypes: Array<string>;
   email: string;
-  phone: string
+  phone: string;
+  confirmedBy: string
 }
 
 export interface AppointmentId extends Appointment {
