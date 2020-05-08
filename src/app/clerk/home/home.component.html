@@ -83,6 +83,13 @@
                     <nb-card-body>
                         <nb-list>
                             <nb-list-item style="display: block;" *ngFor="let appointment of activeAppointments">
+                                <button nbButton nbPopover="View order" nbPopoverTrigger="hint"
+                                    (click)="loadOrder(appointment['id'])" nbPopoverPlacement="bottom">
+
+                                    <nb-icon style="margin-left: 10px;margin-right: 10px;display: inline-block;"
+                                        icon="edit-2-outline" status="primary">
+                                    </nb-icon>
+                                </button>
                                 ID : {{ appointment['id'] }}
                                 <div style="display: inline;margin-left: 50px;">
                                     Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}

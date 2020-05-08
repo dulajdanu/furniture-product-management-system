@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NbSidebarService, NbMenuItem } from '@nebular/theme';
+import { NbSidebarService, NbMenuItem, NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ClerkService } from '../clerk.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -31,9 +32,16 @@ export interface AppointmentId extends Appointment {
 
 export class HomeComponent implements OnInit {
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router,
-  ) {
+  pipe = new DatePipe('en-US'); // Use your own locale
 
+  showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
+    this.toastrService.show(status, message, { status });
+  }
+
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService
+  ) {
+    console.log(this.pipe.transform(Date(), 'MM-dd-y'));
+    console.log(this.pipe.transform(Date(), 'h:mm a'));
     this.clerkService.getAppointments().subscribe(res => {
       console.log(res);
       // console.log('inside subscribe');
@@ -53,7 +61,9 @@ export class HomeComponent implements OnInit {
             this.newAppointments.push(element); //if there is a pending appointment push it to the pending appointments array
           }
           else if (element['status'] == 1) {
+
             this.activeAppointments.push(element); //if there is a active appointment push it to the active appointments array
+
           }
         });
         if (this.newAppointments.length != 0) {
@@ -73,7 +83,19 @@ export class HomeComponent implements OnInit {
     });
 
 
+    this.clerkService.getAppointmentsofaClerk().subscribe(res => {
+      console.log(res);
+      if (res.length == 0) { }
+      else {
+        res.forEach(element => {
+          console.log(element);
+          if ((element['dateFortheAppointment'] === this.pipe.transform(Date(), 'MM-dd-y')) && element['timeFortheAppointment'] === this.pipe.transform(Date(), 'h:mm a')) {
+            this.showToast('warning', `You have a appointment at ${element['timeFortheAppointment']}`);
 
+          }
+        });
+      }
+    });
 
   }
 

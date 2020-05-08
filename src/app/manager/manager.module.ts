@@ -13,21 +13,29 @@ import {
   NbInputModule,
   NbToastrModule,
   NbRadioModule,
-  NbLayoutModule
+  NbLayoutModule,
+  NbSidebarModule,
+  NbMenuModule,
+  NbUserModule,
+  NbCardModule,
+  NbDatepickerModule,
+  NbIconModule,
+  NbPopoverModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [ManagerComponent, HomeComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,
+    NbAlertModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NbAlertModule,
     NbButtonModule,
     NbCheckboxModule,
     NbInputModule,
@@ -36,6 +44,14 @@ import { HomeComponent } from './home/home.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     NbLayoutModule,
+    NbSidebarModule,
+    NbMenuModule,
+    NbUserModule,
+    NbCardModule,
+    NbDatepickerModule,
+    NbIconModule,
+    NbPopoverModule,
+    NgxMaterialTimepickerModule
   ]
 })
 export class ManagerModule { }

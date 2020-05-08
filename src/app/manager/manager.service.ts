@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ClerkService {
+export class ManagerService {
 
   private appointmentCollection: AngularFirestoreCollection<Appointment>; //reference to the appointment document collection
   appointments: Observable<AppointmentId[]>;
@@ -139,3 +139,7 @@ export interface Appointment {
 export interface AppointmentId extends Appointment {
   id: string;
 }
+
+
+
+
