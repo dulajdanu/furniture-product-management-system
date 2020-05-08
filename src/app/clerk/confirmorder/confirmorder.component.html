@@ -18,7 +18,25 @@
     <nb-layout-column class="colored-column-success">
 
         <div>
-            <form [formGroup]="confirmOrderForm">
+            <form [formGroup]="confirmOrderForm" (ngSubmit)="onSubmit(confirmOrderForm.value)">
+                <nb-card>
+                    <nb-card-header>Details of the client</nb-card-header>
+                    <nb-card-body>
+                        <div class="form-control-group">
+                            <label class="label" for="input-email">Email address:</label>
+                            <input nbInput fullWidth name="email" id="input-email" formControlName="email">
+
+                        </div>
+
+                        <!-- <div class="form-control-group">
+                            <label class="label" for="input-phone">Password:</label>
+                            <input nbInput fullWidth name="phone" type="text" id="input-phone"
+                                placeholder="Phone number" formControlName="phone">
+
+
+                        </div> -->
+                    </nb-card-body>
+                </nb-card>
                 <nb-card>
                     <nb-card-header>Pick a date for the appointment</nb-card-header>
 
@@ -27,20 +45,63 @@
                         <input nbInput placeholder="Pick Date" [nbDatepicker]="formpicker"
                             formControlName="dateFortheAppointment">
                         <nb-datepicker #formpicker></nb-datepicker>
+                        <ng-container *ngIf="dateFortheAppointment.invalid && dateFortheAppointment.touched">
+                            <p class="error-message" style="color: red;">
+                                Date for the appointment is required!
+                            </p>
+
+                        </ng-container>
                     </nb-card-body>
+
                 </nb-card>
+
                 <nb-card>
                     <nb-card-header>Pick a time for the appointment</nb-card-header>
 
                     <nb-card-body>
-                        <input [ngxTimepicker]="default" [value]="'05:11 pm'" formControlName="timeFortheAppointment">
-                        <ngx-material-timepicker #default></ngx-material-timepicker>
+                        <input [ngxTimepicker]="default1" [value]="'05:11 pm'" formControlName="timeFortheAppointment">
+                        <ngx-material-timepicker #default1></ngx-material-timepicker>
+                        <ng-container *ngIf="timeFortheAppointment.invalid && timeFortheAppointment.touched">
+                            <p class="error-message" style="color: red;">
+                                Time for the appointment is required!
+                            </p>
+
+                        </ng-container>
+                    </nb-card-body>
+                </nb-card>
+                <nb-card>
+                    <nb-card-header>Pick a time for the reminder</nb-card-header>
+
+                    <nb-card-body>
+                        <input [ngxTimepicker]="default2" [value]="'12:11 pm'" formControlName="remindTime">
+                        <ngx-material-timepicker #default2></ngx-material-timepicker>
+                        <ng-container *ngIf="remindTime.invalid && remindTime.touched">
+                            <p class="error-message" style="color: red;">
+                                Time for the reminder is required!
+                            </p>
+
+                        </ng-container>
+                    </nb-card-body>
+                </nb-card>
+
+                <nb-card>
+                    <nb-card-header>
+                        Description about the appointment
+                    </nb-card-header>
+                    <nb-card-body>
+                        <textarea nbInput fullWidth placeholder="Textarea" formControlName="description"></textarea>
+                        <ng-container *ngIf="description.invalid && description.touched">
+                            <p class="error-message" style="color: red;">
+                                Description about the appointment is required!
+                            </p>
+
+                        </ng-container>
                     </nb-card-body>
                 </nb-card>
                 <nb-card>
 
                     <nb-card-body>
-                        <button (click)="confirm()">
+                        <button nbButton [disabled]="!confirmOrderForm.valid" status="primary">
                             Confirm
                         </button>
                     </nb-card-body>

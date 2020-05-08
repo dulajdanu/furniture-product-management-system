@@ -106,7 +106,8 @@ export class OrderComponent implements OnInit {
 
   }
   confirmAppointment(appointmentId) {
-    this.clerkService.confirmAppointment(appointmentId, this.clientEmail);
+    // this.clerkService.confirmAppointment(appointmentId, this.clientEmail);
+    localStorage.setItem('clientMail', this.clientEmail);
     this.router.navigate(['confirmOrder'], { relativeTo: this.route });
 
   }

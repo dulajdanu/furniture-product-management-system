@@ -69,9 +69,24 @@ export class ClerkService {
     });
   }
 
-  confirmAppointment(id: string, emailOftheClient: string) {
+  confirmAppointment(id: string, val) {
     console.log(id);
-    console.log(emailOftheClient);
+    console.log(val);
+    this.afs.collection('users').doc(val['clientEmail']).collection('appointments').doc(id).update(
+      {
+        'status': 1
+      }
+    ).then(res => {
+      this.afs.collection('clerks').doc(localStorage.getItem('email')).collection('appointments').doc(id).set(val).then().catch(res => {
+        this.showToast('danger', res);
+
+      });
+
+    }
+    ).catch(res => {
+      this.showToast('danger', res);
+
+    });
   }
 }
 
