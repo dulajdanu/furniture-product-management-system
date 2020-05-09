@@ -16,7 +16,7 @@ export class ClerkService {
   appointment: Observable<Appointment>;
   email: string = "";
   constructor(
-    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router
+    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router,
   ) {
     this.email = localStorage.getItem('email'); //getiing the email of the clerk
   }

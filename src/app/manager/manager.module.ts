@@ -26,9 +26,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
-  declarations: [ManagerComponent, HomeComponent],
+  declarations: [ManagerComponent, HomeComponent, OrderComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,

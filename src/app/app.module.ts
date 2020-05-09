@@ -28,10 +28,14 @@ import { from } from 'rxjs';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 
 
 @NgModule({
   declarations: [AppComponent],
+  providers: [
+    { provide: BUCKET, useValue: 'furniture-webapp.appspot.com' }
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -55,7 +59,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     NbMenuModule.forRoot(), //to shwo the menu icons in the side bar
     NbDatepickerModule.forRoot(), //to select the date
     NbEvaIconsModule, NgbModule,//to add icons
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    AngularFireStorageModule
 
 
 

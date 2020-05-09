@@ -147,6 +147,12 @@ export class HomeComponent implements OnInit {
       title: 'Upcoming orders',
       icon: 'browser-outline',
     },
+    {
+      title: 'Inventory',
+      icon: 'car-outline',
+      link: '/clerk/inventory'
+
+    },
 
 
   ];
