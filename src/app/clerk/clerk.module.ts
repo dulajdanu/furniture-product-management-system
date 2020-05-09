@@ -28,8 +28,9 @@ import { OrderComponent } from './order/order.component';
 import { ConfirmorderComponent } from './confirmorder/confirmorder.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { InventoryComponent } from './inventory/inventory.component';
+import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 @NgModule({
-  declarations: [ClerkComponent, HomeComponent, OrderComponent, ConfirmorderComponent, InventoryComponent],
+  declarations: [ClerkComponent, HomeComponent, OrderComponent, ConfirmorderComponent, InventoryComponent, OngoingOrdersComponent],
   imports: [
     CommonModule,
     ClerkRoutingModule,

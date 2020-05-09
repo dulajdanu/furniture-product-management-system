@@ -144,8 +144,10 @@ export class HomeComponent implements OnInit {
       link: '/clerk/profile'
     },
     {
-      title: 'Upcoming orders',
+      title: 'Ongoing orders',
       icon: 'browser-outline',
+      link: '/clerk/ongoing-orders'
+
     },
     {
       title: 'Inventory',

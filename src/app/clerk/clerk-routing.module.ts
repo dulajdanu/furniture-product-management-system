@@ -6,6 +6,7 @@ import { HomeComponent } from '../clerk/home/home.component';
 import { OrderComponent } from './order/order.component';
 import { ConfirmorderComponent } from './confirmorder/confirmorder.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 
 const routes: Routes = [{ path: '', component: ClerkComponent }, {
   path: 'home',
@@ -22,6 +23,10 @@ const routes: Routes = [{ path: '', component: ClerkComponent }, {
 {
   path: 'inventory',
   component: InventoryComponent
+},
+{
+  path: 'ongoing-orders',
+  component: OngoingOrdersComponent
 }
 ];
 

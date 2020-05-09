@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { NbSidebarService, NbToastrService, NbMenuItem } from '@nebular/theme';
+import { NbMenuItem, NbSidebarService, NbToastrService } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ClerkService } from '../clerk.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ngx-inventory',
-  templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.scss']
+  selector: 'ngx-ongoing-orders',
+  templateUrl: './ongoing-orders.component.html',
+  styleUrls: ['./ongoing-orders.component.scss']
 })
-export class InventoryComponent implements OnInit {
+export class OngoingOrdersComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService) { }
 
@@ -35,7 +35,8 @@ export class InventoryComponent implements OnInit {
     {
       title: 'Ongoing orders',
       icon: 'browser-outline',
-      link: 'clerk/ongoing-orders'
+      link: '/clerk/ongoing-orders'
+
     },
     {
       title: 'Inventory',
@@ -46,6 +47,7 @@ export class InventoryComponent implements OnInit {
 
 
   ];
+
 
 
   ngOnInit(): void {
