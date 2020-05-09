@@ -81,7 +81,7 @@ export class ConfirmorderComponent implements OnInit {
     console.log(formatDate);
     val['dateFortheAppointment'] = formatDate;
     val['clientEmail'] = localStorage.getItem('clientMail');
-    this.clerkService.confirmAppointment(this.appointmentId, val);
+    this.clerkService.confirmAppointment(this.appointmentId, val, formatDate, this.timeFortheAppointment.value);
   }
   ngOnInit(): void {
   }

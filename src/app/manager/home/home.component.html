@@ -41,40 +41,7 @@
                     status="primary">
                 </nb-icon> -->
 
-                <nb-card *ngIf="is_there_newAppointments" status="danger">
-                    <nb-card-header> There are {{no_of_new}} new Appointment(s) </nb-card-header>
 
-
-                    <nb-card-body>
-                        <nb-list>
-                            <nb-list-item style="display: block;"
-                                *ngFor="let appointment of newAppointments ;index as i">
-                                <button nbButton nbPopover="View order" nbPopoverTrigger="hint"
-                                    (click)="loadOrder(appointment['id'])" nbPopoverPlacement="bottom">
-
-                                    <nb-icon style="margin-left: 10px;margin-right: 10px;display: inline-block;"
-                                        icon="edit-2-outline" status="primary">
-                                    </nb-icon>
-                                </button>
-                                ID : {{ appointment['id'] }}
-                                <div style="display: inline;margin-left: 50px;">
-
-                                    Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
-
-
-                                </div>
-                                <div style="display: inline;margin-left: 50px;">
-
-                                    Added by : {{appointment['email']}}
-
-
-                                </div>
-
-                            </nb-list-item>
-                        </nb-list>
-                    </nb-card-body>
-
-                </nb-card>
 
                 <nb-card *ngIf="is_there_activeAppointments" status="primary">
                     <nb-card-header> There are {{no_of_active}} Active Appointment(s) </nb-card-header>
@@ -91,18 +58,30 @@
                                     </nb-icon>
                                 </button>
                                 ID : {{ appointment['id'] }}
-                                <div style="display: inline;margin-left: 50px;">
+                                <div style="display: inline;margin-left: 30px;">
                                     Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
                                 </div>
-                                <div style="display: inline;margin-left: 50px;">
+                                <div style="display: inline;margin-left: 30px;">
 
                                     Added by : {{appointment['email']}}
 
 
                                 </div>
-                                <div style="display: inline;margin-left: 50px;">
+                                <div style="display: inline;margin-left: 30px;">
 
                                     Appointment confirmed by : {{appointment['confirmedBy']}}
+
+
+                                </div>
+                                <div style="display: inline;margin-left: 30px;">
+
+                                    Appointment date : {{appointment['dateFortheAppointment']}}
+
+
+                                </div>
+                                <div style="display: inline;margin-left: 30px;">
+
+                                    Appointment time : {{appointment['timeFortheAppointment']}}
 
 
                                 </div>
@@ -131,27 +110,7 @@
                 </nb-card-body>
             </nb-card>
         </ng-template>
-        <!-- <div *ngIf="showRequestForm">
-            <ngx-request-form></ngx-request-form>
-        </div> -->
 
-        <!-- <nb-card *ngIf="is_there_ActiveAppointments" status="primary">
-            <nb-card-header> You have {{no_of_active}} Active Appointment(s) </nb-card-header>
-
-
-            <nb-card-body>
-                <nb-list>
-                    <nb-list-item style="display: block;" *ngFor="let appointment of activeAppointments">
-                        ID : {{ appointment['id'] }}
-                        <div style="display: inline;margin-left: 50px;">
-                            Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
-                        </div>
-                    </nb-list-item>
-                </nb-list>
-
-
-            </nb-card-body>
-        </nb-card> -->
 
     </nb-layout-column>
 </nb-layout>

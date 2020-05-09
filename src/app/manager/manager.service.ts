@@ -133,7 +133,9 @@ export interface Appointment {
   checkTypes: Array<string>;
   email: string;
   phone: string;
-  confirmedBy: string
+  confirmedBy: string;
+  dateFortheAppointment: string;
+  timeFortheAppointment: string
 }
 
 export interface AppointmentId extends Appointment {

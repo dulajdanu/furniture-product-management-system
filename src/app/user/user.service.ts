@@ -77,7 +77,9 @@ export interface Appointment {
   date: string;
   dateAdded: Date;
   address: string;
-  checkTypes: Array<string>
+  checkTypes: Array<string>;
+  dateFortheAppointment: string;
+  timeFortheAppointment: string
 }
 
 export interface AppointmentId extends Appointment {

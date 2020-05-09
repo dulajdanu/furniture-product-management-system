@@ -144,8 +144,8 @@ export class HomeComponent implements OnInit {
       link: '/clerk/profile'
     },
     {
-      title: 'Change Password',
-      icon: 'lock-outline',
+      title: 'Upcoming orders',
+      icon: 'browser-outline',
     },
 
 
