@@ -16,8 +16,9 @@
 
     <nb-layout-column class="colored-column-success">
         <nb-card>
-            <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
-
+            <ng2-smart-table [settings]="settings" [source]="itemsofInventory" (createConfirm)="addRecord($event)"
+                (deleteConfirm)="deleteRecord($event)" (editConfirm)="updateRecord($event)">
+            </ng2-smart-table>
         </nb-card>
 
     </nb-layout-column>

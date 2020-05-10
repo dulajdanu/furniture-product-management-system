@@ -3,6 +3,8 @@ import { NbSidebarService, NbToastrService, NbMenuItem } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ClerkService } from '../clerk.service';
 import { Router } from '@angular/router';
+import { InventoryService } from './inventory.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ngx-inventory',
@@ -11,11 +13,21 @@ import { Router } from '@angular/router';
 })
 export class InventoryComponent implements OnInit {
 
+  itemsObservable: Observable<Item[]>;
+  itemsofInventory: Item[];
+
+
+
   ngOnInit(): void {
   }
 
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService) { }
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
+    this.inventoryService.getAllItems().subscribe(res => {
+      this.itemsofInventory = res;
+
+    });
+  }
 
   load() {
     console.log('avatar clicled');
@@ -85,12 +97,14 @@ export class InventoryComponent implements OnInit {
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>'
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true
     },
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
       saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>'
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -110,8 +124,48 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+
+
+  addRecord(event) {
+    var data = {
+      "id": event.newData.id,
+      "name": event.newData.name,
+      "cost": event.newData.cost
+    };
+
+    console.log(data);
+
+  }
+
+  updateRecord(event) {
+    var data = {
+      "id": event.newData.id,
+      "name": event.newData.name,
+      "cost": event.newData.cost,
+    };
+
+    console.log(data);
+
+  }
+
+
+
+  deleteRecord(event) {
+    console.log(event.data.id);
+
+
+  }
+
+
+
+
 };
 
+export interface Item {
+  id: string,
+  name: string,
+  cost: number
+}
 
 
 
