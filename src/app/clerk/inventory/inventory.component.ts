@@ -134,6 +134,7 @@ export class InventoryComponent implements OnInit {
     };
 
     console.log(data);
+    this.inventoryService.addItem(data);
 
   }
 
@@ -145,6 +146,7 @@ export class InventoryComponent implements OnInit {
     };
 
     console.log(data);
+    this.inventoryService.editItem(data);
 
   }
 
@@ -152,6 +154,7 @@ export class InventoryComponent implements OnInit {
 
   deleteRecord(event) {
     console.log(event.data.id);
+    this.inventoryService.delteItem(event.data.id);
 
 
   }
