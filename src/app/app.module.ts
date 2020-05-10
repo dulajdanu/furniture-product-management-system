@@ -29,6 +29,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
     NbDatepickerModule.forRoot(), //to select the date
     NbEvaIconsModule, NgbModule,//to add icons
     NgxMaterialTimepickerModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    Ng2SmartTableModule
 
 
 

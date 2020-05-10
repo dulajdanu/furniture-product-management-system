@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 })
 export class InventoryComponent implements OnInit {
 
+  ngOnInit(): void {
+  }
+
+
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService) { }
 
   load() {
@@ -35,7 +39,7 @@ export class InventoryComponent implements OnInit {
     {
       title: 'Ongoing orders',
       icon: 'browser-outline',
-      link: 'clerk/ongoing-orders'
+      link: '/clerk/ongoing-orders'
     },
     {
       title: 'Inventory',
@@ -47,8 +51,67 @@ export class InventoryComponent implements OnInit {
 
   ];
 
+  data = [
+    {
+      id: 1,
+      name: "Leanne Graham",
+      cost: "20",
+    },
+    {
+      id: 2,
+      name: "Ervin Howell",
+      cost: "20",
+    },
 
-  ngOnInit(): void {
+    // ... list of items
+
+    {
+      id: 11,
+      name: "Nicholas DuBuque",
+      username: "Nicholas.Stanton",
+      cost: "20",
+    }
+  ];
+
+
+  toggle() {
+    this.sidebarService.toggle(true);
+    return false;
   }
 
-}
+  settings = {
+    // hideSubHeader: true,
+
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>'
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>'
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true
+    },
+    columns: {
+      id: {
+        title: 'Item ID'
+      },
+      name: {
+        title: 'Item Name'
+      },
+
+      cost: {
+        title: 'Item Cost'
+      }
+    }
+  }
+
+};
+
+
+
+

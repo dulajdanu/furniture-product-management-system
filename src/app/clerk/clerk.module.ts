@@ -29,6 +29,10 @@ import { ConfirmorderComponent } from './confirmorder/confirmorder.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
+
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+
 @NgModule({
   declarations: [ClerkComponent, HomeComponent, OrderComponent, ConfirmorderComponent, InventoryComponent, OngoingOrdersComponent],
   imports: [
@@ -53,7 +57,8 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
     NbDatepickerModule,
     NbIconModule,
     NbPopoverModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    Ng2SmartTableModule
   ]
 })
 export class ClerkModule { }

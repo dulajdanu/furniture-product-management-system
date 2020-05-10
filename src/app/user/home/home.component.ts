@@ -120,7 +120,8 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'Change Password',
-      icon: 'lock-outline',
+      icon: 'browser-outline',
+      link: '/user/ongoing-orders'
     },
 
 
@@ -142,6 +143,7 @@ export class HomeComponent implements OnInit {
   ngOnDestroy() {
     // ...
     console.log('on destroy called');
+    this.userService.getAppointments().subscribe().unsubscribe();
   }
 
   request() {

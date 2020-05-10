@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem, NbSidebarService, NbToastrService } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
-import { ClerkService } from '../clerk.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class OngoingOrdersComponent implements OnInit {
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService) { }
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService) { }
 
   load() {
     console.log('avatar clicled');
@@ -19,42 +18,36 @@ export class OngoingOrdersComponent implements OnInit {
 
   }
 
-
-  toggle() {
-    this.sidebarService.toggle(true);
-    return false;
-  }
-
   items: NbMenuItem[] = [
     {
       title: 'Home',
       icon: 'home-outline',
       home: true,
-      link: '/clerk/home',
+      link: '/user/home',
 
     },
     {
       title: 'Profile',
       icon: 'person-outline',
-      link: '/clerk/profile'
+      link: '/user/profile'
     },
     {
       title: 'Ongoing orders',
       icon: 'browser-outline',
-      link: '/clerk/ongoing-orders'
-
+      link: '/user/ongoing-orders'
     },
-    {
-      title: 'Inventory',
-      icon: 'car-outline',
-      link: '/clerk/inventory'
 
-    },
 
 
   ];
 
 
+
+
+  toggle() {
+    this.sidebarService.toggle(true);
+    return false;
+  }
 
   ngOnInit(): void {
   }

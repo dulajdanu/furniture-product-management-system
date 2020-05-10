@@ -25,9 +25,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestFormComponent } from './request-form/request-form.component';
+import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 
 @NgModule({
-  declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent],
+  declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent, OngoingOrdersComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
