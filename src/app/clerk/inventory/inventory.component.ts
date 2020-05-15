@@ -112,7 +112,9 @@ export class InventoryComponent implements OnInit {
     },
     columns: {
       id: {
-        title: 'Item ID'
+        title: 'Item ID',
+        editable: false,
+
       },
       name: {
         title: 'Item Name'
