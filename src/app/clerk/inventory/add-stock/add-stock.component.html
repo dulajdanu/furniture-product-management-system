@@ -1,7 +1,7 @@
 <nb-layout>
     <nb-layout-header>
         <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
-        <h4>welcome</h4>
+        <h4>Add or remove stock</h4>
 
         <div style="position: absolute; right: 30px;">
             <nb-user (click)="load()" style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
@@ -15,12 +15,6 @@
     </nb-sidebar>
 
     <nb-layout-column class="colored-column-success">
-
-        <div style="display: inline-block;margin-bottom: 20px;">
-            <button nbButton style="margin-right: 20px;" status="primary" (click)="loadAddStock()">Add Stock</button>
-
-            <button nbButton status="primary">Remove Stock</button>
-        </div>
 
 
         <nb-card>

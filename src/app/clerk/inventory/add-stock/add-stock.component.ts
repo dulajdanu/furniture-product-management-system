@@ -1,33 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { NbSidebarService, NbToastrService, NbMenuItem } from '@nebular/theme';
-import { AuthService } from '../../auth/auth.service';
-import { ClerkService } from '../clerk.service';
+import { NbMenuItem, NbSidebarService, NbToastrService } from '@nebular/theme';
+import { AuthService } from '../../../auth/auth.service';
+import { ClerkService } from '../../clerk.service';
 import { Router } from '@angular/router';
-import { InventoryService } from './inventory.service';
+import { InventoryService } from '../inventory.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'ngx-inventory',
-  templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.scss']
+  selector: 'ngx-add-stock',
+  templateUrl: './add-stock.component.html',
+  styleUrls: ['./add-stock.component.scss']
 })
-export class InventoryComponent implements OnInit {
-
-  itemsObservable: Observable<Item[]>;
-  itemsofInventory: Item[];
-
-
-
-
-  ngOnInit(): void {
-  }
-
+export class AddStockComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
     this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
+      this.itemsofInventory.forEach(element => {
+        console.log(element);
+        this.itemsMap.push({
+          title: element.name,
+          value: element.id
+        });
+      });
+
+
     });
+    console.log(this.itemsMap);
+  }
+
+  itemsAdded = []; //items added by user to add to stock
+  itemsObservable: Observable<Item[]>;
+  itemsofInventory: Item[];
+  itemsMap: { value: string, title: string }[] = []; //this is used to create the dropdown in the table
+
+  ngOnInit(): void {
   }
 
   load() {
@@ -36,6 +44,48 @@ export class InventoryComponent implements OnInit {
 
   }
 
+  toggle() {
+    this.sidebarService.toggle(true);
+    return false;
+  }
+  settings = {
+    // hideSubHeader: true,
+
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true
+    },
+    columns: {
+      id: {
+        title: 'Item ID',
+        editable: false,
+
+
+      },
+      name: {
+        title: 'Item Name',
+
+      },
+
+
+      quantity: {
+        title: 'Item Quantity'
+      },
+
+    }
+  }
   items: NbMenuItem[] = [
     {
       title: 'Home',
@@ -63,62 +113,6 @@ export class InventoryComponent implements OnInit {
 
 
   ];
-
-
-
-  toggle() {
-    this.sidebarService.toggle(true);
-    return false;
-  }
-
-  settings = {
-    // hideSubHeader: true,
-
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmCreate: true
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true
-    },
-    columns: {
-      id: {
-        title: 'Item ID',
-        editable: false,
-
-      },
-      name: {
-        title: 'Item Name'
-      },
-
-      cost: {
-        title: 'Unit Cost'
-      },
-      des: {
-        title: 'Item Description'
-      }, quantity: {
-        title: 'Item Quantity'
-      },
-      minQ: {
-        title: 'Item Min Quantity'
-      }
-    }
-  }
-
-  loadAddStock() {
-    this.router.navigateByUrl("/clerk/add-stock");
-  }
-
-
 
   addRecord(event) {
     var data = {
@@ -159,10 +153,8 @@ export class InventoryComponent implements OnInit {
 
   }
 
+}
 
-
-
-};
 
 export interface Item {
   id: string,
@@ -172,6 +164,3 @@ export interface Item {
   quantity: number,
   minQ: number,//the minimum amount that can be in the inventory
 }
-
-
-
