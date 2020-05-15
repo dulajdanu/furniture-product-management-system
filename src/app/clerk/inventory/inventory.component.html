@@ -15,6 +15,14 @@
     </nb-sidebar>
 
     <nb-layout-column class="colored-column-success">
+
+        <div style="display: inline-block;margin-bottom: 20px;">
+            <button nbButton style="margin-right: 20px;" status="primary">Add Stock</button>
+
+            <button nbButton status="primary">Remove Stock</button>
+        </div>
+
+
         <nb-card>
             <ng2-smart-table [settings]="settings" [source]="itemsofInventory" (createConfirm)="addRecord($event)"
                 (deleteConfirm)="deleteRecord($event)" (editConfirm)="updateRecord($event)">

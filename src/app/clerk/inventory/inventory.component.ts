@@ -121,7 +121,15 @@ export class InventoryComponent implements OnInit {
       },
 
       cost: {
-        title: 'Item Cost'
+        title: 'Unit Cost'
+      },
+      des: {
+        title: 'Item Description'
+      }, quantity: {
+        title: 'Item Quantity'
+      },
+      minQ: {
+        title: 'Item Min Quantity'
       }
     }
   }
@@ -132,7 +140,10 @@ export class InventoryComponent implements OnInit {
     var data = {
       "id": event.newData.id,
       "name": event.newData.name,
-      "cost": event.newData.cost
+      "cost": event.newData.cost,
+      "des": event.newData.des,
+      "quantity": event.newData.des,
+      "minQ": event.newData.minQ
     };
 
     console.log(data);
@@ -145,6 +156,9 @@ export class InventoryComponent implements OnInit {
       "id": event.newData.id,
       "name": event.newData.name,
       "cost": event.newData.cost,
+      "des": event.newData.des,
+      "quantity": event.newData.des,
+      "minQ": event.newData.minQ
     };
 
     console.log(data);
@@ -169,7 +183,10 @@ export class InventoryComponent implements OnInit {
 export interface Item {
   id: string,
   name: string,
-  cost: number
+  cost: number,
+  des: string,
+  quantity: number,
+  minQ: number,//the minimum amount that can be in the inventory
 }
 
 

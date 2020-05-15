@@ -62,7 +62,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     NbEvaIconsModule, NgbModule,//to add icons
     NgxMaterialTimepickerModule,
     AngularFireStorageModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+
 
 
 

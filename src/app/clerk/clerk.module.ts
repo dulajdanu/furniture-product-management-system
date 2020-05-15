@@ -19,7 +19,8 @@ import {
   NbCardModule,
   NbDatepickerModule,
   NbIconModule,
-  NbPopoverModule
+  NbPopoverModule,
+  NbDialogModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -58,7 +59,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     NbIconModule,
     NbPopoverModule,
     NgxMaterialTimepickerModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+
   ]
 })
 export class ClerkModule { }

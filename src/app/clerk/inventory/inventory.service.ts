@@ -69,7 +69,10 @@ export class InventoryService {
 export interface Item {
   id: string,
   name: string,
-  cost: number
+  cost: number,
+  des: string,
+  quantity: number,
+  minQ: number,//the minimum amount that can be in the inventory
 }
 
 
