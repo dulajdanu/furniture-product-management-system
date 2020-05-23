@@ -18,10 +18,49 @@
 
 
         <nb-card>
-            <ng2-smart-table [settings]="settings" [source]="itemsofInventory" (createConfirm)="addRecord($event)"
-                (deleteConfirm)="deleteRecord($event)" (editConfirm)="updateRecord($event)">
+            <ng2-smart-table [settings]="settings" [source]="itemsofInventory"
+                (userRowSelect)="onUserRowSelect($event)">
             </ng2-smart-table>
         </nb-card>
+        <div style="padding: 5px;">
+            <input type="text" nbInput placeholder="Item Id" [(ngModel)]="itemId">
 
+        </div>
+        <div style="padding: 5px;">
+            <input type="text" nbInput placeholder="Item Name" [(ngModel)]="itemName">
+
+        </div>
+        <div style="padding: 5px;">
+            <input type="text" nbInput placeholder="Item Quantity" [(ngModel)]="itemQty">
+
+        </div>
+        <div style="padding: 5px;">
+            <button (click)="AddItem()" nbButton status="primary"
+                [disabled]="itemId == '' || itemName =='' || itemQty ==0">Add </button></div>
+
+
+
+        <div *ngIf="rows.length != 0">
+            <nb-card>
+                <table id="items">
+                    <tr>
+                        <th *ngFor="let column of headers">
+                            {{column}}
+                        </th>
+                    </tr>
+                    <tr *ngFor="let row of rows">
+                        <td *ngFor="let column of headers">
+
+                            {{row[column]}}
+
+                        </td>
+                    </tr>
+                </table>
+
+
+            </nb-card>
+            <button nbButton status="primary">Add items to stock</button>
+
+        </div>
     </nb-layout-column>
 </nb-layout>

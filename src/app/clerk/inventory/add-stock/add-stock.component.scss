@@ -1,0 +1,32 @@
+#items{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+#users th{
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    padding: 8px;
+}
+
+#items td{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#items tr:nth-child(even){
+    background-color: #f1f1f1;
+}
+
+#items tr:hover{
+    background-color: #ddd;
+}
+
+#items th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: blue;
+    color: white;
+}

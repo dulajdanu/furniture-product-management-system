@@ -5,6 +5,8 @@ import { ClerkService } from '../../clerk.service';
 import { Router } from '@angular/router';
 import { InventoryService } from '../inventory.service';
 import { Observable } from 'rxjs';
+import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
+
 
 @Component({
   selector: 'ngx-add-stock',
@@ -12,6 +14,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./add-stock.component.scss']
 })
 export class AddStockComponent implements OnInit {
+
+  source: LocalDataSource;
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
     this.inventoryService.getAllItems().subscribe(res => {
@@ -28,14 +32,28 @@ export class AddStockComponent implements OnInit {
 
     });
     console.log(this.itemsMap);
+    this.source = new LocalDataSource(this.itemsAdded);
   }
 
   itemsAdded = []; //items added by user to add to stock
+
   itemsObservable: Observable<Item[]>;
   itemsofInventory: Item[];
   itemsMap: { value: string, title: string }[] = []; //this is used to create the dropdown in the table
 
+
+  itemId: string = '';
+  itemName: string = '';
+  itemQty: number = 0;
+
+  headers = ["ID", "Name", "Quantity"];
+
+  rows = [
+
+  ];
+
   ngOnInit(): void {
+
   }
 
   load() {
@@ -48,7 +66,47 @@ export class AddStockComponent implements OnInit {
     this.sidebarService.toggle(true);
     return false;
   }
-  settings = {
+  settings = { //these settings are for the table which is used to get item data
+    // hideSubHeader: true,
+
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true
+    },
+    columns: {
+      id: {
+        title: 'Item ID',
+        editable: false,
+
+
+      },
+      name: {
+        title: 'Item Name',
+
+      },
+
+
+      quantity: {
+        title: 'Item Quantity'
+      },
+
+    }
+  }
+
+
+  settings2 = { //this is for the new items table
     // hideSubHeader: true,
 
     add: {
@@ -114,44 +172,37 @@ export class AddStockComponent implements OnInit {
 
   ];
 
-  addRecord(event) {
-    var data = {
-      "id": event.newData.id,
-      "name": event.newData.name,
-      "cost": event.newData.cost,
-      "des": event.newData.des,
-      "quantity": event.newData.des,
-      "minQ": event.newData.minQ
-    };
 
-    console.log(data);
-    this.inventoryService.addItem(data);
-
+  onUserRowSelect(event): void {
+    // console.log(this.itemsAdded);
+    // console.log(event);
+    this.rows.push({
+      'ID': event.data.id,
+      'Name': event.data.name,
+      'Quantity': event.data.quantity,
+    });
   }
 
-  updateRecord(event) {
-    var data = {
-      "id": event.newData.id,
-      "name": event.newData.name,
-      "cost": event.newData.cost,
-      "des": event.newData.des,
-      "quantity": event.newData.des,
-      "minQ": event.newData.minQ
-    };
+  AddItem() {
+    console.log(this.itemId);
+    console.log(this.itemName);
+    console.log(this.itemQty);
+    this.rows.push({
+      'ID': this.itemId,
+      'Name': this.itemName,
+      'Quantity': this.itemQty
+    });
 
-    console.log(data);
-    this.inventoryService.editItem(data);
+    this.itemName = "";
+    this.itemId = "";
+    this.itemQty = 0;
 
   }
 
 
 
-  deleteRecord(event) {
-    console.log(event.data.id);
-    this.inventoryService.delteItem(event.data.id);
 
 
-  }
 
 }
 
