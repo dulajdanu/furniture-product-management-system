@@ -82,6 +82,21 @@ export class InventoryService {
 
 
   }
+
+  removeStock(itemsAdded: Array<ItemStock>) {
+    console.log(itemsAdded);
+    itemsAdded.forEach(element => {
+      this.afs.collection('inventory').doc(element.ID).update({
+        'quantity': firestore.FieldValue.increment((-1) * element.Quantity)
+      }).then(res => {
+        console.log('item upated successfully');
+      }).catch(res => {
+        console.log(res);
+      });
+    });
+
+
+  }
 }
 
 export interface Item {

@@ -33,10 +33,11 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AddStockComponent } from './inventory/add-stock/add-stock.component';
+import { RemoveStockComponent } from './inventory/remove-stock/remove-stock.component';
 
 
 @NgModule({
-  declarations: [ClerkComponent, HomeComponent, OrderComponent, ConfirmorderComponent, InventoryComponent, OngoingOrdersComponent, AddStockComponent],
+  declarations: [ClerkComponent, HomeComponent, OrderComponent, ConfirmorderComponent, InventoryComponent, OngoingOrdersComponent, AddStockComponent, RemoveStockComponent],
   imports: [
     CommonModule,
     ClerkRoutingModule,

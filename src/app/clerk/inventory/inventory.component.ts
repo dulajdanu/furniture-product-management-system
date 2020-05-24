@@ -118,6 +118,11 @@ export class InventoryComponent implements OnInit {
     this.router.navigateByUrl("/clerk/add-stock");
   }
 
+  loadRemoveStock() {
+    this.router.navigateByUrl("/clerk/remove-stock");
+  }
+
+
 
 
   addRecord(event) {

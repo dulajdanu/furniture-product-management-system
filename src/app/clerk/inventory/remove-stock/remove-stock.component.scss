@@ -1,0 +1,33 @@
+#items{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+#items th{
+    border: 1px solid;
+    padding-left: 50px;
+    padding: 8px;
+    margin-left: 20px;
+}
+
+#items td{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#items tr:nth-child(even){
+    background-color: #f1f1f1;
+}
+
+#items tr:hover{
+    background-color: #ddd;
+}
+
+#items th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(30, 33, 184);
+    color: white;
+}
