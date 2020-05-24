@@ -184,19 +184,28 @@ export class AddStockComponent implements OnInit {
   }
 
   AddItem() {
-    console.log(this.itemId);
-    console.log(this.itemName);
-    console.log(this.itemQty);
+    // console.log(this.itemId);
+    // console.log(this.itemName);
+    // console.log(this.itemQty);
     this.rows.push({
       'ID': this.itemId,
       'Name': this.itemName,
-      'Quantity': this.itemQty
+      'Quantity': Number(this.itemQty)
     });
 
     this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;
 
+  }
+
+  AddAllitemsToStock() {
+    console.log('add all items to stock');
+    this.inventoryService.addNewStock(this.rows);
+    this.itemName = "";
+    this.itemId = "";
+    this.itemQty = 0;
+    this.rows = [];
   }
 
 

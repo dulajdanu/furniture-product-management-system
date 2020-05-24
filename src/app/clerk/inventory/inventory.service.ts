@@ -3,6 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NbComponentStatus, NbToastrService } from '@nebular/theme';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +66,22 @@ export class InventoryService {
     // });
     return this.items;
   }
+
+
+  addNewStock(itemsAdded: Array<ItemStock>) {
+    console.log(itemsAdded);
+    itemsAdded.forEach(element => {
+      this.afs.collection('inventory').doc(element.ID).update({
+        'quantity': firestore.FieldValue.increment(element.Quantity)
+      }).then(res => {
+        console.log('item upatedsuccessfully');
+      }).catch(res => {
+        console.log(res);
+      });
+    });
+
+
+  }
 }
 
 export interface Item {
@@ -73,6 +91,12 @@ export interface Item {
   des: string,
   quantity: number,
   minQ: number,//the minimum amount that can be in the inventory
+}
+
+export interface ItemStock { //this interface is used when adding new stock to the inventory
+  'ID': string,
+  'Name': string,
+  'Quantity': number
 }
 
 

@@ -4,10 +4,11 @@
 }
 
 
-#users th{
-    border: 1px solid #ddd;
-    padding-left: 10px;
+#items th{
+    border: 1px solid;
+    padding-left: 50px;
     padding: 8px;
+    margin-left: 20px;
 }
 
 #items td{
@@ -27,6 +28,6 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: blue;
+    background-color: rgb(30, 33, 184);
     color: white;
 }

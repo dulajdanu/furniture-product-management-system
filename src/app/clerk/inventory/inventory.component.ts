@@ -124,10 +124,10 @@ export class InventoryComponent implements OnInit {
     var data = {
       "id": event.newData.id,
       "name": event.newData.name,
-      "cost": event.newData.cost,
+      "cost": Number(event.newData.cost),
       "des": event.newData.des,
-      "quantity": event.newData.des,
-      "minQ": event.newData.minQ
+      "quantity": Number(event.newData.quantity),
+      "minQ": Number(event.newData.minQ)
     };
 
     console.log(data);
@@ -139,10 +139,10 @@ export class InventoryComponent implements OnInit {
     var data = {
       "id": event.newData.id,
       "name": event.newData.name,
-      "cost": event.newData.cost,
+      "cost": Number(event.newData.cost),
       "des": event.newData.des,
-      "quantity": event.newData.des,
-      "minQ": event.newData.minQ
+      "quantity": Number(event.newData.quantity),
+      "minQ": Number(event.newData.minQ)
     };
 
     console.log(data);
