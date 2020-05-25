@@ -74,18 +74,17 @@ export class ManagerService {
     console.log(val);
     this.afs.collection('users').doc(val['clientEmail']).collection('appointments').doc(id).update(
       {
-        'status': 1
+        'status': 2 //changing the appointment status to 2 means the manager is going to meet the client
       }
     ).then(res => {
       this.afs.collection('clerks').doc(localStorage.getItem('email')).collection('appointments').doc(id).set(val).then(res => {
 
         this.afs.collection('appointments').doc(id).update({
-          status: 1,
-          confirmedBy: localStorage.getItem('email')
+          status: 2,
         }).then(
           res => {
             this.showToast('success', 'appointment confirmed successfully');
-            this.router.navigateByUrl("/clerk/home");
+            this.router.navigateByUrl("/manager/home");
           }
         ).catch(res => {
           this.showToast('danger', res);

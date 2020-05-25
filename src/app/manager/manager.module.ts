@@ -20,16 +20,18 @@ import {
   NbCardModule,
   NbDatepickerModule,
   NbIconModule,
-  NbPopoverModule
+  NbPopoverModule,
+  NbSelectModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { OrderComponent } from './order/order.component';
+import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
 
 @NgModule({
-  declarations: [ManagerComponent, HomeComponent, OrderComponent],
+  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,
@@ -52,7 +54,8 @@ import { OrderComponent } from './order/order.component';
     NbDatepickerModule,
     NbIconModule,
     NbPopoverModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    NbSelectModule
   ]
 })
 export class ManagerModule { }

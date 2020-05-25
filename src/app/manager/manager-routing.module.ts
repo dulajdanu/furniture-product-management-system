@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerComponent } from './manager.component';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
+import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
 
 const routes: Routes = [{ path: '', component: ManagerComponent }, {
   path: 'home',
@@ -12,6 +13,10 @@ const routes: Routes = [{ path: '', component: ManagerComponent }, {
 {
   path: 'order',
   component: OrderComponent
+},
+{
+  path: 'estimate-calculator',
+  component: EstimateCalComponent
 }
 ];
 

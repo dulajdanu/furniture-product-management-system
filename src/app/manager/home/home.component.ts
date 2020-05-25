@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
       title: 'Home',
       icon: 'home-outline',
       home: true,
-      link: '/clerk/home',
+      link: '/manager/home',
 
     },
     {
@@ -144,8 +144,10 @@ export class HomeComponent implements OnInit {
       link: '/clerk/profile'
     },
     {
-      title: 'Change Password',
-      icon: 'lock-outline',
+      title: 'Estimate Calculator',
+      icon: 'pricetags-outline',
+      link: '/manager/estimate-calculator'
+
     },
 
 
