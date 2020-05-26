@@ -19,8 +19,9 @@
         <h4>ESTIMATE CALCULATOR</h4>
         <nb-card>
             <nb-card-body>
-                <nb-select placeholder="Order" [(ngModel)]="selectedOrder">
-                    <nb-option *ngFor="let item of values" [value]='item.val'>{{item.name}}</nb-option>
+                <nb-select style="width:300px ;" size="large" placeholder="Order       " [(ngModel)]="selectedOrder">
+                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]'>{{item['id']}}
+                    </nb-option>
 
                 </nb-select>
                 <div *ngIf="selectedOrder != null">

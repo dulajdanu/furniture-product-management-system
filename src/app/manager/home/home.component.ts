@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
 
 
   loadOrder(val) {
-    this.router.navigate(['/clerk/order/', val]);
+    this.router.navigate(['/manager/order/', val]);
     // console.log(val);
   }
 

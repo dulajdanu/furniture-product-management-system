@@ -11,7 +11,7 @@ const routes: Routes = [{ path: '', component: ManagerComponent }, {
   component: HomeComponent
 },
 {
-  path: 'order',
+  path: 'order/:id',
   component: OrderComponent
 },
 {
