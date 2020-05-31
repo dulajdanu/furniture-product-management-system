@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NbMenuItem, NbSidebarService } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ManagerService } from '../manager.service';
+import { InventoryService } from '../../clerk/inventory/inventory.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ngx-estimate-cal',
@@ -20,11 +22,118 @@ export class EstimateCalComponent implements OnInit {
   selectedOrderDetails;//this is used to show details about the selected appointment
   typesRequiredStringArray: Array<string> = []; // this array is used to show the types the user asked
 
-  selectedOrder: string; //this is sued to refer to the order selected by the manager
+  selectedOrder: string; //this is used to refer to the order selected by the manager
+
+  itemsAdded = []; //items added by user to add to stock
+
+  itemsObservable: Observable<Item[]>;
+  itemsofInventory: Item[];
+  itemsMap: { value: string, title: string }[] = []; //this is used to create the dropdown in the table
+
+
+  itemId: string = '';
+  itemName: string = '';
+  itemQty: number = 0;
+
+  headers = ["ID", "Name", "Quantity"];
+
+  rows = [
+
+  ];
+
+  settings = { //these settings are for the table which is used to get item data
+    // hideSubHeader: true,
+
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmCreate: true
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true
+    },
+    columns: {
+      id: {
+        title: 'Item ID',
+        editable: false,
+
+
+      },
+      name: {
+        title: 'Item Name',
+
+      },
+
+
+      quantity: {
+        title: 'Item Quantity'
+      },
+
+    }
+  }
+
+  onUserRowSelect(event): void {
+    // console.log(this.itemsAdded);
+    // console.log(event);
+    this.rows.push({
+      'ID': event.data.id,
+      'Name': event.data.name,
+      'Quantity': event.data.quantity,
+    });
+  }
+
+  AddItem() {
+    // console.log(this.itemId);
+    // console.log(this.itemName);
+    // console.log(this.itemQty);
+    this.rows.push({
+      'ID': this.itemId,
+      'Name': this.itemName,
+      'Quantity': Number(this.itemQty)
+    });
+
+    this.itemName = "";
+    this.itemId = "";
+    this.itemQty = 0;
+
+  }
+
+  AddAllitemsToStock() {
+    console.log('add all items to stock');
+    this.inventoryService.addNewStock(this.rows);
+    this.itemName = "";
+    this.itemId = "";
+    this.itemQty = 0;
+    this.rows = [];
+  }
 
 
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private managerService: ManagerService) {
+
+
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private managerService: ManagerService, private inventoryService: InventoryService) {
+
+    this.inventoryService.getAllItems().subscribe(res => {
+      this.itemsofInventory = res;
+
+      this.itemsofInventory.forEach(element => {
+        console.log(element);
+        this.itemsMap.push({
+          title: element.name,
+          value: element.id
+        });
+      });
+
+
+    });
     this.managerService.getAppointments().subscribe(res => {
       console.log(res);
       // console.log('inside subscribe');
@@ -147,4 +256,15 @@ export class EstimateCalComponent implements OnInit {
     });
   }
 
+
+
+}
+
+export interface Item {
+  id: string,
+  name: string,
+  cost: number,
+  des: string,
+  quantity: number,
+  minQ: number,//the minimum amount that can be in the inventory
 }

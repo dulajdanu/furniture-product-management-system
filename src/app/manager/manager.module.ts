@@ -29,6 +29,7 @@ import { HomeComponent } from './home/home.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { OrderComponent } from './order/order.component';
 import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent],
@@ -55,7 +56,8 @@ import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
     NbIconModule,
     NbPopoverModule,
     NgxMaterialTimepickerModule,
-    NbSelectModule
+    NbSelectModule,
+    Ng2SmartTableModule
   ]
 })
 export class ManagerModule { }
