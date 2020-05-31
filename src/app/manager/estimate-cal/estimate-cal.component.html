@@ -66,7 +66,7 @@
                         (userRowSelect)="onUserRowSelect($event)">
                     </ng2-smart-table>
                 </nb-card>
-                <div style="padding: 5px;">
+                <!-- <div style="padding: 5px;">
                     <input type="text" nbInput placeholder="Item Id" [(ngModel)]="itemId">
 
                 </div>
@@ -77,10 +77,10 @@
                 <div style="padding: 5px;">
                     <input type="text" nbInput placeholder="Item Quantity" [(ngModel)]="itemQty">
 
-                </div>
-                <div style="padding: 5px;">
+                </div> -->
+                <!-- <div style="padding: 5px;">
                     <button (click)="AddItem()" nbButton status="primary"
-                        [disabled]="itemId == '' || itemName =='' || itemQty ==0">Add </button></div>
+                        [disabled]="itemId == '' || itemName =='' || itemQty ==0">Add </button></div> -->
 
 
 
@@ -115,7 +115,11 @@
 
 
         </nb-card>
-        <button nbButton status="primary" (click)='AddAllitemsToStock()'>Add items to stock</button>
+        <div style="margin-left: 20px;">
+            <h5>Total value :: {{totalValue}} Rupees</h5>
+        </div>
+        <button style="margin-left: 20px;margin-bottom: 10px;" nbButton status="primary" (click)='sendEstimate()'>Send
+            Estimate</button>
 
         </div>
         </div>

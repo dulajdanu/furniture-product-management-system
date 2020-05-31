@@ -34,6 +34,7 @@ export class EstimateCalComponent implements OnInit {
   itemId: string = '';
   itemName: string = '';
   itemQty: number = 0;
+  totalValue: number = 0;
 
   headers = ["ID", "Name", "Quantity", "Additional", "Total"];
 
@@ -77,7 +78,7 @@ export class EstimateCalComponent implements OnInit {
         title: 'Item Quantity'
       },
       cost: {
-        title: 'Item Quantity'
+        title: 'Item Cost'
       },
 
 
@@ -95,8 +96,14 @@ export class EstimateCalComponent implements OnInit {
         element['Quantity'] = element['Quantity'] + 1;
         flag = 1;
         console.log('item exist');
+        this.totalValue = element['cost'] + this.totalValue;
+
+        element['Total'] = element['Quantity'] * element['cost'] + element['Additional'];
+
+
 
       }
+
 
 
 
@@ -111,47 +118,50 @@ export class EstimateCalComponent implements OnInit {
         'Total': event.data.cost,
         'cost': event.data.cost
       });
+      this.totalValue = event.data.cost + this.totalValue;
+
     }
 
   }
 
-  AddItem() {
-    let flag: number = 0; //we keep this flag to check if this already exist in the items list
-    // console.log(this.itemId);
-    // console.log(this.itemName);
-    // console.log(this.itemQty);
+  // AddItem() {
+  //   let flag: number = 0; //we keep this flag to check if this already exist in the items list
+  //   // console.log(this.itemId);
+  //   // console.log(this.itemName);
+  //   // console.log(this.itemQty);
 
-    this.rows.forEach(element => {
-      console.log('for loop');
-      if (element['ID'] == this.itemId) {
-        element['Quantity'] = element['Quantity'] + 1;
-        flag = 1;
-        console.log('item exist');
+  //   this.rows.forEach(element => {
+  //     console.log('for loop');
+  //     if (element['ID'] == this.itemId) {
+  //       element['Quantity'] = element['Quantity'] + 1;
+  //       flag = 1;
+  //       console.log('item exist');
+  //       element['Total'] = element['Quantity'] * element['cost'] + element['Additional'];
 
-      }
-
-
-
-    });
-    if (flag == 0) {
-      this.rows.push({
-        'ID': this.itemId,
-        'Name': this.itemName,
-        'Quantity': Number(this.itemQty),
-        // 'Additional':0,
-        // 'Total':this.
-      });
-    }
+  //     }
 
 
 
-    this.itemName = "";
-    this.itemId = "";
-    this.itemQty = 0;
+  //   });
+  //   if (flag == 0) {
+  //     this.rows.push({
+  //       'ID': this.itemId,
+  //       'Name': this.itemName,
+  //       'Quantity': Number(this.itemQty),
+  //       // 'Additional':0,
+  //       // 'Total':this.
+  //     });
+  //   }
 
-  }
 
-  AddAllitemsToStock() {
+
+  //   this.itemName = "";
+  //   this.itemId = "";
+  //   this.itemQty = 0;
+
+  // }
+
+  sendEstimate() {
     console.log(this.rows);
     // console.log('add all items to stock');
     // this.inventoryService.addNewStock(this.rows);
@@ -166,19 +176,37 @@ export class EstimateCalComponent implements OnInit {
     console.log(inputValue);
     console.log(val);
     console.log(col);
+    this.totalValue = 0; //first the total is initialized to zero
+
 
 
     if (col == 'Quantity') {
       this.rows.forEach(element => {
         if (element['ID'] == val['ID']) {
-          element['Total'] = element['Quantity'] * element['cost'] + element['Additional']
+
+          element['Total'] = element['Quantity'] * element['cost'] + element['Additional'];
+          this.totalValue = this.totalValue + element['cost'] * element['Quantity'] + element['Additional'];
+
+        }
+        else {
+          this.totalValue = this.totalValue + element['cost'] * element['Quantity'] + element['Additional'];
+
         }
       });
     }
+
     else {
       this.rows.forEach(element => {
         if (element['ID'] == val['ID']) {
-          element['Total'] = element['Quantity'] * element['cost'] + element['Additional']
+          // this.totalValue = this.totalValue - element['Additional'];
+
+          element['Total'] = element['Quantity'] * element['cost'] + element['Additional'];
+          this.totalValue = this.totalValue + element['cost'] * element['Quantity'] + element['Additional'];
+
+        }
+        else {
+          this.totalValue = this.totalValue + element['cost'] * element['Quantity'] + element['Additional'];
+
         }
       });
     }
