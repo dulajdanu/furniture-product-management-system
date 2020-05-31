@@ -93,20 +93,30 @@
                                 </th>
                             </tr>
                             <tr *ngFor="let row of rows">
+
+
                                 <td *ngFor="let column of headers">
-
-                                    {{row[column]}}
-
-                                </td>
-                            </tr>
-                        </table>
-
-
-                    </nb-card>
-                    <button nbButton status="primary" (click)='AddAllitemsToStock()'>Add items to stock</button>
+                                    <div *ngIf="column =='Quantity' || column =='Additional';else elseBlock">
+                                <td contenteditable>{{row[column]}}</td>
 
                 </div>
-            </div>
+                <ng-template #elseBlock>
+                    <td>{{row[column]}}</td>
+
+                </ng-template>
+
+
+
+                </td>
+                </tr>
+                </table>
+
+
+        </nb-card>
+        <button nbButton status="primary" (click)='AddAllitemsToStock()'>Add items to stock</button>
+
+        </div>
+        </div>
         </nb-card>
 
 

@@ -35,7 +35,7 @@ export class EstimateCalComponent implements OnInit {
   itemName: string = '';
   itemQty: number = 0;
 
-  headers = ["ID", "Name", "Quantity"];
+  headers = ["ID", "Name", "Quantity", "Additional", "Total"];
 
   rows = [
 
@@ -76,6 +76,10 @@ export class EstimateCalComponent implements OnInit {
       quantity: {
         title: 'Item Quantity'
       },
+      cost: {
+        title: 'Item Quantity'
+      },
+
 
     }
   }
@@ -86,7 +90,9 @@ export class EstimateCalComponent implements OnInit {
     this.rows.push({
       'ID': event.data.id,
       'Name': event.data.name,
-      'Quantity': event.data.quantity,
+      'Quantity': 1,
+      'Additional': 0,
+      'Total': event.data.cost
     });
   }
 
@@ -97,7 +103,9 @@ export class EstimateCalComponent implements OnInit {
     this.rows.push({
       'ID': this.itemId,
       'Name': this.itemName,
-      'Quantity': Number(this.itemQty)
+      'Quantity': Number(this.itemQty),
+      // 'Additional':0,
+      // 'Total':this.
     });
 
     this.itemName = "";
