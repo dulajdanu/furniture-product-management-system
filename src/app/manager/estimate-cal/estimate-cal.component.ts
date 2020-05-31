@@ -162,9 +162,9 @@ export class EstimateCalComponent implements OnInit {
   // }
 
   sendEstimate() {
-    console.log(this.rows);
+    // console.log(this.rows);
     // console.log('add all items to stock');
-    // this.inventoryService.addNewStock(this.rows);
+    this.managerService.sendEstimate(this.rows, this.selectedOrderDetails, this.totalValue);
     // this.itemName = "";
     // this.itemId = "";
     // this.itemQty = 0;
@@ -233,7 +233,7 @@ export class EstimateCalComponent implements OnInit {
 
     });
     this.managerService.getAppointments().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
         this.numberOfOrders = 0;

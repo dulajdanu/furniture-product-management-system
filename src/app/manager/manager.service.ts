@@ -115,8 +115,50 @@ export class ManagerService {
     return this.appointments;
   }
 
+  sendEstimate(val, orderDetails, total) {
+    console.log(val);
+    console.log(orderDetails);
+    this.afs.collection('appointments').doc(orderDetails['id']).update({
+      'status': 3
+    }).then(res => { }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+
+    val = { val };
+    val.totalVal = total;
+
+    this.afs.collection('users').doc(orderDetails['email']).collection('appointments').doc(orderDetails['id']).collection('appointmentData').doc('estimate').set(val).then(res => {
+      // this.showToast('success', 'estimate sent successfully');
+
+    }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+    this.afs.collection('users').doc(orderDetails['email']).collection('appointments').doc(orderDetails['id']).update({ 'status': 3 }).then(res => {
+      // this.showToast('success', 'estimate sent successfully');
+
+    }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+
+
+    this.afs.collection('appointments').doc(orderDetails['id']).collection('appointmentData').doc('estimate').set(val).then(res => {
+      this.showToast('success', 'estimate sent successfully');
+
+    }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+
+  }
 
 }
+
+
+
+
 
 export interface Appointment {
   status: number;
