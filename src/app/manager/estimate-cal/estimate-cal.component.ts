@@ -87,26 +87,63 @@ export class EstimateCalComponent implements OnInit {
   onUserRowSelect(event): void {
     // console.log(this.itemsAdded);
     // console.log(event);
-    this.rows.push({
-      'ID': event.data.id,
-      'Name': event.data.name,
-      'Quantity': 1,
-      'Additional': 0,
-      'Total': event.data.cost
+    let flag: number = 0; //we keep this flag to check if this already exist in the items list
+
+    this.rows.forEach(element => {
+      console.log('for loop');
+      if (element['ID'] == event.data.id) {
+        element['Quantity'] = element['Quantity'] + 1;
+        flag = 1;
+        console.log('item exist');
+
+      }
+
+
+
     });
+
+    if (flag == 0) {
+      this.rows.push({
+        'ID': event.data.id,
+        'Name': event.data.name,
+        'Quantity': 1,
+        'Additional': 0,
+        'Total': event.data.cost,
+        'cost': event.data.cost
+      });
+    }
+
   }
 
   AddItem() {
+    let flag: number = 0; //we keep this flag to check if this already exist in the items list
     // console.log(this.itemId);
     // console.log(this.itemName);
     // console.log(this.itemQty);
-    this.rows.push({
-      'ID': this.itemId,
-      'Name': this.itemName,
-      'Quantity': Number(this.itemQty),
-      // 'Additional':0,
-      // 'Total':this.
+
+    this.rows.forEach(element => {
+      console.log('for loop');
+      if (element['ID'] == this.itemId) {
+        element['Quantity'] = element['Quantity'] + 1;
+        flag = 1;
+        console.log('item exist');
+
+      }
+
+
+
     });
+    if (flag == 0) {
+      this.rows.push({
+        'ID': this.itemId,
+        'Name': this.itemName,
+        'Quantity': Number(this.itemQty),
+        // 'Additional':0,
+        // 'Total':this.
+      });
+    }
+
+
 
     this.itemName = "";
     this.itemId = "";
@@ -115,12 +152,37 @@ export class EstimateCalComponent implements OnInit {
   }
 
   AddAllitemsToStock() {
-    console.log('add all items to stock');
-    this.inventoryService.addNewStock(this.rows);
-    this.itemName = "";
-    this.itemId = "";
-    this.itemQty = 0;
-    this.rows = [];
+    console.log(this.rows);
+    // console.log('add all items to stock');
+    // this.inventoryService.addNewStock(this.rows);
+    // this.itemName = "";
+    // this.itemId = "";
+    // this.itemQty = 0;
+    // this.rows = [];
+  }
+
+  onKey(event, val, col) { //this function is used to update the total when user change the table
+    const inputValue = event.target.value;
+    console.log(inputValue);
+    console.log(val);
+    console.log(col);
+
+
+    if (col == 'Quantity') {
+      this.rows.forEach(element => {
+        if (element['ID'] == val['ID']) {
+          element['Total'] = element['Quantity'] * element['cost'] + element['Additional']
+        }
+      });
+    }
+    else {
+      this.rows.forEach(element => {
+        if (element['ID'] == val['ID']) {
+          element['Total'] = element['Quantity'] * element['cost'] + element['Additional']
+        }
+      });
+    }
+
   }
 
 

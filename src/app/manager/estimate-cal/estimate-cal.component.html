@@ -97,7 +97,9 @@
 
                                 <td *ngFor="let column of headers">
                                     <div *ngIf="column =='Quantity' || column =='Additional';else elseBlock">
-                                <td contenteditable>{{row[column]}}</td>
+                                <td>
+                                    <input type="number" [(ngModel)]="row[column]" (keyup)="onKey($event,row,column)">
+                                </td>
 
                 </div>
                 <ng-template #elseBlock>
