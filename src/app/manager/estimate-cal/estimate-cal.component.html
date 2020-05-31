@@ -20,12 +20,42 @@
         <nb-card>
             <nb-card-body>
                 <nb-select style="width:300px ;" size="large" placeholder="Order       " [(ngModel)]="selectedOrder">
-                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]'>{{item['id']}}
+                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]' (click)="showDetails()">
+                        {{item['id']}}
                     </nb-option>
 
                 </nb-select>
-                <div *ngIf="selectedOrder != null">
-                    <h3>you selected</h3>
+                <div *ngIf="selectedOrder != null" style="margin-top: 10px;">
+                    <h6>You selected order {{selectedOrder}}</h6>
+
+
+                </div>
+                <div *ngIf="selectedOrderDetails!=null">
+                    <nb-card>
+                        <nb-card-header>Date for the appointment:
+                            {{selectedOrderDetails['dateFortheAppointment']}}
+                        </nb-card-header>
+
+                        <nb-card-header>Description of the order:
+                            {{selectedOrderDetails['descriptionOfOrder']}}
+                        </nb-card-header>
+                        <nb-card-header>
+                            Types required
+                            <hr>
+                            <div *ngFor="let item of typesRequiredStringArray">
+                                <p>{{item}}</p>
+                            </div>
+                        </nb-card-header>
+
+                        <nb-card-header>Clerk :
+                            {{selectedOrderDetails['confirmedBy']}}
+                        </nb-card-header>
+                        <nb-card-header>Manager :
+                            {{selectedOrderDetails['manager']}}
+                        </nb-card-header>
+
+
+                    </nb-card>
                 </div>
 
             </nb-card-body>

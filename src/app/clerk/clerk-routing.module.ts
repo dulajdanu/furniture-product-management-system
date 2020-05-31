@@ -10,7 +10,7 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
 import { AddStockComponent } from './inventory/add-stock/add-stock.component';
 import { RemoveStockComponent } from './inventory/remove-stock/remove-stock.component';
 
-const routes: Routes = [{ path: '', component: ClerkComponent }, {
+const routes: Routes = [{ path: '', redirectTo: '/clerk/home', pathMatch: 'full' }, {
   path: 'home',
   component: HomeComponent
 },

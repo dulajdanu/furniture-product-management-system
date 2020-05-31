@@ -120,7 +120,7 @@ export interface Appointment {
   status: number;
   descriptionOfOrder: string;
   methodOfContact: number;
-  date: string;
+  dateFortheAppointment: string;
   dateAdded: any;
   address: string;
   checkTypes: Array<string>;

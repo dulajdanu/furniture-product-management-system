@@ -17,7 +17,8 @@ export class EstimateCalComponent implements OnInit {
   is_there_ongoingAppointments: boolean = false; //to find whethere there are pending appointmnets
   ongoing_Appointments: Array<any> = []; //this array is used to store the pending appointments
   no_of_ongoing: number = 0;
-
+  selectedOrderDetails;//this is used to show details about the selected appointment
+  typesRequiredStringArray: Array<string> = []; // this array is used to show the types the user asked
 
   selectedOrder: string; //this is sued to refer to the order selected by the manager
 
@@ -104,5 +105,46 @@ export class EstimateCalComponent implements OnInit {
 
     },
   ];
+
+  showDetails() {
+    console.log("show details about the order");
+    this.ongoing_Appointments.forEach(element => {
+      if (element['id'] == this.selectedOrder) {
+        this.selectedOrderDetails = element;
+      }
+    });
+    this.typesRequiredStringArray = []; //always empty the array otherwise it will show details about past orders
+
+    console.log(this.selectedOrderDetails);
+    let types: Array<string> = this.selectedOrderDetails['checkTypes'];
+    types.forEach(element => {
+      switch (element) {
+        case "0":
+          this.typesRequiredStringArray.push("Gate");
+          break;
+        case "1":
+          this.typesRequiredStringArray.push("Door");
+          break;
+        case "2":
+          this.typesRequiredStringArray.push("Hand-Rail");
+          break;
+        case "3":
+          this.typesRequiredStringArray.push("Table");
+          break;
+        case "4":
+          this.typesRequiredStringArray.push("Chair");
+          break;
+        case "5":
+          this.typesRequiredStringArray.push("Wall-Art");
+          break;
+        case "6":
+          this.typesRequiredStringArray.push("Window Grill");
+          break;
+        case "7":
+          this.typesRequiredStringArray.push("Other");
+          break;
+      }
+    });
+  }
 
 }

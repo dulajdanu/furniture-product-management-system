@@ -10,6 +10,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 const routes: Routes = [{
   path: '', component: NbAuthComponent, children: [
     {
+      path: '',
+      redirectTo: '/auth/login',
+      pathMatch: 'full'
+    },
+    {
       path: 'login',
       component: LoginComponent
     },

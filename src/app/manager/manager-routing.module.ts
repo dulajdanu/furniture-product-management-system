@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
 
-const routes: Routes = [{ path: '', component: ManagerComponent }, {
+const routes: Routes = [{ path: '', redirectTo: '/manager/home', pathMatch: 'full' }, {
   path: 'home',
   component: HomeComponent
 },

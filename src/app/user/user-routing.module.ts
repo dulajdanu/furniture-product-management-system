@@ -6,7 +6,7 @@ import { HomeComponent } from '../user/home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 
-const routes: Routes = [{ path: '', component: UserComponent }, {
+const routes: Routes = [{ path: '', redirectTo: '/user/home', pathMatch: 'full' }, {
   path: "home",
   component: HomeComponent
 },
