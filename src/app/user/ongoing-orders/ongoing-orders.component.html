@@ -15,6 +15,18 @@
     </nb-sidebar>
 
     <nb-layout-column class="colored-column-success">
+        <nb-card *ngIf="is_there_ongoing_appointments == true;else elseBlock">
+            <nb-card-body>
+                You have {{no_of_ongoing}} ongoing appointments
+            </nb-card-body>
+        </nb-card>
+        <ng-template #elseBlock>
+            <nb-card>
+                <nb-card-body>
+                    You don't have any ongoing projects
+                </nb-card-body>
+            </nb-card>
+        </ng-template>
 
     </nb-layout-column>
 </nb-layout>
