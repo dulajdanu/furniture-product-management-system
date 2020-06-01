@@ -24,7 +24,7 @@ export class RequestFormComponent implements OnInit {
 
   requestForm = new FormGroup({
     email: new FormControl({ value: localStorage.getItem('email'), disabled: true }, [Validators.required, Validators.email]),
-    phone: new FormControl({ value: "077639690", disabled: true }, Validators.required),
+    phone: new FormControl('', [Validators.required,]),
     methodOfContact: new FormControl('', Validators.required),
     checkTypes: this.fb.array([], Validators.required),
     descriptionOfOrder: new FormControl('', Validators.required),
@@ -116,7 +116,7 @@ export class RequestFormComponent implements OnInit {
     // console.log(formatDate);
 
     val['email'] = localStorage.getItem('email');
-    val['phone'] = "0776396993"; //change this to phone number of the user
+    // val['phone'] = "0776396993"; //change this to phone number of the user
     val['date'] = formatDate; //change the date to a readable format
     val['status'] = 0 //0 is used to show the status of the appointment is pending
     val['dateAdded'] = firebase.firestore.FieldValue.serverTimestamp(); //this is used to find in which time the document was added

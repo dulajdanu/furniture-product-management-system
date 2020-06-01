@@ -35,6 +35,8 @@ export class EstimateCalComponent implements OnInit {
   itemName: string = '';
   itemQty: number = 0;
   totalValue: number = 0;
+  profitPercentage: number = 0;
+
 
   headers = ["ID", "Name", "Quantity", "Additional", "Total"];
 
@@ -213,6 +215,11 @@ export class EstimateCalComponent implements OnInit {
 
   }
 
+
+  addProfitPercentage() {
+    //this function is used to add profit percentage to total
+    this.totalValue = this.totalValue + this.totalValue / 100 * this.profitPercentage;
+  }
 
 
 
