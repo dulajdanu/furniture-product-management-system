@@ -19,6 +19,43 @@
             <nb-card-body>
                 You have {{no_of_ongoing}} ongoing appointments
             </nb-card-body>
+            <nb-card-body>
+                <nb-select style="margin-bottom: 10px; width:300px ;" size="large" placeholder="Order       "
+                    [(ngModel)]="selectedOrder">
+                    <nb-option *ngFor="let item of ongoingAppointments" [value]='item["id"]' (click)="showDetails()">
+                        {{item['id']}}
+                    </nb-option>
+
+                </nb-select>
+                <div *ngIf="selectedOrderDetails!=null">
+                    <nb-card>
+                        <nb-card-header>Date for the appointment:
+                            {{selectedOrderDetails['dateFortheAppointment']}}
+                        </nb-card-header>
+
+                        <nb-card-header>Description of the order:
+                            {{selectedOrderDetails['descriptionOfOrder']}}
+                        </nb-card-header>
+
+
+
+
+
+                    </nb-card>
+                </div>
+                <div *ngIf="estimateDetails != null">
+                    <nb-card>
+                        <nb-card-header>
+                            Estimate Details
+                        </nb-card-header>
+                        <nb-card-header>
+                            Total Cost : {{estimateDetails['totalVal']}}
+                        </nb-card-header>
+
+                    </nb-card>
+                </div>
+
+            </nb-card-body>
         </nb-card>
         <ng-template #elseBlock>
             <nb-card>

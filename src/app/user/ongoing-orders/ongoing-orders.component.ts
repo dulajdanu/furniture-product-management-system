@@ -30,11 +30,13 @@ export class OngoingOrdersComponent implements OnInit {
   numberOfOrders: number = 0;
   showRequestForm: boolean = false;
   showCloseicon: boolean = false;
+  selectedOrder;
 
   is_there_ongoing_appointments: boolean = false; //to find whethere there are pending appointmnets
   ongoingAppointments: Array<any> = []; //this array is used to store the active appointments
   no_of_ongoing: number = 0;
-
+  selectedOrderDetails;
+  estimateDetails;
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private userService: UserService) {
     this.userService.getAppointments().subscribe(res => {
       // console.log(res);
@@ -103,6 +105,25 @@ export class OngoingOrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  showDetails() {
+    console.log("show details about the order");
+    this.ongoingAppointments.forEach(element => {
+      if (element['id'] == this.selectedOrder) {
+        this.selectedOrderDetails = element;
+      }
+    });
+
+    console.log(this.selectedOrderDetails);
+    this.getEstimateDetails();
+  }
+
+  getEstimateDetails() {
+    this.userService.getEstimateDetails(this.selectedOrder).subscribe(res => {
+      console.log(res);
+      this.estimateDetails = res;
+    });
   }
 
 }

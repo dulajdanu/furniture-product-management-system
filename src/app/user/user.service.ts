@@ -15,6 +15,7 @@ export class UserService {
 
   private appointmentCollection: AngularFirestoreCollection<Appointment>;
   appointments: Observable<AppointmentId[]>;
+  estimateDetails;
 
   email: string = "";
   constructor(
@@ -63,6 +64,10 @@ export class UserService {
       this.showToast('danger', res);
 
     });
+  }
+
+  getEstimateDetails(orderID: string) {
+    return this.afs.collection('appointments').doc(orderID).collection('appointmentData').doc('estimate').valueChanges();
   }
 
 

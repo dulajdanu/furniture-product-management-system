@@ -18,7 +18,8 @@ import {
   NbUserModule,
   NbCardModule,
   NbDatepickerModule,
-  NbIconModule
+  NbIconModule,
+  NbSelectModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -49,7 +50,8 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
     NbUserModule,
     NbCardModule,
     NbDatepickerModule,
-    NbIconModule
+    NbIconModule,
+    NbSelectModule
 
 
 
