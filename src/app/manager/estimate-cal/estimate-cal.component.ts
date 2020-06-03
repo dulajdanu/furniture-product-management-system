@@ -318,6 +318,12 @@ export class EstimateCalComponent implements OnInit {
       link: '/manager/estimate-calculator'
 
     },
+    {
+      title: 'Order',
+      icon: 'inbox-outline',
+      link: '/manager/ongoing-orders'
+
+    },
   ];
 
   showDetails() {

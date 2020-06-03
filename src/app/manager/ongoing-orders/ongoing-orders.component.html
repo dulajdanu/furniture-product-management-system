@@ -1,0 +1,43 @@
+<nb-layout>
+    <nb-layout-header>
+        <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+        <h4>welcome</h4>
+
+        <div style="position: absolute; right: 30px;">
+            <nb-user (click)="load()" style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
+
+        </div>
+
+    </nb-layout-header>
+    <nb-sidebar state="compacted">
+        <nb-menu [items]="items"></nb-menu>
+
+    </nb-sidebar>
+    <nb-layout-column class="colored-column-success">
+
+        <h4>ONGOING PROJECTS</h4>
+        <nb-card>
+            <nb-card-body>
+                <nb-select style="width:300px ;" size="large" placeholder="Order       " [(ngModel)]="selectedOrder">
+                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]' (click)="showDetails()">
+                        {{item['id']}}
+                    </nb-option>
+
+                </nb-select>
+                <div *ngIf="selectedOrder != null" style="margin-top: 10px;">
+                    <h6>You selected order {{selectedOrder}}</h6>
+
+
+                </div>
+
+            </nb-card-body>
+
+        </nb-card>
+
+
+
+
+    </nb-layout-column>
+
+
+</nb-layout>

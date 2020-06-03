@@ -30,9 +30,10 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { OrderComponent } from './order/order.component';
 import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 
 @NgModule({
-  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent],
+  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,

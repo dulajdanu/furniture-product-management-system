@@ -30,6 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { OngoingOrdersComponent } from './manager/ongoing-orders/ongoing-orders.component';
 
 
 @NgModule({

@@ -5,6 +5,7 @@ import { ManagerComponent } from './manager.component';
 import { HomeComponent } from './home/home.component';
 import { OrderComponent } from './order/order.component';
 import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
+import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 
 const routes: Routes = [{ path: '', redirectTo: '/manager/home', pathMatch: 'full' }, {
   path: 'home',
@@ -17,6 +18,10 @@ const routes: Routes = [{ path: '', redirectTo: '/manager/home', pathMatch: 'ful
 {
   path: 'estimate-calculator',
   component: EstimateCalComponent
+},
+{
+  path: 'ongoing-orders',
+  component: OngoingOrdersComponent
 }
 ];
 
