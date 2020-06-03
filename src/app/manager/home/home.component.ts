@@ -213,6 +213,11 @@ export class HomeComponent implements OnInit {
 
   }
 
+  startOrder(id, email) {
+
+    this.managerService.startOrder(id, email);
+  }
+
 
 
 

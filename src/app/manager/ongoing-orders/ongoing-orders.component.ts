@@ -17,6 +17,12 @@ export class OngoingOrdersComponent implements OnInit {
   numberOfOrders: number;
   selectedOrder;
 
+  linearMode = true;
+
+  toggleLinearMode() {
+    this.linearMode = !this.linearMode;
+  }
+
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService) {
     this.managerService.getAppointments().subscribe(res => {
       // console.log(res);
@@ -31,7 +37,7 @@ export class OngoingOrdersComponent implements OnInit {
         res.forEach(element => {
           // console.log(element);
 
-          if (element['status'] == 4) {
+          if (element['status'] == 5) {
             this.ongoing_Appointments.push(element); //if there is a pending appointment push it to the pending appointments array
           }
 

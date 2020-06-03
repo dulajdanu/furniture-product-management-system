@@ -99,6 +99,16 @@ export class ManagerService {
     });
   }
 
+  startOrder(id, email) {
+    this.afs.collection('appointments').doc(id).update({
+      'status': 5
+    });
+
+    this.afs.collection('users').doc(email).collection('appointments').doc(id).update({
+      'status': 5
+    });
+  }
+
 
   getAppointmentsofaClerk(): Observable<AppointmentId[]> {
     this.appointmentCollection = this.afs.collection("clerks").doc(localStorage.getItem('email')).collection<Appointment>('appointments');

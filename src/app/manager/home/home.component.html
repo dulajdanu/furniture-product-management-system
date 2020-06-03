@@ -109,8 +109,9 @@
                     <nb-list>
                         <nb-list-item style="display: block;" *ngFor="let appointment of ongoingAppointments">
                             <div *ngIf="appointment['status']==4;else elseBlock">
-                                <button nbButton nbPopover="View order" nbPopoverTrigger="hint"
-                                    (click)="loadOrder(appointment['id'])" nbPopoverPlacement="bottom">
+                                <button nbButton nbPopover="Start Order" nbPopoverTrigger="hint"
+                                    (click)="startOrder(appointment['id'],appointment['email'])"
+                                    nbPopoverPlacement="bottom">
 
                                     <nb-icon style="margin-left: 10px;margin-right: 10px;display: inline-block;"
                                         icon="edit-2-outline" status="primary">

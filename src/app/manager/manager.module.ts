@@ -21,7 +21,8 @@ import {
   NbDatepickerModule,
   NbIconModule,
   NbPopoverModule,
-  NbSelectModule
+  NbSelectModule,
+  NbStepperModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -58,7 +59,8 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
     NbPopoverModule,
     NgxMaterialTimepickerModule,
     NbSelectModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    NbStepperModule
   ]
 })
 export class ManagerModule { }
