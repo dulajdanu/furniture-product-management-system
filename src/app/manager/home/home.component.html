@@ -95,6 +95,85 @@
 
 
             </nb-card-body>
+
+        </nb-card>
+        <nb-card status="primary">
+            <nb-card-header>
+                Ongoing appointments
+            </nb-card-header>
+            <nb-card *ngIf="is_there_ongoing_appointments" status="primary">
+                <nb-card-header> There are {{no_of_ongoing}} Ongoing Appointment(s) </nb-card-header>
+
+
+                <nb-card-body>
+                    <nb-list>
+                        <nb-list-item style="display: block;" *ngFor="let appointment of ongoingAppointments">
+                            <div *ngIf="appointment['status']==4;else elseBlock">
+                                <button nbButton nbPopover="View order" nbPopoverTrigger="hint"
+                                    (click)="loadOrder(appointment['id'])" nbPopoverPlacement="bottom">
+
+                                    <nb-icon style="margin-left: 10px;margin-right: 10px;display: inline-block;"
+                                        icon="edit-2-outline" status="primary">
+                                    </nb-icon>
+                                </button>
+                                ID : {{ appointment['id'] }}
+                                <div style="display: inline;margin-left: 30px;">
+                                    Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
+                                </div>
+                                <div style="display: inline;margin-left: 30px;">
+
+                                    Added by : {{appointment['email']}}
+
+
+                                </div>
+
+                                <div style="display: inline;margin-left: 30px;">
+
+                                    Estimate confirmed by the user
+
+                                </div>
+
+                            </div>
+
+                            <ng-template #elseBlock>
+                                <button nbButton nbPopover="Send Another Estimate" nbPopoverTrigger="hint"
+                                    (click)="sendAnotherEstimate(appointment['id'],appointment['email'])"
+                                    nbPopoverPlacement="bottom">
+
+                                    <nb-icon style="margin-left: 10px;margin-right: 10px;display: inline-block;"
+                                        icon="edit-2-outline" status="primary">
+                                    </nb-icon>
+                                </button>
+                                ID : {{ appointment['id'] }}
+                                <div style="display: inline;margin-left: 30px;">
+                                    Date added : {{appointment['dateAdded'].seconds*1000  | date: 'yyyy-MM-dd'}}
+                                </div>
+                                <div style="display: inline;margin-left: 30px;">
+
+                                    Added by : {{appointment['email']}}
+
+
+                                </div>
+
+                                <div style="display: inline;margin-left: 30px;">
+
+                                    User Requested another Estimate
+
+
+                                </div>
+                            </ng-template>
+
+
+                        </nb-list-item>
+                    </nb-list>
+
+
+                </nb-card-body>
+            </nb-card>
+
+            <nb-card-body>
+
+            </nb-card-body>
         </nb-card>
 
         <ng-template #orders>

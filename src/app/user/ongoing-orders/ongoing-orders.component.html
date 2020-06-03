@@ -51,6 +51,38 @@
                         <nb-card-header>
                             Total Cost : {{estimateDetails['totalVal']}}
                         </nb-card-header>
+                        <nb-card-header>
+                            Items of the estimate
+                        </nb-card-header>
+                        <nb-card-header>
+                            <table id="items">
+                                <tr>
+                                    <th *ngFor="let column of headers">
+                                        {{column}}
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let row of rows">
+
+                                    <td *ngFor="let column of headers">
+
+                                        {{row[column]}}
+                                    </td>
+
+
+
+
+
+
+                                </tr>
+                            </table>
+
+                            <button style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="AcceptEstimate()" status="success">Accept the estimate</button>
+                            <button style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="RequestAnotherEstimate()" status="warning">Request Another</button>
+
+                        </nb-card-header>
+
 
                     </nb-card>
                 </div>

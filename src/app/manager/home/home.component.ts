@@ -53,6 +53,9 @@ export class HomeComponent implements OnInit {
         this.activeAppointments = []; //clear the arrays before adding elements
         this.is_there_newAppointments = false;
         this.is_there_activeAppointments = false;
+        this.is_there_ongoing_appointments = false;
+        this.no_of_ongoing = 0;
+        this.ongoingAppointments = [];
         this.numberOfOrders = res.length;
         res.forEach(element => {
           // console.log(element);
@@ -65,6 +68,9 @@ export class HomeComponent implements OnInit {
             this.activeAppointments.push(element); //if there is a active appointment push it to the active appointments array
 
           }
+          else if (element['status'] == 4 || element['status'] == -3) {
+            this.ongoingAppointments.push(element);
+          }
         });
         if (this.newAppointments.length != 0) {
           this.is_there_newAppointments = true; //checking the pending appointments array is empty or not
@@ -74,12 +80,18 @@ export class HomeComponent implements OnInit {
           this.is_there_activeAppointments = true; //checking the active appointments array is empty or not
           this.no_of_active = this.activeAppointments.length;
         }
+        if (this.ongoingAppointments.length != 0) {
+          this.is_there_ongoing_appointments = true; //checking the active appointments array is empty or not
+          this.no_of_ongoing = this.ongoingAppointments.length;
+        }
+
       }
 
       console.log(this.is_there_activeAppointments);
       console.log(this.is_there_newAppointments);
       console.log(this.activeAppointments);
       console.log(this.newAppointments);
+      console.log(this.ongoingAppointments);
     });
 
 
@@ -110,6 +122,9 @@ export class HomeComponent implements OnInit {
   newAppointments: Array<any> = []; //this array is used to store the active appointments
   no_of_new: number = 0;
 
+  is_there_ongoing_appointments: boolean = false; //to find whethere there are pending appointmnets
+  ongoingAppointments: Array<any> = []; //this array is used to store the active appointments
+  no_of_ongoing: number = 0;
 
   loadOrder(val) {
     this.router.navigate(['/manager/order/', val]);
@@ -182,6 +197,15 @@ export class HomeComponent implements OnInit {
   //   this.showCloseicon = false;
 
   // }
+
+  sendAnotherEstimate(id: string, email) {
+
+    this.managerService.sendAnotherEstimate(id, email);
+
+    this.router.navigate(['/manager/estimate-calculator']);
+
+
+  }
 
 
 

@@ -31,6 +31,10 @@ export class OngoingOrdersComponent implements OnInit {
   showRequestForm: boolean = false;
   showCloseicon: boolean = false;
   selectedOrder;
+  headers = ["Name", "Quantity", "Total"];
+  rows = [
+
+  ];
 
   is_there_ongoing_appointments: boolean = false; //to find whethere there are pending appointmnets
   ongoingAppointments: Array<any> = []; //this array is used to store the active appointments
@@ -64,6 +68,7 @@ export class OngoingOrdersComponent implements OnInit {
       }
 
       console.log(this.ongoingAppointments);
+
     });
   }
 
@@ -123,7 +128,24 @@ export class OngoingOrdersComponent implements OnInit {
     this.userService.getEstimateDetails(this.selectedOrder).subscribe(res => {
       console.log(res);
       this.estimateDetails = res;
+      let values: Array<any> = this.estimateDetails['val'];
+      values.forEach(element => {
+        this.rows.push(element);
+      });
     });
   }
+
+  AcceptEstimate() {
+    console.log('accept the estimate');
+    this.userService.acceptEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
+  }
+
+  RequestAnotherEstimate() {
+    console.log('request another');
+    this.userService.requestAnotherEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
+
+  }
+
+
 
 }

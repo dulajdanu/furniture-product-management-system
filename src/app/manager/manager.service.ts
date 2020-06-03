@@ -154,6 +154,19 @@ export class ManagerService {
 
   }
 
+  sendAnotherEstimate(id, email) {
+    this.afs.collection('appointments').doc(id).update(
+      {
+        'status': 2
+      }
+    );
+
+    this.afs.collection('users').doc(email).collection('appointments').doc(id).update({
+      'status': 2
+
+    });
+  }
+
 }
 
 

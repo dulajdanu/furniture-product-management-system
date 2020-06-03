@@ -70,6 +70,40 @@ export class UserService {
     return this.afs.collection('appointments').doc(orderID).collection('appointmentData').doc('estimate').valueChanges();
   }
 
+  acceptEstimate(orderID: string, clientEmail: string) {
+    this.afs.collection('appointments').doc(orderID).update(
+      {
+        'status': 4
+      }
+    );
+    this.afs.collection('users').doc(clientEmail).collection('appointments').doc(orderID).update(
+      {
+        'status': 4
+      }
+    ).then(res => {
+      this.showToast('success', "Estimate accepted successfully");
+      window.location.reload();
+
+    });
+  }
+
+  requestAnotherEstimate(orderID: string, clientEmail: string) {
+    this.afs.collection('appointments').doc(orderID).update(
+      {
+        'status': -3
+      }
+    );
+    this.afs.collection('users').doc(clientEmail).collection('appointments').doc(orderID).update(
+      {
+        'status': -3
+      }
+    ).then(res => {
+      this.showToast('success', " Another Estimate Requested Successfully");
+      window.location.reload();
+
+    });
+  }
+
 
 
 
