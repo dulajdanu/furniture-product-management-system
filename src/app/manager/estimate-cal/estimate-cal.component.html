@@ -116,10 +116,24 @@
 
         </nb-card>
         <div style="margin-left: 20px;">
-            <h6 style="margin-right: 10px; display: inline-block;">Profit percentage</h6> <input nbInput type="text"
+            <h6 style="margin-right: 10px; display: inline-block;">Profit percentage</h6> <input nbInput type="number"
                 [(ngModel)]="profitPercentage"><button (click)="addProfitPercentage()"
                 style="margin-left: 10px; display: inline-block;" status="primary" nbButton>Add to
                 total</button>
+
+        </div>
+        <div style="margin-left: 20px;margin-top: 20px;">
+            <h6 style="margin-right: 10px; display: inline-block;">Labour Cost</h6> <input nbInput type="number"
+                [(ngModel)]="labourCost"><button (click)="addLabourCost()"
+                style="margin-left: 10px; display: inline-block;" status="primary" nbButton>Add to
+                total</button>
+
+        </div>
+        <div style="margin-left: 20px;margin-top: 20px;">
+            <h6 style="margin-right: 10px; display: inline-block;">Date of Completion</h6>
+            <input [nbDatepicker]="datepicker" [(ngModel)]="dateOfCompletion">
+            <nb-datepicker #datepicker></nb-datepicker>
+
 
         </div>
         <div style="margin-left: 20px;">

@@ -115,11 +115,13 @@ export class ManagerService {
     return this.appointments;
   }
 
-  sendEstimate(val, orderDetails, total) {
+  sendEstimate(val, orderDetails, total, labourCost, dateOfCompletion) {
     console.log(val);
     console.log(orderDetails);
     this.afs.collection('appointments').doc(orderDetails['id']).update({
-      'status': 3
+      'status': 3,
+      'labourCost': labourCost,
+      'dateOfCompletion': dateOfCompletion
     }).then(res => { }).catch(res => {
       this.showToast('danger', res);
 
@@ -127,6 +129,8 @@ export class ManagerService {
 
     val = { val };
     val.totalVal = total;
+    val.labourCost = labourCost;
+    val.dateOfCompletion = dateOfCompletion;
 
     this.afs.collection('users').doc(orderDetails['email']).collection('appointments').doc(orderDetails['id']).collection('appointmentData').doc('estimate').set(val).then(res => {
       // this.showToast('success', 'estimate sent successfully');
@@ -135,7 +139,11 @@ export class ManagerService {
       this.showToast('danger', res);
 
     });
-    this.afs.collection('users').doc(orderDetails['email']).collection('appointments').doc(orderDetails['id']).update({ 'status': 3 }).then(res => {
+    this.afs.collection('users').doc(orderDetails['email']).collection('appointments').doc(orderDetails['id']).update({
+      'status': 3,
+      'labourCost': labourCost,
+      'dateOfCompletion': dateOfCompletion
+    }).then(res => {
       // this.showToast('success', 'estimate sent successfully');
 
     }).catch(res => {
@@ -157,7 +165,7 @@ export class ManagerService {
   sendAnotherEstimate(id, email) {
     this.afs.collection('appointments').doc(id).update(
       {
-        'status': 2
+        'status': 2,
       }
     );
 

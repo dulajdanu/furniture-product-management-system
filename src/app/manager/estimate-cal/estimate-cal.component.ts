@@ -4,6 +4,7 @@ import { AuthService } from '../../auth/auth.service';
 import { ManagerService } from '../manager.service';
 import { InventoryService } from '../../clerk/inventory/inventory.service';
 import { Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'ngx-estimate-cal',
@@ -36,6 +37,12 @@ export class EstimateCalComponent implements OnInit {
   itemQty: number = 0;
   totalValue: number = 0;
   profitPercentage: number = 0;
+  labourCost: number = 0;
+  dateOfCompletion: string;
+  pipe = new DatePipe('en-US'); // Use your own locale
+
+  //  formatDate = pipe.transform(date, 'MM-dd-y');
+
 
 
   headers = ["ID", "Name", "Quantity", "Additional", "Total"];
@@ -166,7 +173,7 @@ export class EstimateCalComponent implements OnInit {
   sendEstimate() {
     // console.log(this.rows);
     // console.log('add all items to stock');
-    this.managerService.sendEstimate(this.rows, this.selectedOrderDetails, this.totalValue);
+    this.managerService.sendEstimate(this.rows, this.selectedOrderDetails, this.totalValue, this.labourCost, this.pipe.transform(this.dateOfCompletion));
     // this.itemName = "";
     // this.itemId = "";
     // this.itemQty = 0;
@@ -220,6 +227,13 @@ export class EstimateCalComponent implements OnInit {
     //this function is used to add profit percentage to total
     this.totalValue = this.totalValue + this.totalValue / 100 * this.profitPercentage;
   }
+
+  addLabourCost() {
+    console.log('add labour cost to the database');
+    this.totalValue = this.totalValue + this.labourCost;
+    console.log(this.dateOfCompletion);
+  }
+
 
 
 
