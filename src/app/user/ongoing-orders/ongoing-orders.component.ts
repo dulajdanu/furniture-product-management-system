@@ -32,6 +32,7 @@ export class OngoingOrdersComponent implements OnInit {
   showCloseicon: boolean = false;
   selectedOrder;
   headers = ["Name", "Quantity", "Total"];
+  customerFeedback: string;
   rows = [
 
   ];
@@ -41,6 +42,11 @@ export class OngoingOrdersComponent implements OnInit {
   no_of_ongoing: number = 0;
   selectedOrderDetails;
   estimateDetails;
+  showAcceptEstimateButton: boolean = true;
+  showARequestEstimateButton: boolean = true;
+  showARejectEstimateButton: boolean = true;
+
+
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private userService: UserService) {
     this.userService.getAppointments().subscribe(res => {
       // console.log(res);
@@ -137,13 +143,20 @@ export class OngoingOrdersComponent implements OnInit {
 
   AcceptEstimate() {
     console.log('accept the estimate');
-    this.userService.acceptEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
+    this.showARejectEstimateButton = false;
+    this.showARequestEstimateButton = false;
+    // this.userService.acceptEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
   }
+
 
   RequestAnotherEstimate() {
     console.log('request another');
     this.userService.requestAnotherEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
 
+  }
+
+  RejectEstimate() {
+    console.log('reject estimate');
   }
 
 

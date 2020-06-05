@@ -27,6 +27,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent, OngoingOrdersComponent],
@@ -51,7 +52,8 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
     NbCardModule,
     NbDatepickerModule,
     NbIconModule,
-    NbSelectModule
+    NbSelectModule,
+    NgxDropzoneModule
 
 
 

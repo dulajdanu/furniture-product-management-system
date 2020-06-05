@@ -47,7 +47,7 @@
         <div *ngIf="showRequestForm">
             <ngx-request-form></ngx-request-form>
         </div>
-        <nb-card *ngIf="is_there_pendingAppointments" status="primary">
+        <nb-card *ngIf="is_there_pendingAppointments && showRequestForm == false" status="primary">
             <nb-card-header> You have {{no_of_pending}} pending Appointment(s) </nb-card-header>
 
 
@@ -62,7 +62,7 @@
                 </nb-list>
             </nb-card-body>
         </nb-card>
-        <nb-card *ngIf="is_there_ActiveAppointments" status="primary">
+        <nb-card *ngIf="is_there_ActiveAppointments && showRequestForm == false" status="primary">
             <nb-card-header> You have {{no_of_active}} Active Appointment(s) </nb-card-header>
 
 

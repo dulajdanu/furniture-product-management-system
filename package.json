@@ -66,6 +66,7 @@
     "nebular-icons": "1.1.0",
     "ng2-ckeditor": "^1.2.2",
     "ng2-smart-table": "^1.6.0",
+    "ngx-dropzone": "^2.2.2",
     "ngx-echarts": "^4.2.2",
     "ngx-material-timepicker": "^5.5.1",
     "node-sass": "^4.12.0",

@@ -76,12 +76,24 @@
                                 </tr>
                             </table>
 
-                            <button style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                            <button *ngIf="showAcceptEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
                                 (click)="AcceptEstimate()" status="success">Accept the estimate</button>
-                            <button style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                            <button *ngIf="showARequestEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
                                 (click)="RequestAnotherEstimate()" status="warning">Request Another</button>
+                            <button *ngIf="showARejectEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="RejectEstimate()" status="danger">Reject Estimate</button>
 
                         </nb-card-header>
+                        <nb-card-body class="example-items-col">
+                            <textarea nbInput fullWidth placeholder="Your feedback"
+                                [(ngModel)]="customerFeedback"></textarea>
+                            <button *ngIf="showARejectEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="RejectEstimate()" status="primary">Submit</button>
+                        </nb-card-body>
 
 
                     </nb-card>

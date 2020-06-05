@@ -99,7 +99,7 @@ export class ManagerService {
     });
   }
 
-  startOrder(id, email) {
+  startOrder(id, email) { 
     this.afs.collection('appointments').doc(id).update({
       'status': 5
     });

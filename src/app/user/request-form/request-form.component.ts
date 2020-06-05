@@ -14,7 +14,19 @@ export class RequestFormComponent implements OnInit {
   usremail: string = "";
   phoneNum: string = "0776396993";
   description: string = ""; //this is used if the user selected the other option
+  uploadedImage: File = null;
 
+  files: File[] = [];
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
   constructor(private fb: FormBuilder, private uService: UserService) {
     this.usremail = localStorage.getItem('email');
@@ -29,7 +41,8 @@ export class RequestFormComponent implements OnInit {
     checkTypes: this.fb.array([], Validators.required),
     descriptionOfOrder: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
-    date: new FormControl(new Date(), Validators.required)
+    date: new FormControl(new Date(), Validators.required),
+    // image: new FormControl('')
   });
 
   onCheckboxChange(e) {
@@ -114,6 +127,7 @@ export class RequestFormComponent implements OnInit {
 
     let formatDate = pipe.transform(date, 'MM-dd-y');
     // console.log(formatDate);
+    // val['image'] = this.uploadedImage;
 
     val['email'] = localStorage.getItem('email');
     // val['phone'] = "0776396993"; //change this to phone number of the user
@@ -123,19 +137,25 @@ export class RequestFormComponent implements OnInit {
     if ((this.checkOtherType() == true) && (this.description != '')) {
       val['desOfOtherType'] = this.description;
 
-      this.uService.addewAppointment(val);
+      this.uService.addewAppointment(val, this.files.length == 0 ? null : this.files[0]);
 
 
 
     }
     else {
-      this.uService.addewAppointment(val);
+      this.uService.addewAppointment(val, this.files.length == 0 ? null : this.files[0]);
 
     }
 
 
 
 
+  }
+
+  show() {
+    console.log('show uploaded image');
+    // debugger;
+    console.log(this.requestForm.get('image').value);
   }
 
 }

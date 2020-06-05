@@ -122,9 +122,17 @@
             <div style="height: 50px;"></div>
 
 
+            <ngx-dropzone (change)="onSelect($event)">
+                <ngx-dropzone-label>Upload a sample image</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
 
 
-            <button nbButton fullWidth status="success" [disabled]="!requestForm.valid">
+
+
+            <button style="margin-top: 20px;" nbButton fullWidth status="success" [disabled]="!requestForm.valid">
                 Request
             </button>
         </form>

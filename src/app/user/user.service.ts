@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore/';
-import { async } from '@angular/core/testing';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { Router } from '@angular/router';
 import { Observable, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
+import { map, finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,10 @@ export class UserService {
   estimateDetails;
 
   email: string = "";
+  downloadURL: Observable<string | null>;
+
   constructor(
-    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router
+    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage
   ) {
     this.email = localStorage.getItem('email');
   }
@@ -44,26 +45,60 @@ export class UserService {
     return this.appointments;
   }
 
-  async addewAppointment(val) {
+  async addewAppointment(val, imageUp) {
 
 
     // let date: Date = val['dateAdded'];
     // let pipe = new DatePipe('en-US'); // Use your own locale
 
     // let formatDate = pipe.transform(date, 'MM-dd-y');
-    console.log(val);
-    await this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
-      this.afs.collection('appointments').doc(res.id).set(val).then(res => {
-        window.location.reload();
+
+    if (imageUp == null) {
+      await this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
+        this.afs.collection('appointments').doc(res.id).set(val).then(res => {
+          window.location.reload();
+        }).catch(res => {
+          this.showToast('danger', res);
+
+        });
+
       }).catch(res => {
         this.showToast('danger', res);
 
       });
+    }
+    else {
 
-    }).catch(res => {
-      this.showToast('danger', res);
+      const filePath = Math.floor(100000 + Math.random() * 900000).toString();
+      const fileRef = this.afstorage.ref(filePath);
+      const task = this.afstorage.upload(filePath, imageUp);
 
-    });
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(res => {
+            console.log(res);
+            val['image'] = res;
+            this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
+              this.afs.collection('appointments').doc(res.id).set(val).then(res => {
+                window.location.reload();
+              }).catch(res => {
+                this.showToast('danger', res);
+
+              });
+
+            }).catch(res => {
+              this.showToast('danger', res);
+
+            });
+          });
+        })
+      )
+        .subscribe()
+
+    }
+    // console.log(val);
+
   }
 
   getEstimateDetails(orderID: string) {
