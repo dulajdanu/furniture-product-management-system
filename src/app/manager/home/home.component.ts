@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
             this.activeAppointments.push(element); //if there is a active appointment push it to the active appointments array
 
           }
-          else if (element['status'] == 4 || element['status'] == -3) {
+          else if (element['status'] == 4 || element['status'] == -3 || element['status'] == -4) {
             this.ongoingAppointments.push(element);
           }
         });
@@ -216,6 +216,10 @@ export class HomeComponent implements OnInit {
   startOrder(id, email) {
 
     this.managerService.startOrder(id, email);
+  }
+
+  estimateRejected(id, email) {
+    console.log('estimate rejected by the user');
   }
 
 

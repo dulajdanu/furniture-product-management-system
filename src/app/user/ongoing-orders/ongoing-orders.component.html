@@ -90,9 +90,9 @@
                         <nb-card-body class="example-items-col">
                             <textarea nbInput fullWidth placeholder="Your feedback"
                                 [(ngModel)]="customerFeedback"></textarea>
-                            <button *ngIf="showARejectEstimateButton"
-                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
-                                (click)="RejectEstimate()" status="primary">Submit</button>
+                            <button style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                [disabled]='customerFeedback == ""' (click)='submitResponse()'
+                                status="primary">Submit</button>
                         </nb-card-body>
 
 

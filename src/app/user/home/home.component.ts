@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
       link: '/user/profile'
     },
     {
-      title: 'Change Password',
+      title: 'Ongoing orders',
       icon: 'browser-outline',
       link: '/user/ongoing-orders'
     },

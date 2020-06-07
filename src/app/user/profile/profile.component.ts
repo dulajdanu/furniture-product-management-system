@@ -30,8 +30,9 @@ export class ProfileComponent implements OnInit {
       link: '/user/profile'
     },
     {
-      title: 'Change Password',
-      icon: 'lock-outline',
+      title: 'Ongoing orders',
+      icon: 'browser-outline',
+      link: '/user/ongoing-orders'
     },
 
 

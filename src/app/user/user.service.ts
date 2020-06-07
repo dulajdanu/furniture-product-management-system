@@ -105,15 +105,18 @@ export class UserService {
     return this.afs.collection('appointments').doc(orderID).collection('appointmentData').doc('estimate').valueChanges();
   }
 
-  acceptEstimate(orderID: string, clientEmail: string) {
+  acceptEstimate(orderID: string, clientEmail: string, feedBack: string) {
     this.afs.collection('appointments').doc(orderID).update(
       {
-        'status': 4
+        'status': 4,
+        'customerFeedBack': feedBack
       }
     );
     this.afs.collection('users').doc(clientEmail).collection('appointments').doc(orderID).update(
       {
-        'status': 4
+        'status': 4,
+        'customerFeedBack': feedBack
+
       }
     ).then(res => {
       this.showToast('success', "Estimate accepted successfully");
@@ -122,15 +125,40 @@ export class UserService {
     });
   }
 
-  requestAnotherEstimate(orderID: string, clientEmail: string) {
+  requestAnotherEstimate(orderID: string, clientEmail: string, feedBack: string) {
     this.afs.collection('appointments').doc(orderID).update(
       {
-        'status': -3
+        'status': -3,
+        'customerFeedBack': feedBack
+
       }
     );
     this.afs.collection('users').doc(clientEmail).collection('appointments').doc(orderID).update(
       {
-        'status': -3
+        'status': -3,
+        'customerFeedBack': feedBack
+
+      }
+    ).then(res => {
+      this.showToast('success', " Another Estimate Requested Successfully");
+      window.location.reload();
+
+    });
+  }
+
+  rejectEstimate(orderID: string, clientEmail: string, feedBack: string) {
+    this.afs.collection('appointments').doc(orderID).update(
+      {
+        'status': -4,
+        'customerFeedBack': feedBack
+
+      }
+    );
+    this.afs.collection('users').doc(clientEmail).collection('appointments').doc(orderID).update(
+      {
+        'status': -4,
+        'customerFeedBack': feedBack
+
       }
     ).then(res => {
       this.showToast('success', " Another Estimate Requested Successfully");

@@ -32,7 +32,7 @@ export class OngoingOrdersComponent implements OnInit {
   showCloseicon: boolean = false;
   selectedOrder;
   headers = ["Name", "Quantity", "Total"];
-  customerFeedback: string;
+  customerFeedback: string = "";
   rows = [
 
   ];
@@ -145,18 +145,41 @@ export class OngoingOrdersComponent implements OnInit {
     console.log('accept the estimate');
     this.showARejectEstimateButton = false;
     this.showARequestEstimateButton = false;
-    // this.userService.acceptEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
   }
 
 
   RequestAnotherEstimate() {
     console.log('request another');
-    this.userService.requestAnotherEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
+    this.showAcceptEstimateButton = false;
+    this.showARejectEstimateButton = false;
 
   }
 
   RejectEstimate() {
     console.log('reject estimate');
+    this.showAcceptEstimateButton = false;
+    this.showARequestEstimateButton = false;
+  }
+
+  submitResponse() {
+    console.log('submit the response');
+    console.log(this.customerFeedback);
+    var res;
+    if (this.showAcceptEstimateButton == true && (this.showARequestEstimateButton == false && this.showARejectEstimateButton == false)) {
+      console.log('accept the estimate');
+      this.userService.acceptEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.customerFeedback);
+
+    }
+    else if (this.showARequestEstimateButton == true && (this.showAcceptEstimateButton == false && this.showARejectEstimateButton == false)) {
+      console.log('request  another estimate');
+      this.userService.requestAnotherEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.customerFeedback);
+
+    }
+    else if (this.showARejectEstimateButton == true && (this.showAcceptEstimateButton == false && this.showARequestEstimateButton == false)) {
+      console.log('rejecct   estimate');
+      this.userService.rejectEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.customerFeedback);
+
+    }
   }
 
 
