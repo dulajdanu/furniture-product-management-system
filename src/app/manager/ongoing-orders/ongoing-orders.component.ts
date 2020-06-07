@@ -16,11 +16,27 @@ export class OngoingOrdersComponent implements OnInit {
   no_of_ongoing: number = 0;
   numberOfOrders: number;
   selectedOrder;
-
+  progressDetails;
   linearMode = true;
+  progressAdded: number = 0;
+  showProgressInputBox: boolean = false;
+  note: string;
+  addPhotos: boolean = false;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
+  }
+
+  files: File[] = [];
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService) {
@@ -98,7 +114,43 @@ export class OngoingOrdersComponent implements OnInit {
     this.authService.SignOut();
 
   }
-  showDetails() {
+  showDetails(order) {
+    // console.log(order);
+    this.selectedOrderDetails = order;
+    console.log(this.selectedOrderDetails);
+    this.getDataAboutOrderProgress(order['id']);
+  }
+
+  showPhotoInput() {
+    this.addPhotos = !this.addPhotos;
+  }
+
+
+  getDataAboutOrderProgress(id: string) {
+    console.log('get data about order progress');
+    this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
+      this.progressDetails = res;
+      console.log(this.progressDetails);
+
+    })
+  }
+
+  changeProgress() {
+    this.managerService.changeProgress(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.progressAdded, this.note);
+    this.showProgressInputBox = false;
+    this.note = '';
+    this.progressAdded = 0;
+
+  }
+  showInputBox() {
+    this.showProgressInputBox = true;
+  }
+
+  submitPhotos() {
+    console.log('submit photos');
+    this.managerService.addPhotosofProgress(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.files);
+    this.addPhotos = false;
+
 
   }
 

@@ -22,7 +22,8 @@ import {
   NbIconModule,
   NbPopoverModule,
   NbSelectModule,
-  NbStepperModule
+  NbStepperModule,
+  NbProgressBarModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -32,6 +33,7 @@ import { OrderComponent } from './order/order.component';
 import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent],
@@ -60,7 +62,11 @@ import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.componen
     NgxMaterialTimepickerModule,
     NbSelectModule,
     Ng2SmartTableModule,
-    NbStepperModule
+    NbStepperModule,
+    NbProgressBarModule,
+    NgxDropzoneModule
+
+
   ]
 })
 export class ManagerModule { }

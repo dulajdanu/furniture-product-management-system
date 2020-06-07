@@ -4,7 +4,10 @@ import { async } from '@angular/core/testing';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { Router } from '@angular/router';
 import { Observable, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
+import { firestore } from 'firebase';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +19,7 @@ export class ManagerService {
   appointment: Observable<Appointment>;
   email: string = "";
   constructor(
-    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router
+    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage
   ) {
     this.email = localStorage.getItem('email'); //getiing the email of the clerk
   }
@@ -99,14 +102,26 @@ export class ManagerService {
     });
   }
 
-  startOrder(id, email) { 
+  startOrder(id, email) {
     this.afs.collection('appointments').doc(id).update({
       'status': 5
     });
 
+    this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress').set(
+      {
+        'progress': 0
+      }
+    );
+
     this.afs.collection('users').doc(email).collection('appointments').doc(id).update({
       'status': 5
     });
+
+    this.afs.collection('users').doc(email).collection('appointments').doc(id).collection('appointmentData').doc('progress').set(
+      {
+        'progress': 0
+      }
+    );
   }
 
 
@@ -185,6 +200,67 @@ export class ManagerService {
     });
   }
 
+
+  getProgressOfaOrder(id: string) {
+    return this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress');
+  }
+  changeProgress(id: string, email: string, progress: number, note: string) {
+    this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+      {
+        'progress': firestore.FieldValue.increment(progress),
+        'notes': firestore.FieldValue.arrayUnion(note)
+      }
+    );
+
+
+    this.afs.collection('users').doc(email).collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+      {
+        'progress': firestore.FieldValue.increment(progress),
+        'notes': firestore.FieldValue.arrayUnion(note)
+
+      }
+    );
+
+  }
+
+  addPhotosofProgress(id: string, email: string, files: Array<File>) {
+
+    files.forEach(element => {
+      const filePath = Math.floor(100000 + Math.random() * 900000).toString();
+      const fileRef = this.afstorage.ref(filePath);
+      const task = this.afstorage.upload(filePath, element);
+      let downloadURL: Observable<string>;
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe(res => {
+            this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+              {
+                'images': firestore.FieldValue.arrayUnion(res)
+              }
+            );
+
+
+            this.afs.collection('users').doc(email).collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+              {
+                'images': firestore.FieldValue.arrayUnion(res)
+
+              }
+            ).then(res => {
+              this.showToast('success', 'photos added successfully');
+
+            });
+
+          })
+        })
+
+      ).subscribe()
+
+    });
+
+
+
+  }
 }
 
 

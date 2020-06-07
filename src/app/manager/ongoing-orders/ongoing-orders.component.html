@@ -18,8 +18,9 @@
         <h4>ONGOING PROJECTS</h4>
         <nb-card>
             <nb-card-body>
-                <nb-select style="width:300px ;" size="large" placeholder="Order       " [(ngModel)]="selectedOrder">
-                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]' (click)="showDetails()">
+                <nb-select style="width:300px ;" size="large" placeholder="Order" [(ngModel)]="selectedOrder">
+                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]'
+                        (click)="showDetails(item)">
                         {{item['id']}}
                     </nb-option>
 
@@ -27,6 +28,53 @@
                 <div *ngIf="selectedOrder != null" style="margin-top: 10px;">
                     <h6>You selected order {{selectedOrder}}</h6>
 
+
+                </div>
+                <div *ngIf="progressDetails!=null">
+                    <nb-card-header style="margin-bottom: 20px;">
+                        <h6>
+                            Progress : {{progressDetails['progress']}} %
+                        </h6>
+                        <nb-progress-bar status="danger" [value]="progressDetails['progress']"></nb-progress-bar>
+
+                    </nb-card-header>
+                    <nb-card-header style="margin-top: 10px;">
+                        <button nbButton style="margin-left: 0px;  margin-top: 10px; margin-right: 50px;"
+                            status="success" (click)='showInputBox()'> Change
+                            Progress</button>
+                        <button nbButton (click)='showPhotoInput()' status="success" style="margin-top: 10px;"> Add
+                            Photos</button>
+
+
+                        <div style=" margin-top: 20px;" *ngIf="showProgressInputBox">
+                            <input type="number" nbInput placeholder="Add progress" [(ngModel)]="progressAdded">
+
+
+
+                            <div style="margin-top: 10px;">
+                                <textarea type="text" nbInput placeholder="Add note" [(ngModel)]="note"></textarea>
+
+
+                            </div>
+                            <button style="margin-left: 20px;" nbButton status="primary" (click)="changeProgress()"
+                                [disabled]="progressAdded == 0">Add
+                                Progress</button>
+
+                        </div>
+
+
+                    </nb-card-header>
+                    <div *ngIf="addPhotos == true" style="margin-top: 20px;">
+                        <ngx-dropzone (change)="onSelect($event)">
+                            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                        <button style="margin-top: 20px;margin-left: 20px;" nbButton status="primary"
+                            (click)="submitPhotos()" [disabled]="files.length == 0">Submit photos</button>
+
+                    </div>
 
                 </div>
 
