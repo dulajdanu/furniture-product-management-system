@@ -114,9 +114,9 @@ export class HomeComponent implements OnInit {
 
     },
     {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: '/user/profile'
+      title: 'current orders',
+      icon: 'inbox-outline',
+      link: '/user/current-orders'
     },
     {
       title: 'Ongoing orders',

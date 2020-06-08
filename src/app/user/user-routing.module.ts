@@ -5,6 +5,7 @@ import { UserComponent } from './user.component';
 import { HomeComponent } from '../user/home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
+import { CurrentOrdersComponent } from './current-orders/current-orders.component';
 
 const routes: Routes = [{ path: '', redirectTo: '/user/home', pathMatch: 'full' }, {
   path: "home",
@@ -17,6 +18,10 @@ const routes: Routes = [{ path: '', redirectTo: '/user/home', pathMatch: 'full' 
 {
   path: 'ongoing-orders',
   component: OngoingOrdersComponent
+},
+{
+  path: 'current-orders',
+  component: CurrentOrdersComponent
 }
 ];
 

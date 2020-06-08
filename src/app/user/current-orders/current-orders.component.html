@@ -1,0 +1,113 @@
+<nb-layout>
+    <nb-layout-header>
+        <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+        <h4>welcome</h4>
+
+        <div style="position: absolute; right: 30px;">
+            <nb-user (click)="load()" style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
+
+        </div>
+
+    </nb-layout-header>
+    <nb-sidebar state="compacted">
+        <nb-menu [items]="items"></nb-menu>
+
+    </nb-sidebar>
+
+    <nb-layout-column class="colored-column-success">
+        <nb-card *ngIf="is_there_ongoing_appointments == true;else elseBlock">
+            <nb-card-body>
+                You have {{no_of_ongoing}} ongoing appointments
+            </nb-card-body>
+            <nb-card-body>
+                <nb-select style="margin-bottom: 10px; width:300px ;" size="large" placeholder="Order       "
+                    [(ngModel)]="selectedOrder">
+                    <nb-option *ngFor="let item of ongoingAppointments" [value]='item["id"]' (click)="showDetails()">
+                        {{item['id']}}
+                    </nb-option>
+
+                </nb-select>
+                <div *ngIf="selectedOrderDetails!=null">
+                    <nb-card>
+                        <nb-card-header>Date for the appointment:
+                            {{selectedOrderDetails['dateFortheAppointment']}}
+                        </nb-card-header>
+
+                        <nb-card-header>Description of the order:
+                            {{selectedOrderDetails['descriptionOfOrder']}}
+                        </nb-card-header>
+
+
+
+
+
+                    </nb-card>
+                </div>
+                <div *ngIf="estimateDetails != null">
+                    <nb-card>
+                        <nb-card-header>
+                            Estimate Details
+                        </nb-card-header>
+                        <nb-card-header>
+                            Total Cost : {{estimateDetails['totalVal']}}
+                        </nb-card-header>
+                        <nb-card-header>
+                            Items of the estimate
+                        </nb-card-header>
+                        <nb-card-header>
+                            <table id="items">
+                                <tr>
+                                    <th *ngFor="let column of headers">
+                                        {{column}}
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let row of rows">
+
+                                    <td *ngFor="let column of headers">
+
+                                        {{row[column]}}
+                                    </td>
+
+
+
+
+
+
+                                </tr>
+                            </table>
+
+                            <button *ngIf="showAcceptEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="AcceptEstimate()" status="success">Accept the estimate</button>
+                            <button *ngIf="showARequestEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="RequestAnotherEstimate()" status="warning">Request Another</button>
+                            <button *ngIf="showARejectEstimateButton"
+                                style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                (click)="RejectEstimate()" status="danger">Reject Estimate</button>
+
+                        </nb-card-header>
+                        <nb-card-body class="example-items-col">
+                            <textarea nbInput fullWidth placeholder="Your feedback"
+                                [(ngModel)]="customerFeedback"></textarea>
+                            <button style="margin-top: 10px;margin-right:10px; display:inline-block" nbButton
+                                [disabled]='customerFeedback == ""' (click)='submitResponse()'
+                                status="primary">Submit</button>
+                        </nb-card-body>
+
+
+                    </nb-card>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+        <ng-template #elseBlock>
+            <nb-card>
+                <nb-card-body>
+                    You don't have any ongoing projects
+                </nb-card-body>
+            </nb-card>
+        </ng-template>
+
+    </nb-layout-column>
+</nb-layout>

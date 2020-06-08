@@ -28,9 +28,10 @@ import { ProfileComponent } from './profile/profile.component';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { CurrentOrdersComponent } from './current-orders/current-orders.component';
 
 @NgModule({
-  declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent, OngoingOrdersComponent],
+  declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent, OngoingOrdersComponent, CurrentOrdersComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

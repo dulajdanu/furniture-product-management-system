@@ -4,29 +4,13 @@ import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 
-
-export interface Appointment {
-  status: number;
-  descriptionOfOrder: string;
-  methodOfContact: number;
-  date: string;
-  dateAdded: Date;
-  address: string;
-  checkTypes: Array<string>;
-  dateFortheAppointment: string;
-  timeFortheAppointment: string
-}
-
-export interface AppointmentId extends Appointment {
-  id: string;
-}
-
 @Component({
-  selector: 'ngx-ongoing-orders',
-  templateUrl: './ongoing-orders.component.html',
-  styleUrls: ['./ongoing-orders.component.scss']
+  selector: 'ngx-current-orders',
+  templateUrl: './current-orders.component.html',
+  styleUrls: ['./current-orders.component.scss']
 })
-export class OngoingOrdersComponent implements OnInit {
+export class CurrentOrdersComponent implements OnInit {
+
   numberOfOrders: number = 0;
   showRequestForm: boolean = false;
   showCloseicon: boolean = false;
@@ -185,3 +169,25 @@ export class OngoingOrdersComponent implements OnInit {
 
 
 }
+
+
+
+
+
+export interface Appointment {
+  status: number;
+  descriptionOfOrder: string;
+  methodOfContact: number;
+  date: string;
+  dateAdded: Date;
+  address: string;
+  checkTypes: Array<string>;
+  dateFortheAppointment: string;
+  timeFortheAppointment: string
+}
+
+export interface AppointmentId extends Appointment {
+  id: string;
+}
+
+
