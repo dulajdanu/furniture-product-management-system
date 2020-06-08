@@ -19,7 +19,8 @@ import {
   NbCardModule,
   NbDatepickerModule,
   NbIconModule,
-  NbSelectModule
+  NbSelectModule,
+  NbProgressBarModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -54,7 +55,8 @@ import { CurrentOrdersComponent } from './current-orders/current-orders.componen
     NbDatepickerModule,
     NbIconModule,
     NbSelectModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NbProgressBarModule
 
 
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, merge } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -165,6 +166,24 @@ export class UserService {
       window.location.reload();
 
     });
+  }
+
+
+  addFeedbackNotesforCurrentOrder(id: string, email: string, note: string) {
+    this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+      {
+        'userFeedback': firestore.FieldValue.arrayUnion(note)
+      }
+    );
+
+
+    this.afs.collection('users').doc(email).collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+      {
+        'userFeedback': firestore.FieldValue.arrayUnion(note)
+
+      }
+    );
+
   }
 
 

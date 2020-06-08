@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NbMenuItem, NbSidebarService, NbToastrService } from '@nebular/theme';
+import { NbSidebarService, NbToastrService, NbMenuItem } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
+import { ManagerService } from '../../manager/manager.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -11,63 +12,67 @@ import { UserService } from '../user.service';
 })
 export class CurrentOrdersComponent implements OnInit {
 
-  numberOfOrders: number = 0;
-  showRequestForm: boolean = false;
-  showCloseicon: boolean = false;
-  selectedOrder;
-  headers = ["Name", "Quantity", "Total"];
-  customerFeedback: string = "";
-  rows = [
-
-  ];
-
-  is_there_ongoing_appointments: boolean = false; //to find whethere there are pending appointmnets
-  ongoingAppointments: Array<any> = []; //this array is used to store the active appointments
-  no_of_ongoing: number = 0;
   selectedOrderDetails;
-  estimateDetails;
-  showAcceptEstimateButton: boolean = true;
-  showARequestEstimateButton: boolean = true;
-  showARejectEstimateButton: boolean = true;
+  is_there_ongoingAppointments: boolean = false; //to find whethere there are pending appointmnets
+  ongoing_Appointments: Array<any> = []; //this array is used to store the pending appointments
+  no_of_ongoing: number = 0;
+  numberOfOrders: number;
+  selectedOrder;
+  progressDetails;
+  linearMode = true;
+  progressAdded: number = 0;
+  showProgressInputBox: boolean = false;
+  showFeedBackInput: boolean = false;
+  feedBackOftheUser: string;
 
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private userService: UserService) {
-    this.userService.getAppointments().subscribe(res => {
+  toggleLinearMode() {
+    this.linearMode = !this.linearMode;
+  }
+
+
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService, private userService: UserService) {
+    this.managerService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
         this.numberOfOrders = 0;
       }
       else {
-        this.ongoingAppointments = []; //clear the arrays before adding elements
-        this.is_there_ongoing_appointments = false;
+        this.ongoing_Appointments = []; //clear the arrays before adding elements
+        this.is_there_ongoingAppointments = false;
         this.numberOfOrders = res.length;
         res.forEach(element => {
           // console.log(element);
 
-
-          if (element['status'] == 3) {
-            this.ongoingAppointments.push(element); //if there is a active appointment push it to the active appointments array
+          if (element['status'] == 5) {
+            this.ongoing_Appointments.push(element); //if there is a pending appointment push it to the pending appointments array
           }
+
         });
-        if (this.ongoingAppointments.length != 0) {
-          this.is_there_ongoing_appointments = true; //checking the pending appointments array is empty or not
-          this.no_of_ongoing = this.ongoingAppointments.length;
+        if (this.ongoing_Appointments.length != 0) {
+          this.is_there_ongoingAppointments = true; //checking the pending appointments array is empty or not
+          this.no_of_ongoing = this.ongoing_Appointments.length;
         }
 
       }
 
-      console.log(this.ongoingAppointments);
-
+      console.log(this.ongoing_Appointments);
+      // console.log(this.is_there_newAppointments);
+      // console.log(this.activeAppointments);
+      // console.log(this.newAppointments);
     });
   }
 
-  load() {
-    console.log('avatar clicled');
-    this.authService.SignOut();
+  toggle() {
+    this.sidebarService.toggle(true);
+    return false;
+  }
+  ngOnInit(): void {
+    // this.getAppointments();
+    // this.userService.getAppointments().subscribe().unsubscribe();
 
   }
-
   items: NbMenuItem[] = [
     {
       title: 'Home',
@@ -88,106 +93,47 @@ export class CurrentOrdersComponent implements OnInit {
     },
 
 
-
   ];
 
+  load() {
+    console.log('avatar clicled');
+    this.authService.SignOut();
 
-
-
-  toggle() {
-    this.sidebarService.toggle(true);
-    return false;
   }
-
-  ngOnInit(): void {
-  }
-
-  showDetails() {
-    console.log("show details about the order");
-    this.ongoingAppointments.forEach(element => {
-      if (element['id'] == this.selectedOrder) {
-        this.selectedOrderDetails = element;
-      }
-    });
-
+  showDetails(order) {
+    // console.log(order);
+    this.selectedOrderDetails = order;
     console.log(this.selectedOrderDetails);
-    this.getEstimateDetails();
-  }
-
-  getEstimateDetails() {
-    this.userService.getEstimateDetails(this.selectedOrder).subscribe(res => {
-      console.log(res);
-      this.estimateDetails = res;
-      let values: Array<any> = this.estimateDetails['val'];
-      values.forEach(element => {
-        this.rows.push(element);
-      });
-    });
-  }
-
-  AcceptEstimate() {
-    console.log('accept the estimate');
-    this.showARejectEstimateButton = false;
-    this.showARequestEstimateButton = false;
+    this.getDataAboutOrderProgress(order['id']);
   }
 
 
-  RequestAnotherEstimate() {
-    console.log('request another');
-    this.showAcceptEstimateButton = false;
-    this.showARejectEstimateButton = false;
 
+
+  getDataAboutOrderProgress(id: string) {
+    console.log('get data about order progress');
+    this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
+      this.progressDetails = res;
+      console.log(this.progressDetails);
+
+    })
   }
 
-  RejectEstimate() {
-    console.log('reject estimate');
-    this.showAcceptEstimateButton = false;
-    this.showARequestEstimateButton = false;
+
+  showFeedbackInputBox() {
+    this.showFeedBackInput = !this.showFeedBackInput;
   }
 
-  submitResponse() {
-    console.log('submit the response');
-    console.log(this.customerFeedback);
-    var res;
-    if (this.showAcceptEstimateButton == true && (this.showARequestEstimateButton == false && this.showARejectEstimateButton == false)) {
-      console.log('accept the estimate');
-      this.userService.acceptEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.customerFeedback);
-
-    }
-    else if (this.showARequestEstimateButton == true && (this.showAcceptEstimateButton == false && this.showARejectEstimateButton == false)) {
-      console.log('request  another estimate');
-      this.userService.requestAnotherEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.customerFeedback);
-
-    }
-    else if (this.showARejectEstimateButton == true && (this.showAcceptEstimateButton == false && this.showARequestEstimateButton == false)) {
-      console.log('rejecct   estimate');
-      this.userService.rejectEstimate(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.customerFeedback);
-
-    }
+  submitFeedback() {
+    console.log('submit feedback');
+    this.showFeedBackInput = false;
+    this.feedBackOftheUser = null;
+    this.userService.addFeedbackNotesforCurrentOrder(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.feedBackOftheUser);
   }
-
 
 
 }
 
 
-
-
-
-export interface Appointment {
-  status: number;
-  descriptionOfOrder: string;
-  methodOfContact: number;
-  date: string;
-  dateAdded: Date;
-  address: string;
-  checkTypes: Array<string>;
-  dateFortheAppointment: string;
-  timeFortheAppointment: string
-}
-
-export interface AppointmentId extends Appointment {
-  id: string;
-}
 
 
