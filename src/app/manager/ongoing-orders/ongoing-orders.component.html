@@ -77,6 +77,16 @@
 
                     </div>
 
+
+                    <div *ngIf="userFeedback != null" style="margin-top: 30px;">
+                        <h6>Feedback added by user</h6>
+                        <ul>
+                            <div *ngFor="let item of userFeedback">
+                                <li>{{item}}</li>
+                            </div>
+                        </ul>
+                    </div>
+
                 </div>
 
             </nb-card-body>

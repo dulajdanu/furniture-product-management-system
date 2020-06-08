@@ -22,6 +22,7 @@ export class OngoingOrdersComponent implements OnInit {
   showProgressInputBox: boolean = false;
   note: string;
   addPhotos: boolean = false;
+  userFeedback: Array<string>;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -131,6 +132,7 @@ export class OngoingOrdersComponent implements OnInit {
     this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
       this.progressDetails = res;
       console.log(this.progressDetails);
+      this.userFeedback = this.progressDetails['userFeedback'];
 
     })
   }
