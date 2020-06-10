@@ -27,15 +27,20 @@ export class InventoryService {
 
 
 
-  addItem(val) {
+  addItem(val, clerkMail) {
     this.afs.collection("inventory").doc(val['id']).set(val).then(res => {
 
     }).catch(res => {
       this.showToast('danger', res);
 
     });
+    val['addedByClerk'] = clerkMail;
     this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
-    this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add(val).then(res => {
+    this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
+      val: val,
+      status: "itemAdded"
+
+    }).then(res => {
       this.showToast('success', "Item added successfully");
 
     }).catch(res => {
@@ -83,17 +88,30 @@ export class InventoryService {
   }
 
 
-  addNewStock(itemsAdded: Array<ItemStock>) {
+  addNewStock(itemsAdded: Array<ItemStock>, clerkMail: string) {
     console.log(itemsAdded);
     itemsAdded.forEach(element => {
       this.afs.collection('inventory').doc(element.ID).update({
         'quantity': firestore.FieldValue.increment(element.Quantity)
       }).then(res => {
-        console.log('item upatedsuccessfully');
       }).catch(res => {
         console.log(res);
       });
     });
+
+    this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
+    this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
+      val: itemsAdded,
+      status: "stockAdded"
+    }).then(res => {
+      console.log('item upated successfully');
+
+    }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+
+
 
 
   }
@@ -109,6 +127,19 @@ export class InventoryService {
         console.log(res);
       });
     });
+
+    this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
+    this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
+      val: itemsAdded,
+      status: "stockRemoved"
+    }).then(res => {
+      console.log('item upated successfully');
+
+    }).catch(res => {
+      this.showToast('danger', res);
+
+    });
+
 
 
   }

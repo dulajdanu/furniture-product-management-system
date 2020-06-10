@@ -16,8 +16,12 @@ import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 export class AddStockComponent implements OnInit {
 
   source: LocalDataSource;
+  clerkMail: string;
+
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
+    this.clerkMail = localStorage.getItem('email');
+
     this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
@@ -201,7 +205,7 @@ export class AddStockComponent implements OnInit {
 
   AddAllitemsToStock() {
     console.log('add all items to stock');
-    this.inventoryService.addNewStock(this.rows);
+    this.inventoryService.addNewStock(this.rows, this.clerkMail);
     this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;

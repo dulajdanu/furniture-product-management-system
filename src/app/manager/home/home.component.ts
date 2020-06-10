@@ -153,11 +153,7 @@ export class HomeComponent implements OnInit {
       link: '/manager/home',
 
     },
-    {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: '/clerk/profile'
-    },
+
     {
       title: 'Estimate Calculator',
       icon: 'pricetags-outline',
@@ -168,6 +164,12 @@ export class HomeComponent implements OnInit {
       title: 'Order',
       icon: 'inbox-outline',
       link: '/manager/ongoing-orders'
+
+    },
+    {
+      title: 'Reports',
+      icon: 'archive-outline',
+      link: '/manager/reports'
 
     },
 

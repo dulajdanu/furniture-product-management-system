@@ -5,17 +5,25 @@ import { Router } from '@angular/router';
 import { ManagerService } from '../manager.service';
 
 @Component({
-  selector: 'ngx-ongoing-orders',
-  templateUrl: './ongoing-orders.component.html',
-  styleUrls: ['./ongoing-orders.component.scss']
+  selector: 'ngx-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.scss']
 })
-export class OngoingOrdersComponent implements OnInit {
-  selectedOrderDetails;
+export class ReportsComponent implements OnInit {
+
+
+
+
+
+
+  reportTypes: Array<string> = ['Inventory Usage', 'Order Type Prediction', 'Reject Job Report'];
+
+  selectedReportDetails;
   is_there_ongoingAppointments: boolean = false; //to find whethere there are pending appointmnets
   ongoing_Appointments: Array<any> = []; //this array is used to store the pending appointments
   no_of_ongoing: number = 0;
   numberOfOrders: number;
-  selectedOrder;
+  selectedReport;
   progressDetails;
   linearMode = true;
   progressAdded: number = 0;
@@ -119,14 +127,11 @@ export class OngoingOrdersComponent implements OnInit {
   }
   showDetails(order) {
     // console.log(order);
-    this.selectedOrderDetails = order;
-    console.log(this.selectedOrderDetails);
+    this.selectedReportDetails = order;
+    console.log(this.selectedReportDetails);
     this.getDataAboutOrderProgress(order['id']);
   }
 
-  showPhotoInput() {
-    this.addPhotos = !this.addPhotos;
-  }
 
 
   getDataAboutOrderProgress(id: string) {
@@ -139,23 +144,6 @@ export class OngoingOrdersComponent implements OnInit {
     })
   }
 
-  changeProgress() {
-    this.managerService.changeProgress(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.progressAdded, this.note);
-    this.showProgressInputBox = false;
-    this.note = '';
-    this.progressAdded = 0;
-
-  }
-  showInputBox() {
-    this.showProgressInputBox = true;
-  }
-
-  submitPhotos() {
-    console.log('submit photos');
-    this.managerService.addPhotosofProgress(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.files);
-    this.addPhotos = false;
-
-
-  }
 
 }
+

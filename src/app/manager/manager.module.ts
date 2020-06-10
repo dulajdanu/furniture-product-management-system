@@ -34,9 +34,13 @@ import { EstimateCalComponent } from './estimate-cal/estimate-cal.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ReportsComponent } from './reports/reports.component';
+import { InventoryUsageComponent } from './inventory-usage/inventory-usage.component';
+import { OrderTypePredictionComponent } from './order-type-prediction/order-type-prediction.component';
+import { RejectJobReportComponent } from './reject-job-report/reject-job-report.component';
 
 @NgModule({
-  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent],
+  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent, ReportsComponent, InventoryUsageComponent, OrderTypePredictionComponent, RejectJobReportComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,

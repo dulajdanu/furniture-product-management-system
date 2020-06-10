@@ -15,6 +15,7 @@ export class InventoryComponent implements OnInit {
 
   itemsObservable: Observable<Item[]>;
   itemsofInventory: Item[];
+  clerkMail: string;
 
 
 
@@ -24,6 +25,7 @@ export class InventoryComponent implements OnInit {
 
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
+    this.clerkMail = localStorage.getItem('email');
     this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
@@ -136,7 +138,7 @@ export class InventoryComponent implements OnInit {
     };
 
     console.log(data);
-    this.inventoryService.addItem(data);
+    this.inventoryService.addItem(data, this.clerkMail);
 
   }
 
