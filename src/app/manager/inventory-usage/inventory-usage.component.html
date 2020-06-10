@@ -1,1 +1,102 @@
-<p>inventory-usage works!</p>
+<nb-card>
+
+    <nb-card-body>
+        <nb-card>
+            <nb-card-body>
+                <nb-select style="width:300px ;" size="large" placeholder="Select Month" [(ngModel)]="monthSelected">
+                    <nb-option *ngFor="let item of months" [value]='item["val"]'>
+                        {{item['name']}}
+                    </nb-option>
+
+                </nb-select>
+
+
+
+
+            </nb-card-body>
+
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <nb-select style="width:300px ;" size="large" placeholder="Select Year" [(ngModel)]="yearSelected">
+                    <nb-option *ngFor="let item of years" [value]='item'>
+                        {{item}}
+                    </nb-option>
+
+                </nb-select>
+
+
+
+
+            </nb-card-body>
+
+
+        </nb-card>
+        <button nbButton status="primary" (click)="getReports()"
+            [disabled]="yearSelected == null ||  monthSelected == null">Get Report</button>
+
+
+        <div style="margin-top: 20px;" *ngIf="inventoryUsageReports != null && inventoryUsageReports != []">
+            <div *ngIf="inventoryUsageReports.length != 0; else elseBlock">
+                <nb-card-header>
+                    <h1 class=" h5">Inventory Usage Reports</h1>
+                </nb-card-header>
+                <nb-list>
+
+                    <nb-list-item *ngFor="let item of inventoryUsageReports">
+
+                        <div *ngIf="item['status'] == 'stockAdded'">
+                            New Stock Added on Date {{item['date']}}
+                            <br>
+                            <nb-card>
+                                <nb-card-body>
+                                    <nb-list>
+                                        <nb-list-item *ngFor="let val of item['val']">
+                                            ID : {{val['ID']}} , Name : {{val['Name']}}, Quantity : {{val['Quantity']}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </nb-card-body>
+                            </nb-card>
+
+                        </div>
+                        <div *ngIf="item['status'] == 'itemAdded'">
+                            New Item Added on Date {{item['date']}} Added by Clerk {{item['val']['addedByClerk']}}
+                            <br>
+                            <nb-card>
+                                <nb-card-body>
+                                    <nb-list>
+                                        <nb-list-item>
+                                            ID : {{item['val']['id']}} , Name : {{item['val']['name']}}, Quantity :
+                                            {{item['val']['Quantity']}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+
+                        <div *ngIf="item['status'] == 'stockRemoved'">
+                            New Stock Removed on Date {{item['date']}}
+                            <br>
+                            <nb-card>
+                                <nb-card-body>
+                                    <nb-list>
+                                        <nb-list-item *ngFor="let val of item['val']">
+                                            ID : {{val['ID']}} , Name : {{val['Name']}}, Quantity : {{val['Quantity']}}
+                                        </nb-list-item>
+                                    </nb-list>
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+                    </nb-list-item>
+                </nb-list>
+
+            </div>
+            <ng-template #elseBlock>
+                <h1 class=" h5">No Inventory Usage Reports found in this period</h1>
+
+            </ng-template>
+        </div>
+
+
+    </nb-card-body>
+</nb-card>

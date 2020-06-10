@@ -23,7 +23,9 @@ import {
   NbPopoverModule,
   NbSelectModule,
   NbStepperModule,
-  NbProgressBarModule
+  NbProgressBarModule,
+  NbCalendarModule,
+  NbListModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -68,7 +70,9 @@ import { RejectJobReportComponent } from './reject-job-report/reject-job-report.
     Ng2SmartTableModule,
     NbStepperModule,
     NbProgressBarModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NbCalendarModule,
+    NbListModule
 
 
   ]

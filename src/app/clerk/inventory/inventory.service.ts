@@ -15,10 +15,14 @@ export class InventoryService {
   items: Observable<Item[]>;
   dateToday = Date.now();
   dateTodayString: string;
+  fulldateTodayString: string;
+
 
   constructor(private afs: AngularFirestore, private toastrService: NbToastrService, private datePipe: DatePipe) {
     this.dateTodayString = datePipe.transform(Date.now(), 'yyyyMM');
-    console.log(this.dateTodayString);
+    this.fulldateTodayString = datePipe.transform(Date.now(), 'yyyy-MM-dd');
+
+    console.log(this.fulldateTodayString);
   }
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
@@ -38,7 +42,8 @@ export class InventoryService {
     this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
     this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
       val: val,
-      status: "itemAdded"
+      status: "itemAdded",
+      date: this.fulldateTodayString
 
     }).then(res => {
       this.showToast('success', "Item added successfully");
@@ -102,7 +107,11 @@ export class InventoryService {
     this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
     this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
       val: itemsAdded,
-      status: "stockAdded"
+      status: "stockAdded",
+      date: this.fulldateTodayString
+
+
+
     }).then(res => {
       console.log('item upated successfully');
 
@@ -131,7 +140,9 @@ export class InventoryService {
     this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
     this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
       val: itemsAdded,
-      status: "stockRemoved"
+      status: "stockRemoved",
+      date: this.fulldateTodayString
+
     }).then(res => {
       console.log('item upated successfully');
 

@@ -261,6 +261,10 @@ export class ManagerService {
 
 
   }
+
+  getInventoryUsageReports(date: string) {
+    return this.afs.collection('reports').doc('InventoryReport').collection(date).valueChanges();
+  }
 }
 
 
