@@ -265,6 +265,10 @@ export class ManagerService {
   getInventoryUsageReports(date: string) {
     return this.afs.collection('reports').doc('InventoryReport').collection(date).valueChanges();
   }
+
+  getRejectedReports(date: string) {
+    return this.afs.collection('reports').doc('RejectedReport').collection(date).valueChanges();
+  }
 }
 
 

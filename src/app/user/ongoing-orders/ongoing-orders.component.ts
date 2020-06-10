@@ -45,9 +45,11 @@ export class OngoingOrdersComponent implements OnInit {
   showAcceptEstimateButton: boolean = true;
   showARequestEstimateButton: boolean = true;
   showARejectEstimateButton: boolean = true;
+  email: string;
 
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private userService: UserService) {
+    this.email = localStorage.getItem('email');
     this.userService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');

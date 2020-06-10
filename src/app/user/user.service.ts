@@ -6,6 +6,7 @@ import { Observable, merge } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { firestore } from 'firebase';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,17 @@ export class UserService {
   private appointmentCollection: AngularFirestoreCollection<Appointment>;
   appointments: Observable<AppointmentId[]>;
   estimateDetails;
+  dateTodayString;
 
   email: string = "";
   downloadURL: Observable<string | null>;
 
   constructor(
-    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage
+    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage, private datePipe: DatePipe
   ) {
     this.email = localStorage.getItem('email');
+    this.dateTodayString = datePipe.transform(Date.now(), 'yyyyMM');
+
   }
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
@@ -163,9 +167,15 @@ export class UserService {
       }
     ).then(res => {
       this.showToast('success', " Another Estimate Requested Successfully");
-      window.location.reload();
+      // window.location.reload();
 
     });
+
+    this.afs.collection('reports').doc('RejectedReport').collection(this.dateTodayString).add({
+      'id': orderID,
+      'email': clientEmail,
+      'feedback': feedBack
+    })
   }
 
 
