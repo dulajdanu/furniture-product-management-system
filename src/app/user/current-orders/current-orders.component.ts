@@ -24,6 +24,7 @@ export class CurrentOrdersComponent implements OnInit {
   showProgressInputBox: boolean = false;
   showFeedBackInput: boolean = false;
   feedBackOftheUser: string;
+  Mail;
 
 
   toggleLinearMode() {
@@ -32,7 +33,8 @@ export class CurrentOrdersComponent implements OnInit {
 
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService, private userService: UserService) {
-    this.managerService.getAppointments().subscribe(res => {
+    this.Mail = localStorage.getItem('email');
+    this.userService.getCurrentAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
@@ -127,8 +129,10 @@ export class CurrentOrdersComponent implements OnInit {
   submitFeedback() {
     console.log('submit feedback');
     this.showFeedBackInput = false;
-    this.feedBackOftheUser = null;
+    console.log(this.feedBackOftheUser);
     this.userService.addFeedbackNotesforCurrentOrder(this.selectedOrderDetails['id'], this.selectedOrderDetails['email'], this.feedBackOftheUser);
+    this.feedBackOftheUser = null;
+
   }
 
 

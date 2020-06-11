@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
     password: new FormControl('', Validators.required),
     rePassword: new FormControl('', [Validators.required,]),
     agreeToConditons: new FormControl(false, Validators.requiredTrue),
-    userType: new FormControl('', Validators.required)
+    userType: new FormControl(0)
   });
 
   get fullName() {
@@ -52,13 +52,13 @@ export class SignupComponent implements OnInit {
   // }
 
   userTypes = [ //user types to show in the signup page
-    { value: 0, label: "User" },
-    {
-      value: 1, label: "Manager"
-    },
-    {
-      value: 2, label: "Clerk"
-    }
+    // { value: 0, label: "User" },
+    // {
+    //   value: 1, label: "Manager"
+    // },
+    // {
+    //   value: 2, label: "Clerk"
+    // }
   ];
 
 

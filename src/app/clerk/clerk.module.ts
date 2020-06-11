@@ -20,7 +20,8 @@ import {
   NbDatepickerModule,
   NbIconModule,
   NbPopoverModule,
-  NbDialogModule
+  NbDialogModule,
+  NbSelectModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -63,6 +64,7 @@ import { RemoveStockComponent } from './inventory/remove-stock/remove-stock.comp
     NgxMaterialTimepickerModule,
     Ng2SmartTableModule,
 
+    NbSelectModule
   ]
 })
 export class ClerkModule { }

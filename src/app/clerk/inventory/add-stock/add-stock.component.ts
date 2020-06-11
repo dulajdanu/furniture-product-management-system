@@ -156,16 +156,7 @@ export class AddStockComponent implements OnInit {
       link: '/clerk/home',
 
     },
-    {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: '/clerk/profile'
-    },
-    {
-      title: 'Ongoing orders',
-      icon: 'browser-outline',
-      link: '/clerk/ongoing-orders'
-    },
+
     {
       title: 'Inventory',
       icon: 'car-outline',

@@ -33,6 +33,7 @@ export class OngoingOrdersComponent implements OnInit {
   selectedOrder;
   headers = ["Name", "Quantity", "Total"];
   customerFeedback: string = "";
+  Mail;
   rows = [
 
   ];

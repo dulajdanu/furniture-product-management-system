@@ -127,6 +127,22 @@ export class ClerkService {
     // });
     return this.appointments;
   }
+
+  getCurrentAppointments(): Observable<AppointmentId[]> {
+    // return this.afs.collection('users').doc(this.email).collection("appointments").snapshotChanges();
+    this.appointmentCollection = this.afs.collection<Appointment>('appointments');
+    this.appointments = this.appointmentCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Appointment;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+    // this.appointments.subscribe(res => {
+    //   console.log(res);
+    // });
+    return this.appointments;
+  }
 }
 
 export interface Appointment {

@@ -171,6 +171,8 @@ export class UserService {
 
     });
 
+    this.afs.collection('reports').doc('RejectedReport').set({}, { merge: true });
+
     this.afs.collection('reports').doc('RejectedReport').collection(this.dateTodayString).add({
       'id': orderID,
       'email': clientEmail,
@@ -194,6 +196,22 @@ export class UserService {
       }
     );
 
+  }
+
+  getCurrentAppointments(): Observable<AppointmentId[]> {
+    // return this.afs.collection('users').doc(this.email).collection("appointments").snapshotChanges();
+    this.appointmentCollection = this.afs.collection('users').doc(localStorage.getItem('email')).collection<Appointment>('appointments');
+    this.appointments = this.appointmentCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Appointment;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
+    // this.appointments.subscribe(res => {
+    //   console.log(res);
+    // });
+    return this.appointments;
   }
 
 

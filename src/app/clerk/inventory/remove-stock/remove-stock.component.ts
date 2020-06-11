@@ -16,8 +16,13 @@ import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 export class RemoveStockComponent implements OnInit {
 
   source: LocalDataSource;
+  appointments;
+  currentAppointments;
+  selectedOrderId;
+  clerkMail;
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
+    this.clerkMail = localStorage.getItem('email');
     this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
@@ -33,6 +38,24 @@ export class RemoveStockComponent implements OnInit {
     });
     console.log(this.itemsMap);
     this.source = new LocalDataSource(this.itemsAdded);
+
+    this.clerkService.getCurrentAppointments().subscribe(res => {
+      this.appointments = res;
+
+      if (res.length == 0) {
+
+      }
+      else {
+        this.currentAppointments = [];
+        this.appointments.forEach(element => {
+          if (element['status'] == 5) {
+            this.currentAppointments.push(element['id']);
+          }
+        });
+        console.log(this.currentAppointments);
+      }
+
+    })
   }
 
   itemsAdded = []; //items added by user to add to stock
@@ -46,7 +69,7 @@ export class RemoveStockComponent implements OnInit {
   itemName: string = '';
   itemQty: number = 0;
 
-  headers = ["ID", "Name", "Quantity"];
+  headers = ["ID", "Name", "Quantity", "OrderID"];
 
   rows = [
 
@@ -152,16 +175,7 @@ export class RemoveStockComponent implements OnInit {
       link: '/clerk/home',
 
     },
-    {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: '/clerk/profile'
-    },
-    {
-      title: 'Ongoing orders',
-      icon: 'browser-outline',
-      link: '/clerk/ongoing-orders'
-    },
+
     {
       title: 'Inventory',
       icon: 'car-outline',
@@ -190,12 +204,14 @@ export class RemoveStockComponent implements OnInit {
     this.rows.push({
       'ID': this.itemId,
       'Name': this.itemName,
-      'Quantity': Number(this.itemQty)
+      'Quantity': Number(this.itemQty),
+      'OrderID': this.selectedOrderId
     });
 
     this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;
+    this.selectedOrderId = null;
 
   }
 
@@ -206,6 +222,7 @@ export class RemoveStockComponent implements OnInit {
     this.itemId = "";
     this.itemQty = 0;
     this.rows = [];
+    this.selectedOrderId = null;
   }
 
   Re

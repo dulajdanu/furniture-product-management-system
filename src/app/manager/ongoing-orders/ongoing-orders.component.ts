@@ -23,6 +23,7 @@ export class OngoingOrdersComponent implements OnInit {
   note: string;
   addPhotos: boolean = false;
   userFeedback: Array<string>;
+  Mail;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -41,6 +42,8 @@ export class OngoingOrdersComponent implements OnInit {
   }
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService) {
+
+    this.Mail = localStorage.getItem('email');
     this.managerService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
@@ -107,6 +110,12 @@ export class OngoingOrdersComponent implements OnInit {
       title: 'Reports',
       icon: 'archive-outline',
       link: '/manager/reports'
+
+    },
+    {
+      title: 'Add Staff',
+      icon: 'people-outline',
+      link: '/manager/add-staff'
 
     },
 

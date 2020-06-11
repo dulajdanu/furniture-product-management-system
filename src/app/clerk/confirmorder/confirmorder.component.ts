@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 export class ConfirmorderComponent implements OnInit {
 
   clientEmail: string = "";
+  clerkMail;
   appointmentId: string = "";
   appointment: Appointment = <Appointment>{
     dateAdded: new Date
@@ -53,6 +54,7 @@ export class ConfirmorderComponent implements OnInit {
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
     console.log('this is the id ' + this.appointmentId);
+    this.clerkMail = localStorage.getItem('email');
 
     this.clerkService.getAppointmentData(this.appointmentId).subscribe(res => {
       console.log(res);
@@ -77,7 +79,7 @@ export class ConfirmorderComponent implements OnInit {
     let date: Date = val['dateFortheAppointment'];
     let pipe = new DatePipe('en-US'); // Use your own locale
 
-    let formatDate = pipe.transform(date, 'MM-dd-y');
+    let formatDate = pipe.transform(date, 'y-MM-dd');
     console.log(formatDate);
     val['dateFortheAppointment'] = formatDate;
     val['clientEmail'] = localStorage.getItem('clientMail');

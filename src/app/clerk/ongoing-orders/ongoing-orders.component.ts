@@ -10,8 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./ongoing-orders.component.scss']
 })
 export class OngoingOrdersComponent implements OnInit {
+  Mail;
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService) { }
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService) {
+    this.Mail = localStorage.getItem('email');
+  }
 
   load() {
     console.log('avatar clicled');
@@ -33,11 +36,7 @@ export class OngoingOrdersComponent implements OnInit {
       link: '/clerk/home',
 
     },
-    {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: '/clerk/profile'
-    },
+
     {
       title: 'Ongoing orders',
       icon: 'browser-outline',

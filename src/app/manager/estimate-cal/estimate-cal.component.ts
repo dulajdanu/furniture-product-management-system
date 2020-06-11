@@ -31,7 +31,7 @@ export class EstimateCalComponent implements OnInit {
   itemsofInventory: Item[];
   itemsMap: { value: string, title: string }[] = []; //this is used to create the dropdown in the table
 
-
+  Mail;
   itemId: string = '';
   itemName: string = '';
   itemQty: number = 0;
@@ -239,7 +239,7 @@ export class EstimateCalComponent implements OnInit {
 
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private managerService: ManagerService, private inventoryService: InventoryService) {
-
+    this.Mail = localStorage.getItem('email');
     this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
@@ -338,6 +338,12 @@ export class EstimateCalComponent implements OnInit {
       title: 'Reports',
       icon: 'archive-outline',
       link: '/manager/reports'
+
+    },
+    {
+      title: 'Add Staff',
+      icon: 'people-outline',
+      link: '/manager/add-staff'
 
     },
   ];

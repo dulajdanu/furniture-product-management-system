@@ -7,6 +7,7 @@ import { Observable, merge } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ManagerService {
   appointment: Observable<Appointment>;
   email: string = "";
   constructor(
-    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage
+    private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage, private angularFireAuth: AngularFireAuth
   ) {
     this.email = localStorage.getItem('email'); //getiing the email of the clerk
   }
@@ -268,6 +269,23 @@ export class ManagerService {
 
   getRejectedReports(date: string) {
     return this.afs.collection('reports').doc('RejectedReport').collection(date).valueChanges();
+  }
+
+  createNewStaffAccount(email, fullname, password) {
+    this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(res => {
+      this.afs.collection('clerks').doc(email).set(
+        {
+          email: email,
+          fullName: fullname
+        }
+      ).then(res => {
+        this.showToast('success', "New Staff Account created Successfully");
+      }).catch(res => {
+        this.showToast('danger', res);
+      });
+    }).catch(res => {
+      this.showToast('danger', res);
+    })
   }
 }
 

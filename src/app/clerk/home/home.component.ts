@@ -33,6 +33,7 @@ export interface AppointmentId extends Appointment {
 export class HomeComponent implements OnInit {
 
   pipe = new DatePipe('en-US'); // Use your own locale
+  Mail;
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
     this.toastrService.show(status, message, { status });
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService
   ) {
+    this.Mail = localStorage.getItem('email');
     console.log(this.pipe.transform(Date(), 'MM-dd-y'));
     console.log(this.pipe.transform(Date(), 'h:mm a'));
     this.clerkService.getAppointments().subscribe(res => {
@@ -138,17 +140,13 @@ export class HomeComponent implements OnInit {
       link: '/clerk/home',
 
     },
-    {
-      title: 'Profile',
-      icon: 'person-outline',
-      link: '/clerk/profile'
-    },
-    {
-      title: 'Ongoing orders',
-      icon: 'browser-outline',
-      link: '/clerk/ongoing-orders'
 
-    },
+    // {
+    //   title: 'Ongoing orders',
+    //   icon: 'browser-outline',
+    //   link: '/clerk/ongoing-orders'
+
+    // },
     {
       title: 'Inventory',
       icon: 'car-outline',

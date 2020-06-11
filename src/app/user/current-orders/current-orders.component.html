@@ -4,18 +4,18 @@
         <h4>welcome</h4>
 
         <div style="position: absolute; right: 30px;">
-            <nb-user (click)="load()" style="display: inline-block;" name="John Doe" title="Engineer"></nb-user>
+            <nb-user (click)="load()" style="display: inline-block;" name="{{Mail}}"></nb-user>
 
         </div>
 
     </nb-layout-header>
-    <nb-sidebar state="compacted">
+    <nb-sidebar state=" compacted">
         <nb-menu [items]="items"></nb-menu>
 
     </nb-sidebar>
     <nb-layout-column class="colored-column-success">
 
-        <h4>ONGOING PROJECTS</h4>
+        <h4>CURRENT PROJECTS</h4>
         <nb-card>
             <nb-card-body>
                 <nb-select style="width:300px ;" size="large" placeholder="Order" [(ngModel)]="selectedOrder">
@@ -64,7 +64,8 @@
                         </ol>
 
                     </nb-card-header>
-                    <button status="primary" (click)="showFeedbackInputBox()" nbButton>Add a feedback</button>
+                    <button status="primary" (click)="showFeedbackInputBox()" nbButton>Add a
+                        feedback</button>
                     <div *ngIf="showFeedBackInput" style="margin-top: 20px;">
                         <textarea type="text" nbInput placeholder="Add your feedback"
                             [(ngModel)]="feedBackOftheUser"></textarea>

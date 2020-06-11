@@ -19,8 +19,9 @@ export class OrderComponent implements OnInit {
   typesRequiredStringArray: Array<string> = []; //converting the requests of the user in short hand format to a readable format
   showCancelAppointmentDialogBox: boolean = false;
   clientEmail: string = "";
+  Mail;
   constructor(private route: ActivatedRoute, private managerService: ManagerService, private router: Router) {
-
+    this.Mail = localStorage.getItem('email');
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
     console.log('this is the id ' + this.appointmentId);
@@ -99,7 +100,7 @@ export class OrderComponent implements OnInit {
     this.appointment.dateAdded = "";
   }
 
-  cancelAppointment(appointmentId: string, ) {
+  cancelAppointment(appointmentId: string,) {
     console.log(appointmentId);
     console.log(this.clientEmail);
     this.managerService.cancelAppointment(appointmentId, this.clientEmail);

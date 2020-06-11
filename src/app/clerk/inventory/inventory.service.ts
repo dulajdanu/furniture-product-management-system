@@ -141,7 +141,7 @@ export class InventoryService {
     this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
       val: itemsAdded,
       status: "stockRemoved",
-      date: this.fulldateTodayString
+      date: this.fulldateTodayString,
 
     }).then(res => {
       console.log('item upated successfully');
@@ -168,7 +168,8 @@ export interface Item {
 export interface ItemStock { //this interface is used when adding new stock to the inventory
   'ID': string,
   'Name': string,
-  'Quantity': number
+  'Quantity': number,
+  'OrderID': string
 }
 
 
