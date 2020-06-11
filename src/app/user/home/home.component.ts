@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private userService: UserService, private afs: AngularFirestore) {
     this.Mail = localStorage.getItem('email');
+    console.log(this.Mail);
     this.userService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');

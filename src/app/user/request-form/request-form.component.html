@@ -11,7 +11,7 @@
 
             <div class="form-control-group">
                 <label class="label" for="input-phone">Phone:</label>
-                <input nbInput fullWidth name="phone" type="text" id="input-phone" placeholder="Phone number"
+                <input nbInput fullWidth name="phone" type="number" id="input-phone" placeholder="Phone number"
                     formControlName="phone">
 
 
@@ -115,7 +115,7 @@
 
             </div>
             <div style="display: block;">
-                <label class="label" for="input-date">Date of the appointment:</label>
+                <label class="label" for="input-date">Any preferred date for the appointment:</label>
             </div>
             <input nbInput placeholder="Pick Date" [nbDatepicker]="formcontrol" formControlName="date">
             <nb-datepicker #formcontrol></nb-datepicker>

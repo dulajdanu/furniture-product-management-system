@@ -155,6 +155,12 @@ export class OngoingOrdersComponent implements OnInit {
     this.progressAdded = 0;
 
   }
+
+  finishOrder() {
+    console.log('finish order');
+    this.managerService.finishOrder(this.selectedOrderDetails['id'], this.selectedOrderDetails['email']);
+  }
+
   showInputBox() {
     this.showProgressInputBox = true;
   }
@@ -166,5 +172,6 @@ export class OngoingOrdersComponent implements OnInit {
 
 
   }
+
 
 }

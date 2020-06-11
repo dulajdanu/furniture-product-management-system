@@ -36,7 +36,7 @@ export class RequestFormComponent implements OnInit {
 
   requestForm = new FormGroup({
     email: new FormControl({ value: localStorage.getItem('email'), disabled: true }, [Validators.required, Validators.email]),
-    phone: new FormControl('', [Validators.required,]),
+    phone: new FormControl('', [Validators.required, Validators.min(100000000), Validators.max(999999999)]),
     methodOfContact: new FormControl('', Validators.required),
     checkTypes: this.fb.array([], Validators.required),
     descriptionOfOrder: new FormControl('', Validators.required),

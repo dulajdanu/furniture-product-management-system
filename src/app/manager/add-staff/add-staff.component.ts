@@ -16,7 +16,7 @@ export class AddStaffComponent implements OnInit {
   Mail;
   linearMode = true;
 
-  staffEmail;
+  staffEmail: string;
   staffPassword;
   staffFullname;
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService) {
@@ -81,6 +81,7 @@ export class AddStaffComponent implements OnInit {
   }
 
   createAccount() {
+    // this.staffEmail.includes('@')
     console.log('create new worker account');
     this.managerService.createNewStaffAccount(this.staffEmail, this.staffFullname, this.staffPassword);
     this.staffPassword = null;

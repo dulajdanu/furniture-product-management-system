@@ -67,7 +67,7 @@
                     </nb-card-header>
                     <div *ngIf="addPhotos == true" style="margin-top: 20px;">
                         <ngx-dropzone (change)="onSelect($event)">
-                            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                            <ngx-dropzone-label>Add a photo</ngx-dropzone-label>
                             <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-preview>
@@ -85,6 +85,11 @@
                                 <li>{{item}}</li>
                             </div>
                         </ul>
+                    </div>
+
+                    <div>
+                        <button style="margin-top: 20px;margin-left: 20px;" nbButton status="primary"
+                            (click)="finishOrder()">Finish Order</button>
                     </div>
 
                 </div>

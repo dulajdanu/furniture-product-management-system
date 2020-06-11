@@ -287,6 +287,25 @@ export class ManagerService {
       this.showToast('danger', res);
     })
   }
+
+  finishOrder(id, email) {
+    this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+      {
+        'progress': 100,
+        'notes': 'Project is complete'
+      }
+    );
+
+
+    this.afs.collection('users').doc(email).collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
+      {
+        'progress': 100,
+        'notes': 'Project is complete'
+
+      }
+    );
+
+  }
 }
 
 

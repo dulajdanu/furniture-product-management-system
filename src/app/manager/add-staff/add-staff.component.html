@@ -29,7 +29,8 @@
                     [(ngModel)]="staffPassword">
 
                 <button style="margin-top: 20px;" nbButton status="primary" (click)="createAccount()"
-                    [disabled]='staffEmail == null || staffPassword ==null || staffFullname ==null'>Create Staff
+                    [disabled]='staffEmail == null || staffPassword ==null || staffFullname ==null|| !staffEmail.includes("@")'>Create
+                    Staff
                     Account</button>
 
 
