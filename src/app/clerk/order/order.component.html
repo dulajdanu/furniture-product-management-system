@@ -44,6 +44,13 @@
                     <p>{{item}}</p>
                 </div>
             </nb-card-header>
+            <div *ngIf="appointment.image!=null">
+                <nb-card-header>
+                    Image Added by user
+                    <img style="height: 200px;width: 100px;margin-left: 20px;" src="{{appointment.image}}" alt=""
+                        srcset="">
+                </nb-card-header>
+            </div>
             <nb-card-body style="font-weight: 600;font-size: 0.9375;line-height: 1.5rem;font-family: 'Open Sans'sans-serif;word-wrap: break-word;
                 ">
                 Description :

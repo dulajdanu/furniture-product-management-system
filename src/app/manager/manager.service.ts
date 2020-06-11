@@ -57,10 +57,10 @@ export class ManagerService {
     console.log(id);
     console.log(emailOftheClient);
     this.afs.collection('appointments').doc(id).update({
-      'status': 3
+      'status': -2
     }).then(res => {
       this.afs.collection('users').doc(emailOftheClient).collection('appointments').doc(id).update({
-        'status': 3
+        'status': -2
       }).then(res => {
         this.showToast('success', 'appointment cancelled successfully');
 
@@ -305,7 +305,8 @@ export interface Appointment {
   phone: string;
   confirmedBy: string;
   dateFortheAppointment: string;
-  timeFortheAppointment: string
+  timeFortheAppointment: string;
+  image: string
 }
 
 export interface AppointmentId extends Appointment {
