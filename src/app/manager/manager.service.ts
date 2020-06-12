@@ -86,6 +86,7 @@ export class ManagerService {
         'manager': localStorage.getItem('email')
       }).then(res => {
         this.showToast('success', 'appointment confirmed successfully');
+        this.router.navigateByUrl('/manager/home');
 
       }
 
