@@ -32,7 +32,9 @@ const routes: Routes = [{ path: '', redirectTo: '/manager/home', pathMatch: 'ful
 {
   path: 'add-staff',
   component: AddStaffComponent
-}
+},
+
+
 ];
 
 @NgModule({

@@ -58,6 +58,18 @@
             </nb-card-body>
         </nb-card>
 
+        <div *ngIf="showDatePicker == true">
+            <nb-card>
+                <nb-card-header>
+                    <h1 class="h5">Selected date: {{ date | date }}</h1>
+                </nb-card-header>
+                <nb-card-body>
+                    <nb-calendar [dayCellComponent]="dayCellComponent" [(date)]="date" size="large">
+                    </nb-calendar>
+                </nb-card-body>
+            </nb-card>
+        </div>
+
         <nb-card>
             <nb-card-body>
                 <button nbButton status="success" (click)="confirmAppointment(appointmentId)">Confirm</button>

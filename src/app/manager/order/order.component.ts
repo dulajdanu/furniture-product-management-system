@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ManagerService } from '../manager.service';
+import { CalenderCustomDayCellComponentComponent } from '../calender-custom-day-cell-component/calender-custom-day-cell-component.component';
+
 
 @Component({
   selector: 'ngx-order',
@@ -8,7 +10,9 @@ import { ManagerService } from '../manager.service';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-
+  date = new Date();
+  dayCellComponent = CalenderCustomDayCellComponentComponent;
+  showDatePicker: boolean = false;
   appointment: Appointment = <Appointment>{
     dateAdded: new Date
   }; //this variable is used to store the document data
@@ -108,7 +112,9 @@ export class OrderComponent implements OnInit {
   }
   confirmAppointment(appointmentId) {
     console.log('inside confirm order');
-    this.managerService.confirmAppointment(appointmentId, this.clientEmail);
+    console.log("hiii");
+    this.showDatePicker = true;
+    // this.managerService.confirmAppointment(appointmentId, this.clientEmail);
     // localStorage.setItem('clientMail', this.clientEmail);
     // this.router.navigate(['confirmOrder'], { relativeTo: this.route });
 
