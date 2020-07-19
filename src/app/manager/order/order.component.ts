@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ManagerService } from '../manager.service';
 import { CalenderCustomDayCellComponentComponent } from '../calender-custom-day-cell-component/calender-custom-day-cell-component.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { CalenderCustomDayCellComponentComponent } from '../calender-custom-day-
 })
 export class OrderComponent implements OnInit {
   date = new Date();
+
   dayCellComponent = CalenderCustomDayCellComponentComponent;
   showDatePicker: boolean = false;
   appointment: Appointment = <Appointment>{
@@ -24,7 +26,7 @@ export class OrderComponent implements OnInit {
   showCancelAppointmentDialogBox: boolean = false;
   clientEmail: string = "";
   Mail;
-  constructor(private route: ActivatedRoute, private managerService: ManagerService, private router: Router) {
+  constructor(private route: ActivatedRoute, private managerService: ManagerService, private router: Router, private afs: AngularFirestore) {
     this.Mail = localStorage.getItem('email');
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
@@ -102,6 +104,9 @@ export class OrderComponent implements OnInit {
   appointmentId: string = "";
   ngOnInit() {
     this.appointment.dateAdded = "";
+
+
+
   }
 
   cancelAppointment(appointmentId: string,) {
