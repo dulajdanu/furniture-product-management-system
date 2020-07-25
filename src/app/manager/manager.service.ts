@@ -73,7 +73,7 @@ export class ManagerService {
     });
   }
 
-  confirmAppointment(id: string, val) {
+  confirmAppointment(id: string, val, date: string, time: string) {
     console.log(id);
     console.log(val);
     this.afs.collection('users').doc(val).collection('appointments').doc(id).update(
@@ -87,6 +87,14 @@ export class ManagerService {
       }).then(res => {
         this.showToast('success', 'appointment confirmed successfully');
         this.router.navigateByUrl('/manager/home');
+        this.afs.collection("managers").doc(localStorage.getItem('email')).collection("appointments").add({
+          'date': date,
+          'time': time,
+          'appointmentID': id,
+          'email': val
+        }).catch(res => {
+
+        });
 
       }
 

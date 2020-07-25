@@ -22,8 +22,8 @@ export class ConfirmorderComponent implements OnInit {
   confirmOrderForm = new FormGroup({
     email: new FormControl({ value: localStorage.getItem('clientMail'), disabled: true }, [Validators.required, Validators.email]),
     // phone: new FormControl({ value: "077639690", disabled: true }, Validators.required),
-    dateFortheAppointment: new FormControl('', Validators.required),
-    timeFortheAppointment: new FormControl('', Validators.required),
+    // dateFortheAppointment: new FormControl('', Validators.required),
+    // timeFortheAppointment: new FormControl('', Validators.required),
     remindTime: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
 
@@ -34,13 +34,13 @@ export class ConfirmorderComponent implements OnInit {
 
   }
 
-  get dateFortheAppointment() {
-    return this.confirmOrderForm.get('dateFortheAppointment');
-  }
+  // get dateFortheAppointment() {
+  //   return this.confirmOrderForm.get('dateFortheAppointment');
+  // }
 
-  get timeFortheAppointment() {
-    return this.confirmOrderForm.get('timeFortheAppointment');
-  }
+  // get timeFortheAppointment() {
+  //   return this.confirmOrderForm.get('timeFortheAppointment');
+  // }
 
   get remindTime() {
     return this.confirmOrderForm.get('remindTime');
@@ -81,9 +81,9 @@ export class ConfirmorderComponent implements OnInit {
 
     let formatDate = pipe.transform(date, 'y-MM-dd');
     console.log(formatDate);
-    val['dateFortheAppointment'] = formatDate;
+    // val['dateFortheAppointment'] = formatDate;
     val['clientEmail'] = localStorage.getItem('clientMail');
-    this.clerkService.confirmAppointment(this.appointmentId, val, formatDate, this.timeFortheAppointment.value);
+    this.clerkService.confirmAppointment(this.appointmentId, val);
   }
   ngOnInit(): void {
   }

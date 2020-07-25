@@ -15,83 +15,131 @@
                 </nb-sidebar> -->
 
     <nb-layout-column class="colored-column-success">
-        <nb-card>
-            <nb-card-header>Order ID : {{appointmentId}}</nb-card-header>
-            <nb-card-header>Order Status : <div>
-                    {{appointmentStatusMSg}}</div>
-            </nb-card-header>
-            <nb-card-header>
-                Date added : {{appointment.dateAdded.seconds*1000  | date: 'yyyy-MM-dd'}}
-            </nb-card-header>
-            <nb-card-header>
-                Date allocated for the appointment : {{appointment.dateFortheAppointment}}
-            </nb-card-header>
-            <nb-card-header>
-                Method of contact : {{appointMentMethodOfContact}}
-            </nb-card-header>
-            <nb-card-header>
-                E Mail and Phone number : {{appointment.email}} <div style="display: inline-block;width: 30px;"></div>
-                {{appointment.phone}}
-            </nb-card-header>
+        <div>
+            <form [formGroup]="confirmOrderForm" (ngSubmit)="onSubmit(confirmOrderForm.value)">
+                <nb-card>
+                    <nb-card-header>Order ID : {{appointmentId}}</nb-card-header>
+                    <nb-card-header>Order Status : <div>
+                            {{appointmentStatusMSg}}</div>
+                    </nb-card-header>
+                    <nb-card-header>
+                        Date added : {{appointment.dateAdded.seconds*1000  | date: 'yyyy-MM-dd'}}
+                    </nb-card-header>
+                    <nb-card-header>
+                        Date allocated for the appointment : {{appointment.dateFortheAppointment}}
+                    </nb-card-header>
+                    <nb-card-header>
+                        Method of contact : {{appointMentMethodOfContact}}
+                    </nb-card-header>
+                    <nb-card-header>
+                        E Mail and Phone number : {{appointment.email}} <div style="display: inline-block;width: 30px;">
+                        </div>
+                        {{appointment.phone}}
+                    </nb-card-header>
 
-            <nb-card-header>
-                Address : {{appointment.address}}
-            </nb-card-header>
-            <nb-card-header>
-                Types required
-                <hr>
-                <div *ngFor="let item of typesRequiredStringArray">
-                    <p>{{item}}</p>
-                </div>
-            </nb-card-header>
-            <div *ngIf="appointment.image!=null">
-                <nb-card-header>
-                    Image Added by user
-                    <img style="height: 200px;width: 100px;margin-bottom: 20px;margin-left: 20px;"
-                        src="{{appointment.image}}" alt="" srcset="">
-                </nb-card-header>
-            </div>
-            <nb-card-body style="font-weight: 600;font-size: 0.9375;line-height: 1.5rem;font-family: 'Open Sans'sans-serif;word-wrap: break-word;
-                ">
-                Description :
-                <p>{{appointment.descriptionOfOrder}}</p>
-            </nb-card-body>
-        </nb-card>
+                    <nb-card-header>
+                        Address : {{appointment.address}}
+                    </nb-card-header>
+                    <nb-card-header>
+                        Types required
+                        <hr>
+                        <div *ngFor="let item of typesRequiredStringArray">
+                            <p>{{item}}</p>
+                        </div>
+                    </nb-card-header>
+                    <div *ngIf="appointment.image!=null">
+                        <nb-card-header>
+                            Image Added by user
+                            <img style="height: 200px;width: 100px;margin-bottom: 20px;margin-left: 20px;"
+                                src="{{appointment.image}}" alt="" srcset="">
+                        </nb-card-header>
+                    </div>
+                    <nb-card-body style="font-weight: 600;font-size: 0.9375;line-height: 1.5rem;font-family: 'Open Sans'sans-serif;word-wrap: break-word;
+                        ">
+                        Description :
+                        <p>{{appointment.descriptionOfOrder}}</p>
+                    </nb-card-body>
+                </nb-card>
 
-        <div *ngIf="showDatePicker == true">
-            <nb-card>
-                <nb-card-header>
-                    <h1 class="h5">Selected date: {{ date | date }}</h1>
-                </nb-card-header>
-                <nb-card-body>
-                    <nb-calendar [dayCellComponent]="dayCellComponent" [(date)]="date" size="large">
-                    </nb-calendar>
-                </nb-card-body>
-            </nb-card>
+                <!-- <div *ngIf="showDatePicker == true"> -->
+                <nb-card>
+                    <nb-card-header>
+                        <h1 class="h5">Selected date: {{ date | date }}</h1>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row">
+                            <nb-calendar [(date)]="date" size="large" (dateChange)="handleDateChange($event)"
+                                ngDefaultControl>
+                            </nb-calendar>
+                            <div style="width: 80px;">
+
+                            </div>
+                            <div>
+                                <h3>Appointments on {{ date | date }}</h3>
+                                <div *ngIf="appointmentsOftheMAnagerCount == 0 else elseBlock">
+                                    <h6>You don't have any appointment(s) on this date</h6>
+
+                                </div>
+                                <ng-template #elseBlock>
+                                    <h6>
+                                        You have {{appointmentsOftheMAnagerCount}} appointment(s) on this date
+                                    </h6>
+
+                                </ng-template>
+
+                            </div>
+
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+                <!-- </div> -->
+
+                <nb-card>
+                    <nb-card-header>Pick a time for the appointment</nb-card-header>
+
+                    <nb-card-body>
+                        <input [ngxTimepicker]="default1" [value]="'05:11 pm'"
+                            formControlName="timeFortheAppointmentForm" ngDefaultControl>
+                        <ngx-material-timepicker #default1>
+                        </ngx-material-timepicker>
+                        <ng-container *ngIf="timeFortheAppointmentForm.invalid && timeFortheAppointmentForm.touched">
+                            <p class="error-message" style="color: red;">
+                                Time for the appointment is required!
+                            </p>
+
+                        </ng-container>
+                    </nb-card-body>
+                </nb-card>
+                dateFortheAppointment
+                <nb-card>
+                    <nb-card-body>
+                        <!-- <button nbButton status="success" (click)="confirmAppointment(appointmentId)">
+                            Confirm
+                        </button> -->
+                        <button nbButton status="primary" [disabled]="!confirmOrderForm.valid">
+                            Confirm
+                        </button>
+                        <div style="width: 50px;display: inline-block;"></div>
+                        <button nbButton status="danger" (click)="showCancelAppointmentDialogBox=true">Cancel</button>
+
+                    </nb-card-body>
+
+
+                </nb-card>
+
+                <nb-card *ngIf="showCancelAppointmentDialogBox">
+                    <nb-card-body>
+                        <p>Are you sure you want to cancel the order</p>
+                        <button nbButton status="success" (click)="cancelAppointment(appointmentId)">Yes</button>
+                        <div style="width: 50px;display: inline-block;"></div>
+                        <button nbButton status="danger" (click)="showCancelAppointmentDialogBox = false">No</button>
+
+                    </nb-card-body>
+
+
+                </nb-card>
+            </form>
         </div>
-
-        <nb-card>
-            <nb-card-body>
-                <button nbButton status="success" (click)="confirmAppointment(appointmentId)">Confirm</button>
-                <div style="width: 50px;display: inline-block;"></div>
-                <button nbButton status="danger" (click)="showCancelAppointmentDialogBox=true">Cancel</button>
-
-            </nb-card-body>
-
-
-        </nb-card>
-
-        <nb-card *ngIf="showCancelAppointmentDialogBox">
-            <nb-card-body>
-                <p>Are you sure you want to cancel the order</p>
-                <button nbButton status="success" (click)="cancelAppointment(appointmentId)">Yes</button>
-                <div style="width: 50px;display: inline-block;"></div>
-                <button nbButton status="danger" (click)="showCancelAppointmentDialogBox = false">No</button>
-
-            </nb-card-body>
-
-
-        </nb-card>
 
 
 

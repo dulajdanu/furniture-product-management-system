@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ManagerService } from '../manager.service';
 import { CalenderCustomDayCellComponentComponent } from '../calender-custom-day-cell-component/calender-custom-day-cell-component.component';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -25,7 +27,17 @@ export class OrderComponent implements OnInit {
   typesRequiredStringArray: Array<string> = []; //converting the requests of the user in short hand format to a readable format
   showCancelAppointmentDialogBox: boolean = false;
   clientEmail: string = "";
+  appointmentsOftheMAnager;
+  appointmentsOftheMAnagerCount: number = 0;
   Mail;
+  pipe = new DatePipe('en-US'); // Use your own locale
+  dateToday: string = this.pipe.transform(Date(), 'MM-dd-y')
+  confirmOrderForm = new FormGroup({
+
+    // dateFortheAppointmentForm: new FormControl('', Validators.required),
+    timeFortheAppointmentForm: new FormControl('',),
+
+  });
   constructor(private route: ActivatedRoute, private managerService: ManagerService, private router: Router, private afs: AngularFirestore) {
     this.Mail = localStorage.getItem('email');
     this.appointmentId = this.route.snapshot.paramMap.get('id');
@@ -101,12 +113,41 @@ export class OrderComponent implements OnInit {
 
   }
 
+
+  get dateFortheAppointmentForm() {
+    return this.confirmOrderForm.get('dateFortheAppointmentForm');
+  }
+
+  get timeFortheAppointmentForm() {
+    return this.confirmOrderForm.get('timeFortheAppointmentForm');
+  }
+
   appointmentId: string = "";
   ngOnInit() {
     this.appointment.dateAdded = "";
 
 
 
+  }
+
+  getAppointmentsOftheMAnager() {
+    this.afs.collection("managers").doc(localStorage.getItem("email")).collection("appointments", ref => ref.where('date', '==', this.pipe.transform(this.date, 'MM-dd-y'))).valueChanges().subscribe(data => {
+      // console.log(data);
+      // this.x = data.length;
+      if (data.length != 0) {
+        console.log("there is a matching doc");
+
+        // this.showVal = false;
+        // this.x = data.length;
+
+        // console.log(this.x);
+        // this.showVal = true;
+
+      }
+      console.log(data.length);
+      this.appointmentsOftheMAnagerCount = data.length;
+
+    });
   }
 
   cancelAppointment(appointmentId: string,) {
@@ -119,10 +160,28 @@ export class OrderComponent implements OnInit {
     console.log('inside confirm order');
     console.log("hiii");
     this.showDatePicker = true;
-    // this.managerService.confirmAppointment(appointmentId, this.clientEmail);
-    // localStorage.setItem('clientMail', this.clientEmail);
-    // this.router.navigate(['confirmOrder'], { relativeTo: this.route });
+    // console.log(default2);
 
+
+  }
+
+  handleDateChange(event) {
+    console.log(event);
+    this.getAppointmentsOftheMAnager();
+  }
+
+
+  onSubmit(val) {
+    console.log(val);
+    console.log(this.date);
+    if (this.timeFortheAppointmentForm.value != "") {
+      console.log("submit values");
+      this.managerService.confirmAppointment(this.appointmentId, this.clientEmail, this.pipe.transform(this.date, 'MM-dd-y'), this.timeFortheAppointmentForm.value);
+      localStorage.setItem('clientMail', this.clientEmail);
+      // this.router.navigate(['confirmOrder'], { relativeTo: this.route });
+      // this.router.navigateByUrl("/manager/home");
+
+    }
   }
 
 
@@ -145,4 +204,7 @@ export interface Appointment {
 export interface AppointmentId extends Appointment {
   id: string;
 }
+
+
+
 

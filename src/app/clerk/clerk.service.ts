@@ -69,14 +69,14 @@ export class ClerkService {
     });
   }
 
-  confirmAppointment(id: string, val, dateOfAppointment: string, timeOfAppointment: string) {
+  confirmAppointment(id: string, val) {
     console.log(id);
     console.log(val);
     this.afs.collection('users').doc(val['clientEmail']).collection('appointments').doc(id).update(
       {
         'status': 1,
-        'dateFortheAppointment': dateOfAppointment,
-        'timeFortheAppointment': timeOfAppointment
+        // 'dateFortheAppointment': dateOfAppointment,
+        // 'timeFortheAppointment': timeOfAppointment
 
       }
     ).then(res => {
@@ -85,8 +85,8 @@ export class ClerkService {
         this.afs.collection('appointments').doc(id).update({
           status: 1,
           confirmedBy: localStorage.getItem('email'),
-          'dateFortheAppointment': dateOfAppointment,
-          'timeFortheAppointment': timeOfAppointment
+          // 'dateFortheAppointment': dateOfAppointment,
+          // 'timeFortheAppointment': timeOfAppointment
 
         }).then(
           res => {

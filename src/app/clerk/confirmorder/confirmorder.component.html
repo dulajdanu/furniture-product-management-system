@@ -37,7 +37,7 @@
                         </div> -->
                     </nb-card-body>
                 </nb-card>
-                <nb-card>
+                <!-- <nb-card>
                     <nb-card-header>Pick a date for the appointment</nb-card-header>
 
                     <nb-card-body>
@@ -53,24 +53,11 @@
                         </ng-container>
                     </nb-card-body>
 
-                </nb-card>
+                </nb-card> -->
+
 
                 <nb-card>
-                    <nb-card-header>Pick a time for the appointment</nb-card-header>
-
-                    <nb-card-body>
-                        <input [ngxTimepicker]="default1" [value]="'05:11 pm'" formControlName="timeFortheAppointment">
-                        <ngx-material-timepicker #default1></ngx-material-timepicker>
-                        <ng-container *ngIf="timeFortheAppointment.invalid && timeFortheAppointment.touched">
-                            <p class="error-message" style="color: red;">
-                                Time for the appointment is required!
-                            </p>
-
-                        </ng-container>
-                    </nb-card-body>
-                </nb-card>
-                <nb-card>
-                    <nb-card-header>Pick a time for the departure</nb-card-header>
+                    <nb-card-header>Pick a time for the reminder</nb-card-header>
 
                     <nb-card-body>
                         <input [ngxTimepicker]="default2" [value]="'12:11 pm'" formControlName="remindTime">
