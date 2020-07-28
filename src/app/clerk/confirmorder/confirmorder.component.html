@@ -41,16 +41,38 @@
                     <nb-card-header>Pick a date for the appointment</nb-card-header>
 
                     <nb-card-body>
+                        <div class="row">
+                            <div>
 
-                        <input nbInput placeholder="Pick Date" [nbDatepicker]="formpicker"
-                            formControlName="dateFortheAppointment">
-                        <nb-datepicker #formpicker></nb-datepicker>
-                        <ng-container *ngIf="dateFortheAppointment.invalid && dateFortheAppointment.touched">
-                            <p class="error-message" style="color: red;">
-                                Date for the appointment is required!
-                            </p>
+                                <input nbInput placeholder="Pick Date" [nbDatepicker]="formpicker"
+                                    formControlName="dateFortheAppointment">
+                                <nb-datepicker #formpicker (dateChange)="handleDateChange($event)"></nb-datepicker>
+                                <ng-container *ngIf="dateFortheAppointment.invalid && dateFortheAppointment.touched">
+                                    <p class="error-message" style="color: red;">
+                                        Date for the appointment is required!
+                                    </p>
 
-                        </ng-container>
+                                </ng-container>
+                            </div>
+                            <div style="width: 50px;">
+
+                            </div>
+                            <div>
+                                <h6>Appointments on {{ date | date }}</h6>
+                                <div *ngIf="appointmentsOftheMAnagerCount == 0 else elseBlock">
+                                    <h6>Manager doesn't have any appointment(s) on this date</h6>
+
+                                </div>
+                                <ng-template #elseBlock>
+                                    <h6>
+                                        Manager has {{appointmentsOftheMAnagerCount}} appointment(s) on this date
+                                    </h6>
+
+                                </ng-template>
+
+                            </div>
+
+                        </div>
                     </nb-card-body>
 
                 </nb-card> -->
