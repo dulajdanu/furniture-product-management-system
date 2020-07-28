@@ -3,6 +3,7 @@ import { Appointment, ClerkService } from '../clerk.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'ngx-confirmorder',
@@ -18,6 +19,10 @@ export class ConfirmorderComponent implements OnInit {
     dateAdded: new Date
   }; //this variable is used to store the document data
   time = { hour: 13, minute: 30 };
+  appointmentsOftheMAnagerCount: number = 0;
+  pipe = new DatePipe('en-US'); // Use your own locale
+  date = new Date();
+
 
   confirmOrderForm = new FormGroup({
     email: new FormControl({ value: localStorage.getItem('clientMail'), disabled: true }, [Validators.required, Validators.email]),
@@ -25,6 +30,7 @@ export class ConfirmorderComponent implements OnInit {
     dateFortheAppointment: new FormControl('', Validators.required),
     timeFortheAppointment: new FormControl('', Validators.required),
     remindTime: new FormControl('', Validators.required),
+
     description: new FormControl('', Validators.required),
 
   });
@@ -49,7 +55,7 @@ export class ConfirmorderComponent implements OnInit {
   get description() {
     return this.confirmOrderForm.get('description');
   }
-  constructor(private route: ActivatedRoute, private clerkService: ClerkService, private router: Router) {
+  constructor(private route: ActivatedRoute, private clerkService: ClerkService, private router: Router, private afs: AngularFirestore) {
 
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
@@ -70,8 +76,31 @@ export class ConfirmorderComponent implements OnInit {
 
     })
 
+    this.getAppointmentsOftheMAnager();
 
 
+
+
+  }
+
+  getAppointmentsOftheMAnager() {
+    this.afs.collection("managers").doc("abc@gmail.com").collection("appointments", ref => ref.where('date', '==', this.pipe.transform(this.date, 'MM-dd-y'))).valueChanges().subscribe(data => {
+      // console.log(data);
+      // this.x = data.length;
+      if (data.length != 0) {
+        console.log("there is a matching doc");
+
+        // this.showVal = false;
+        // this.x = data.length;
+
+        // console.log(this.x);
+        // this.showVal = true;
+
+      }
+      console.log(data.length);
+      this.appointmentsOftheMAnagerCount = data.length;
+
+    });
   }
 
   onSubmit(val) {
@@ -84,6 +113,14 @@ export class ConfirmorderComponent implements OnInit {
     val['dateFortheAppointment'] = formatDate;
     val['clientEmail'] = localStorage.getItem('clientMail');
     this.clerkService.confirmAppointment(this.appointmentId, val, formatDate, this.timeFortheAppointment.value);
+  }
+
+
+  handleDateChange(event) {
+    console.log(event);
+    this.date = event;
+    console.log(this.date);
+    this.getAppointmentsOftheMAnager();
   }
   ngOnInit(): void {
   }
