@@ -4,7 +4,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { ClerkService } from '../../clerk.service';
 import { Router } from '@angular/router';
 import { InventoryService } from '../inventory.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 
 
@@ -21,9 +21,11 @@ export class RemoveStockComponent implements OnInit {
   selectedOrderId;
   clerkMail;
 
+  inventorySub: Subscription;
+  currentAppointmentSub: Subscription;
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
     this.clerkMail = localStorage.getItem('email');
-    this.inventoryService.getAllItems().subscribe(res => {
+    this.inventorySub = this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
       this.itemsofInventory.forEach(element => {
@@ -36,10 +38,12 @@ export class RemoveStockComponent implements OnInit {
 
 
     });
+
+
     console.log(this.itemsMap);
     this.source = new LocalDataSource(this.itemsAdded);
 
-    this.clerkService.getCurrentAppointments().subscribe(res => {
+    this.currentAppointmentSub = this.clerkService.getCurrentAppointments().subscribe(res => {
       this.appointments = res;
 
       if (res.length == 0) {
@@ -56,6 +60,11 @@ export class RemoveStockComponent implements OnInit {
       }
 
     })
+  }
+
+  ngOnDestroy() {
+    this.inventorySub.unsubscribe();
+    this.currentAppointmentSub.unsubscribe();
   }
 
   itemsAdded = []; //items added by user to add to stock

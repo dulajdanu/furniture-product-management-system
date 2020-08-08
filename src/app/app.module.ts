@@ -32,6 +32,7 @@ import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OngoingOrdersComponent } from './manager/ongoing-orders/ongoing-orders.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NgxMaterialTimepickerModule,
     AngularFireStorageModule,
     Ng2SmartTableModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    ChartsModule
 
 
 

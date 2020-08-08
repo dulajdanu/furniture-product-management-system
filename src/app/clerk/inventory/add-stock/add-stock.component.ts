@@ -4,7 +4,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { ClerkService } from '../../clerk.service';
 import { Router } from '@angular/router';
 import { InventoryService } from '../inventory.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 
 
@@ -17,12 +17,13 @@ export class AddStockComponent implements OnInit {
 
   source: LocalDataSource;
   clerkMail: string;
+  itemSub: Subscription;
 
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
     this.clerkMail = localStorage.getItem('email');
 
-    this.inventoryService.getAllItems().subscribe(res => {
+    this.itemSub = this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
       this.itemsofInventory.forEach(element => {
@@ -58,6 +59,10 @@ export class AddStockComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  ngOnDestroy() {
+    this.itemSub.unsubscribe()
   }
 
   load() {

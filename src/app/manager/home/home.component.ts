@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbSidebarService, NbMenuItem, NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ManagerService } from '../manager.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
 
   pipe = new DatePipe('en-US'); // Use your own locale
   Mail;
+  appointmentSub: Subscription;
+  appointmentSub2: Subscription;
 
   showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
     this.toastrService.show(status, message, { status });
@@ -44,7 +46,7 @@ export class HomeComponent implements OnInit {
     this.Mail = localStorage.getItem('email');
     console.log(this.pipe.transform(Date(), 'MM-dd-y'));
     console.log(this.pipe.transform(Date(), 'h:mm a'));
-    this.managerService.getAppointments().subscribe(res => {
+    this.appointmentSub = this.managerService.getAppointments().subscribe(res => {
       console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
@@ -97,7 +99,7 @@ export class HomeComponent implements OnInit {
     });
 
 
-    this.managerService.getAppointmentsofaClerk().subscribe(res => {
+    this.appointmentSub2 = this.managerService.getAppointmentsofaClerk().subscribe(res => {
       console.log(res);
       if (res.length == 0) { }
       else {
@@ -112,6 +114,8 @@ export class HomeComponent implements OnInit {
     });
 
   }
+
+
 
   numberOfOrders: number = 0;
   showRequestForm: boolean = false;
@@ -200,6 +204,8 @@ export class HomeComponent implements OnInit {
   ngOnDestroy() {
     // ...
     console.log('on destroy called');
+    this.appointmentSub.unsubscribe();
+    this.appointmentSub2.unsubscribe();
   }
 
   // request() {

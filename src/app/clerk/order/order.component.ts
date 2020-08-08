@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ClerkService } from '../clerk.service';
 
 @Component({
@@ -20,13 +20,14 @@ export class OrderComponent implements OnInit {
   showCancelAppointmentDialogBox: boolean = false;
   clientEmail: string = "";
   Mail;
+  appointmentSub: Subscription;
   constructor(private route: ActivatedRoute, private clerkService: ClerkService, private router: Router) {
     this.Mail = localStorage.getItem('email');
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
     console.log('this is the id ' + this.appointmentId);
 
-    this.clerkService.getAppointmentData(this.appointmentId).subscribe(res => {
+    this.appointmentSub = this.clerkService.getAppointmentData(this.appointmentId).subscribe(res => {
       console.log(res);
       this.typesRequired = [];
       this.typesRequiredStringArray = [];
@@ -93,6 +94,10 @@ export class OrderComponent implements OnInit {
 
 
 
+  }
+
+  ngOnDestroy() {
+    this.appointmentSub.unsubscribe()
   }
 
   appointmentId: string = "";

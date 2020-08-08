@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-confirmorder',
@@ -22,6 +23,8 @@ export class ConfirmorderComponent implements OnInit {
   appointmentsOftheMAnagerCount: number = 0;
   pipe = new DatePipe('en-US'); // Use your own locale
   date = new Date();
+  appointMentSubscription: Subscription;
+  appointMentSubscription2: Subscription;
 
 
   confirmOrderForm = new FormGroup({
@@ -37,6 +40,8 @@ export class ConfirmorderComponent implements OnInit {
 
   ngOnDestroy() {
     localStorage.setItem('clientMail', null); //we have to remove the client email from the local storage after this component is destroyed
+    this.appointMentSubscription.unsubscribe();
+    this.appointMentSubscription2.unsubscribe();
 
   }
 
@@ -62,7 +67,7 @@ export class ConfirmorderComponent implements OnInit {
     console.log('this is the id ' + this.appointmentId);
     this.clerkMail = localStorage.getItem('email');
 
-    this.clerkService.getAppointmentData(this.appointmentId).subscribe(res => {
+    this.appointMentSubscription = this.clerkService.getAppointmentData(this.appointmentId).subscribe(res => {
       console.log(res);
       this.appointment = res;
       this.clientEmail = this.appointment.email;
@@ -83,8 +88,10 @@ export class ConfirmorderComponent implements OnInit {
 
   }
 
+
+
   getAppointmentsOftheMAnager() {
-    this.afs.collection("managers").doc("abc@gmail.com").collection("appointments", ref => ref.where('date', '==', this.pipe.transform(this.date, 'MM-dd-y'))).valueChanges().subscribe(data => {
+    this.appointMentSubscription2 = this.afs.collection("managers").doc("abc@gmail.com").collection("appointments", ref => ref.where('date', '==', this.pipe.transform(this.date, 'MM-dd-y'))).valueChanges().subscribe(data => {
       // console.log(data);
       // this.x = data.length;
       if (data.length != 0) {

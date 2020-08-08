@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ManagerService } from '../manager.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-order',
@@ -20,13 +21,14 @@ export class OrderComponent implements OnInit {
   showCancelAppointmentDialogBox: boolean = false;
   clientEmail: string = "";
   Mail;
+  appointmentSub: Subscription;
   constructor(private route: ActivatedRoute, private managerService: ManagerService, private router: Router) {
     this.Mail = localStorage.getItem('email');
     this.appointmentId = this.route.snapshot.paramMap.get('id');
 
     console.log('this is the id ' + this.appointmentId);
 
-    this.managerService.getAppointmentData(this.appointmentId).subscribe(res => {
+    this.appointmentSub = this.managerService.getAppointmentData(this.appointmentId).subscribe(res => {
       console.log(res);
       this.typesRequired = [];
       this.typesRequiredStringArray = [];
@@ -98,6 +100,10 @@ export class OrderComponent implements OnInit {
   appointmentId: string = "";
   ngOnInit() {
     this.appointment.dateAdded = "";
+  }
+
+  ngOnDestroy() {
+    this.appointmentSub.unsubscribe()
   }
 
   cancelAppointment(appointmentId: string,) {

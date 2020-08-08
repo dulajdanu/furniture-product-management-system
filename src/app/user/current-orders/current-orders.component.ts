@@ -4,6 +4,7 @@ import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { ManagerService } from '../../manager/manager.service';
 import { UserService } from '../user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-current-orders',
@@ -26,6 +27,8 @@ export class CurrentOrdersComponent implements OnInit {
   feedBackOftheUser: string;
   Mail;
 
+  appointmentSub: Subscription;
+  appointmentSub2: Subscription;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -34,7 +37,7 @@ export class CurrentOrdersComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService, private userService: UserService) {
     this.Mail = localStorage.getItem('email');
-    this.userService.getCurrentAppointments().subscribe(res => {
+    this.appointmentSub = this.userService.getCurrentAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
@@ -75,6 +78,14 @@ export class CurrentOrdersComponent implements OnInit {
     // this.userService.getAppointments().subscribe().unsubscribe();
 
   }
+  ngOnDestroy() {
+    this.appointmentSub.unsubscribe();
+    if (this.appointmentSub2 != null) {
+      this.appointmentSub2.unsubscribe();
+
+    }
+  }
+
   items: NbMenuItem[] = [
     {
       title: 'Home',
@@ -114,7 +125,7 @@ export class CurrentOrdersComponent implements OnInit {
 
   getDataAboutOrderProgress(id: string) {
     console.log('get data about order progress');
-    this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
+    this.appointmentSub2 = this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
       this.progressDetails = res;
       console.log(this.progressDetails);
 

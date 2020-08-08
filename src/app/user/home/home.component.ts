@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NbSidebarService, NbMenuItem } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../user.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Label, Color } from 'ng2-charts';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -32,12 +35,43 @@ export interface AppointmentId extends Appointment {
 
 
 export class HomeComponent implements OnInit {
-  Mail;
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private userService: UserService, private afs: AngularFirestore) {
+
+  appointmentsCount: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  appointmentsFieldsInDoc: string[] = ['count01', 'count02', 'count03', 'count04', 'count05', 'count06', 'count07', 'count08', 'count09', 'count10', 'count11', 'count12'];
+  fetchingDataCompleted: boolean = false;
+  //
+  //data regarding the graph is added here
+
+
+
+  public lineChartData: ChartDataSets[] = [
+    { data: this.appointmentsCount, label: 'Number of appointments' },
+  ];
+  public lineChartLabels: Label[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  // public lineChartOptions: (ChartOptions & { annotation: any }) = {
+  //   responsive: true,
+  // };
+  public lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,0,0,0.3)',
+    },
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  public lineChartPlugins = [];
+
+  //
+  Mail;
+  appointmentSub: Subscription;
+  appointmentSub2: Subscription;
+  totalNumberOfBookings;
+
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private userService: UserService, private afs: AngularFirestore, private datePipe: DatePipe) {
     this.Mail = localStorage.getItem('email');
     console.log(this.Mail);
-    this.userService.getAppointments().subscribe(res => {
+    this.appointmentSub = this.userService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
@@ -76,6 +110,22 @@ export class HomeComponent implements OnInit {
     });
 
 
+    this.afs.collection("users").doc(localStorage.getItem("email")).collection("requests").doc(this.datePipe.transform(Date.now(), 'yyyy')).valueChanges().subscribe(res => {
+      console.log("request doc of this")
+      console.log(res);
+      this.totalNumberOfBookings = res['totalRequests'];
+      for (let index = 0; index < this.appointmentsFieldsInDoc.length; index++) {
+        if (res[this.appointmentsFieldsInDoc[index]] != null) {
+          this.appointmentsCount[index] = res[this.appointmentsFieldsInDoc[index]];
+          console.log("inside if ")
+
+        }
+
+      }
+      this.fetchingDataCompleted = true;
+    });
+
+
 
 
   }
@@ -105,7 +155,7 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit(): void {
     // this.getAppointments();
-    this.userService.getAppointments().subscribe().unsubscribe();
+    // this.userService.getAppointments().subscribe().unsubscribe();
 
   }
   items: NbMenuItem[] = [
@@ -146,7 +196,8 @@ export class HomeComponent implements OnInit {
   ngOnDestroy() {
     // ...
     console.log('on destroy called');
-    this.userService.getAppointments().subscribe().unsubscribe();
+    // this.userService.getAppointments().subscribe().unsubscribe();
+    this.appointmentSub.unsubscribe();
   }
 
   request() {

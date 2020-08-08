@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerService } from '../manager.service';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-reject-job-report',
@@ -13,6 +14,7 @@ export class RejectJobReportComponent implements OnInit {
   monthSelected;
   yearSelected;
   inventoryUsageReports;
+  reportSub: Subscription;
   months = [{
     'name': 'Jan',
     'val': '01'
@@ -82,12 +84,16 @@ export class RejectJobReportComponent implements OnInit {
     console.log('get reports');
     console.log(this.yearSelected);
     console.log(this.monthSelected);
-    this.managerService.getRejectedReports(this.yearSelected + this.monthSelected).subscribe(res => {
+    this.reportSub = this.managerService.getRejectedReports(this.yearSelected + this.monthSelected).subscribe(res => {
       this.inventoryUsageReports = res;
       console.log(this.inventoryUsageReports);
 
     });
 
+  }
+
+  ngOnDestroy() {
+    this.reportSub.unsubscribe();
   }
 
 }

@@ -30,6 +30,8 @@ import { RequestFormComponent } from './request-form/request-form.component';
 import { OngoingOrdersComponent } from './ongoing-orders/ongoing-orders.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { CurrentOrdersComponent } from './current-orders/current-orders.component';
+import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [UserComponent, HomeComponent, ProfileComponent, RequestFormComponent, OngoingOrdersComponent, CurrentOrdersComponent],
@@ -56,7 +58,8 @@ import { CurrentOrdersComponent } from './current-orders/current-orders.componen
     NbIconModule,
     NbSelectModule,
     NgxDropzoneModule,
-    NbProgressBarModule
+    NbProgressBarModule,
+    ChartsModule
 
 
 

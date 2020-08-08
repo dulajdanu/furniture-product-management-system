@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { async } from '@angular/core/testing';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { Router } from '@angular/router';
-import { Observable, merge } from 'rxjs';
+import { Observable, merge, Subscription } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
 import { firestore } from 'firebase';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -19,6 +19,7 @@ export class ManagerService {
   private appointmentDoc: AngularFirestoreDocument<Appointment>;
   appointment: Observable<Appointment>;
   email: string = "";
+  downloadSub: Subscription;
   constructor(
     private afs: AngularFirestore, private toastrService: NbToastrService, private router: Router, private afstorage: AngularFireStorage, private angularFireAuth: AngularFireAuth
   ) {
@@ -225,6 +226,10 @@ export class ManagerService {
 
   }
 
+  ngOnDestroy() {
+    this.downloadSub.unsubscribe()
+  }
+
   addPhotosofProgress(id: string, email: string, files: Array<File>) {
 
     files.forEach(element => {
@@ -235,7 +240,7 @@ export class ManagerService {
       task.snapshotChanges().pipe(
         finalize(() => {
           downloadURL = fileRef.getDownloadURL();
-          downloadURL.subscribe(res => {
+          this.downloadSub = downloadURL.subscribe(res => {
             this.afs.collection('appointments').doc(id).collection('appointmentData').doc('progress').update(
               {
                 'images': firestore.FieldValue.arrayUnion(res)

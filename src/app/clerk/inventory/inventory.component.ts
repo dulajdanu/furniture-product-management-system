@@ -4,7 +4,7 @@ import { AuthService } from '../../auth/auth.service';
 import { ClerkService } from '../clerk.service';
 import { Router } from '@angular/router';
 import { InventoryService } from './inventory.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-inventory',
@@ -17,6 +17,7 @@ export class InventoryComponent implements OnInit {
   itemsofInventory: Item[];
   clerkMail: string;
   Mail;
+  inventorySubscription: Subscription;
 
 
 
@@ -27,10 +28,14 @@ export class InventoryComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private clerkService: ClerkService, private router: Router, private toastrService: NbToastrService, private inventoryService: InventoryService) {
     this.clerkMail = localStorage.getItem('email');
-    this.inventoryService.getAllItems().subscribe(res => {
+    this.inventorySubscription = this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
     });
+  }
+
+  ngOnDestroy() {
+    this.inventorySubscription.unsubscribe();
   }
 
   load() {

@@ -3,7 +3,7 @@ import { NbMenuItem, NbSidebarService } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { ManagerService } from '../manager.service';
 import { InventoryService } from '../../clerk/inventory/inventory.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -40,6 +40,8 @@ export class EstimateCalComponent implements OnInit {
   labourCost: number = 0;
   dateOfCompletion: string;
   pipe = new DatePipe('en-US'); // Use your own locale
+  appointmentSub: Subscription;
+  appointmentSub2: Subscription;
 
   //  formatDate = pipe.transform(date, 'MM-dd-y');
 
@@ -240,7 +242,7 @@ export class EstimateCalComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private managerService: ManagerService, private inventoryService: InventoryService) {
     this.Mail = localStorage.getItem('email');
-    this.inventoryService.getAllItems().subscribe(res => {
+    this.appointmentSub = this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
 
       this.itemsofInventory.forEach(element => {
@@ -253,7 +255,7 @@ export class EstimateCalComponent implements OnInit {
 
 
     });
-    this.managerService.getAppointments().subscribe(res => {
+    this.appointmentSub2 = this.managerService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
@@ -297,6 +299,11 @@ export class EstimateCalComponent implements OnInit {
     console.log('avatar clicled');
     this.authService.SignOut();
 
+  }
+
+  ngOnDestroy() {
+    this.appointmentSub.unsubscribe();
+    this.appointmentSub2.unsubscribe();
   }
 
 

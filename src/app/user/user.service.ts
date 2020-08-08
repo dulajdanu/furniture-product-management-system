@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore/';
+import { AngularFirestore, AngularFirestoreCollection, DocumentSnapshot } from '@angular/fire/firestore/';
 import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { Router } from '@angular/router';
 import { Observable, merge } from 'rxjs';
@@ -18,7 +18,8 @@ export class UserService {
   appointments: Observable<AppointmentId[]>;
   estimateDetails;
   dateTodayString;
-
+  monthInIntegerValue;
+  stringCountFieldVal: string;
   email: string = "";
   downloadURL: Observable<string | null>;
 
@@ -27,6 +28,8 @@ export class UserService {
   ) {
     this.email = localStorage.getItem('email');
     this.dateTodayString = datePipe.transform(Date.now(), 'yyyyMM');
+    this.monthInIntegerValue = datePipe.transform(Date.now(), 'MM');
+    this.stringCountFieldVal = "count".concat(this.monthInIntegerValue);
 
   }
 
@@ -61,6 +64,17 @@ export class UserService {
     if (imageUp == null) {
       await this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
         this.afs.collection('appointments').doc(res.id).set(val).then(res => {
+
+          let val = {
+            'totalRequests': firestore.FieldValue.increment(1),
+
+          }
+          val[this.stringCountFieldVal] = firestore.FieldValue.increment(1),
+            this.afs.collection("users").doc(this.email).collection('requests').doc(this.datePipe.transform(Date.now(), 'yyyy')).set(val, { merge: true }).catch(res => {
+              console.log(res);
+            }).then(res => {
+              console.log("field value of month increased");
+            });
           window.location.reload();
         }).catch(res => {
           this.showToast('danger', res);
@@ -68,6 +82,11 @@ export class UserService {
         });
 
       }).catch(res => {
+        {
+
+
+
+        }
         this.showToast('danger', res);
 
       });
@@ -86,6 +105,16 @@ export class UserService {
             val['image'] = res;
             this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
               this.afs.collection('appointments').doc(res.id).set(val).then(res => {
+                let val = {
+                  'totalRequests': firestore.FieldValue.increment(1),
+
+                }
+                val[this.stringCountFieldVal] = firestore.FieldValue.increment(1),
+                  this.afs.collection("users").doc(this.email).collection('requests').doc(this.datePipe.transform(Date.now(), 'yyyy')).set(val, { merge: true }).catch(res => {
+                    console.log(res);
+                  }).then(res => {
+                    console.log("field value of month increased");
+                  });
                 window.location.reload();
               }).catch(res => {
                 this.showToast('danger', res);
@@ -197,6 +226,12 @@ export class UserService {
     );
 
   }
+
+  // getNoOfAppointmentsEachMonth(): Observable<DocumentSnapshot<unknown>> {
+  //   return this.afs.collection("users").doc(this.email).collection("requests").doc(this.datePipe.transform(Date.now(), 'yyyy')).snapshotChanges();
+  // }
+
+
 
   getCurrentAppointments(): Observable<AppointmentId[]> {
     // return this.afs.collection('users').doc(this.email).collection("appointments").snapshotChanges();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerService } from '../manager.service';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-inventory-usage',
@@ -13,6 +14,7 @@ export class InventoryUsageComponent implements OnInit {
   monthSelected;
   yearSelected;
   inventoryUsageReports;
+  inventorySub: Subscription;
   months = [{
     'name': 'Jan',
     'val': '01'
@@ -78,11 +80,15 @@ export class InventoryUsageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    this.inventorySub.unsubscribe();
+  }
+
   getReports() {
     console.log('get reports');
     console.log(this.yearSelected);
     console.log(this.monthSelected);
-    this.managerService.getInventoryUsageReports(this.yearSelected + this.monthSelected).subscribe(res => {
+    this.inventorySub = this.managerService.getInventoryUsageReports(this.yearSelected + this.monthSelected).subscribe(res => {
       this.inventoryUsageReports = res;
       console.log(this.inventoryUsageReports);
 

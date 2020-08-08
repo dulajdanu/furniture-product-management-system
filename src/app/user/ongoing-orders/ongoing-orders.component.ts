@@ -3,6 +3,7 @@ import { NbMenuItem, NbSidebarService, NbToastrService } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { Subscription } from 'rxjs';
 
 
 export interface Appointment {
@@ -47,11 +48,13 @@ export class OngoingOrdersComponent implements OnInit {
   showARequestEstimateButton: boolean = true;
   showARejectEstimateButton: boolean = true;
   email: string;
+  appointmentSub: Subscription;
+  estimateSub: Subscription;
 
 
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private userService: UserService) {
     this.email = localStorage.getItem('email');
-    this.userService.getAppointments().subscribe(res => {
+    this.appointmentSub = this.userService.getAppointments().subscribe(res => {
       // console.log(res);
       // console.log('inside subscribe');
       if (res.length == 0) {
@@ -120,6 +123,13 @@ export class OngoingOrdersComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  ngOnDestroy() {
+    this.appointmentSub.unsubscribe();
+    if (this.estimateSub != null) {
+      this.estimateSub.unsubscribe();
+
+    }
+  }
 
   showDetails() {
     console.log("show details about the order");
@@ -134,7 +144,7 @@ export class OngoingOrdersComponent implements OnInit {
   }
 
   getEstimateDetails() {
-    this.userService.getEstimateDetails(this.selectedOrder).subscribe(res => {
+    this.estimateSub = this.userService.getEstimateDetails(this.selectedOrder).subscribe(res => {
       console.log(res);
       this.estimateDetails = res;
       let values: Array<any> = this.estimateDetails['val'];
