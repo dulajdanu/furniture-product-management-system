@@ -97,7 +97,10 @@ export class ReportsComponent implements OnInit {
   }
   ngOnDestroy() {
     this.appointmentSub.unsubscribe();
-    this.appointmentSub2.unsubscribe();
+    if (this.appointmentSub2 != null) {
+      this.appointmentSub2.unsubscribe();
+
+    }
   }
   items: NbMenuItem[] = [
     {

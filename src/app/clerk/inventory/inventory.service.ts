@@ -40,6 +40,10 @@ export class InventoryService {
     });
     val['addedByClerk'] = clerkMail;
     this.afs.collection('reports').doc('InventoryReport').set({}, { merge: true });
+
+    val["Name"] = val['name'];
+    val["Quantity"] = val["quantity"];
+    val["ID"] = val["id"];
     this.afs.collection('reports').doc('InventoryReport').collection(this.dateTodayString).add({
       val: val,
       status: "itemAdded",
