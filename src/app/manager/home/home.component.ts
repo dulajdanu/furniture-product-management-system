@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
 
 
   public lineChartDataforTypes: ChartDataSets[] = [
-    { data: this.typesCount, label: 'Number of types' },
+    { data: this.typesCount, label: 'Number of orders' },
 
   ];
   public lineChartLabelsforTypes: Label[] = ['Custom', 'Single',];

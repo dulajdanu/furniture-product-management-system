@@ -119,7 +119,7 @@ export class InventoryUsageComponent implements OnInit {
 
   constructor(private managerService: ManagerService, private datePipe: DatePipe) { }
 
-  checkValueExistence = roleParam => this.itemsInReport.some(({ name }) => name == roleParam)
+  checkValueExistence = roleParam => this.itemsInReport.some(({ id }) => id == roleParam)
 
   ngOnInit(): void {
   }
@@ -155,10 +155,10 @@ export class InventoryUsageComponent implements OnInit {
 
 
 
-            if (this.checkValueExistence(el["Name"])) {
+            if (this.checkValueExistence(el["ID"])) {
               //if this is true it means the value is in the list so we have to increate the count
               this.itemsInReport.forEach(elementIn => {
-                if (elementIn.name == el["Name"]) {
+                if (elementIn.name == el["ID"]) {
                   // elementIn.quantity = elementIn.quantity + el["Quantity"]
                   if (element["status"] == "stockAdded") {
                     elementIn.stockAdded = elementIn.stockAdded + el["Quantity"]

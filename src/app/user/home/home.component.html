@@ -15,7 +15,13 @@
     </nb-sidebar>
 
     <nb-layout-column class="colored-column-success">
-        <h4>Total number of appointments made during this year {{totalNumberOfBookings}}</h4>
+
+
+        <div>
+            <img alt="Promotions" src="/assets/images/img.png">
+
+        </div>
+        <h4>Total number of appointments you made during this year is {{totalNumberOfBookings}}</h4>
 
 
         <div *ngIf="fetchingDataCompleted == true" style="height: 300px;width: 500px; display: block;">
@@ -24,6 +30,9 @@
                 [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
                 [plugins]="lineChartPlugins">
             </canvas>
+
+
+
         </div>
 
         <nb-card *ngIf="numberOfOrders != 0;else orders" status="primary">
