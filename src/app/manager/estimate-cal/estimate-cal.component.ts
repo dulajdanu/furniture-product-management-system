@@ -5,6 +5,7 @@ import { ManagerService } from '../manager.service';
 import { InventoryService } from '../../clerk/inventory/inventory.service';
 import { Observable, Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'ngx-estimate-cal',
@@ -95,6 +96,10 @@ export class EstimateCalComponent implements OnInit {
 
     }
   }
+
+
+  estimatesDocs: Observable<any[]>;
+
 
   onUserRowSelect(event): void {
     // console.log(this.itemsAdded);
@@ -240,7 +245,7 @@ export class EstimateCalComponent implements OnInit {
 
 
 
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private managerService: ManagerService, private inventoryService: InventoryService) {
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private managerService: ManagerService, private inventoryService: InventoryService, private afs: AngularFirestore) {
     this.Mail = localStorage.getItem('email');
     this.appointmentSub = this.inventoryService.getAllItems().subscribe(res => {
       this.itemsofInventory = res;
@@ -285,6 +290,9 @@ export class EstimateCalComponent implements OnInit {
       // console.log(this.activeAppointments);
       // console.log(this.newAppointments);
     });
+
+    this.estimatesDocs = this.afs.collection("estimate").valueChanges();
+    console.log(this.estimatesDocs);
   }
 
   ngOnInit(): void {

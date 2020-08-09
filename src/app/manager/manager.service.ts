@@ -188,6 +188,11 @@ export class ManagerService {
 
     });
 
+    this.afs.collection("estimate").add(val).catch(res => {
+      console.log(res);
+    });
+
+
   }
 
   sendAnotherEstimate(id, email) {

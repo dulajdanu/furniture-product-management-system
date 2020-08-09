@@ -19,43 +19,76 @@
         <h4>ESTIMATE CALCULATOR</h4>
         <nb-card>
             <nb-card-body>
-                <nb-select style="width:300px ;" size="large" placeholder="Order" [(ngModel)]="selectedOrder">
-                    <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]' (click)="showDetails()">
-                        {{item['id']}}
-                    </nb-option>
+                <div style="display: grid;grid-template-columns: repeat(2,1fr);">
 
-                </nb-select>
-                <div *ngIf="selectedOrder != null" style="margin-top: 10px;">
-                    <h6>You selected order {{selectedOrder}}</h6>
+                    <div>
+                        <nb-select style="width:300px ;" size="large" placeholder="Order" [(ngModel)]="selectedOrder">
+                            <nb-option *ngFor="let item of ongoing_Appointments" [value]='item["id"]'
+                                (click)="showDetails()">
+                                {{item['id']}}
+                            </nb-option>
 
-
-                </div>
-                <div *ngIf="selectedOrderDetails!=null">
-                    <nb-card>
-                        <nb-card-header>Date for the appointment:
-                            {{selectedOrderDetails['dateFortheAppointment']}}
-                        </nb-card-header>
-
-                        <nb-card-header>Description of the order:
-                            {{selectedOrderDetails['descriptionOfOrder']}}
-                        </nb-card-header>
-                        <nb-card-header>
-                            Types required
-                            <hr>
-                            <div *ngFor="let item of typesRequiredStringArray">
-                                <p>{{item}}</p>
-                            </div>
-                        </nb-card-header>
-
-                        <nb-card-header>Clerk :
-                            {{selectedOrderDetails['confirmedBy']}}
-                        </nb-card-header>
-                        <nb-card-header>Manager :
-                            {{selectedOrderDetails['manager']}}
-                        </nb-card-header>
+                        </nb-select>
+                        <div *ngIf="selectedOrder != null" style="margin-top: 10px;">
+                            <h6>You selected order {{selectedOrder}}</h6>
 
 
-                    </nb-card>
+                        </div>
+                        <div *ngIf="selectedOrderDetails!=null">
+                            <nb-card>
+                                <nb-card-header>Date for the appointment:
+                                    {{selectedOrderDetails['dateFortheAppointment']}}
+                                </nb-card-header>
+
+                                <nb-card-header>Description of the order:
+                                    {{selectedOrderDetails['descriptionOfOrder']}}
+                                </nb-card-header>
+                                <nb-card-header>
+                                    Types required
+                                    <hr>
+                                    <div *ngFor="let item of typesRequiredStringArray">
+                                        <p>{{item}}</p>
+                                    </div>
+                                </nb-card-header>
+
+                                <nb-card-header>Clerk :
+                                    {{selectedOrderDetails['confirmedBy']}}
+                                </nb-card-header>
+                                <nb-card-header>Manager :
+                                    {{selectedOrderDetails['manager']}}
+                                </nb-card-header>
+
+
+                            </nb-card>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="width: 500px;height: 500px; background-color:rgb(229, 216, 214);overflow-y: auto;">
+                            <nb-card-body>
+                                <h5 style="margin-left: 20px;margin-bottom: 20px;">Past Estimates</h5>
+                                <ul>
+                                    <li style="margin-top: 20px;" *ngFor="let item of estimatesDocs | async">
+                                        Total value of the estimate : {{ item.totalVal }}
+                                        <br> Items included
+
+                                        <ol>
+                                            <li *ngFor="let itemin of item.val">
+                                                {{itemin.Name}} X {{itemin.Quantity}}
+
+                                            </li>
+                                        </ol>
+                                    </li>
+                                </ul>
+
+
+                            </nb-card-body>
+
+                        </div>
+                    </div>
+                    <!-- </div> -->
+
+
                 </div>
 
             </nb-card-body>
