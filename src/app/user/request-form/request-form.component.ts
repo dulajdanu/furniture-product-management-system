@@ -137,12 +137,16 @@ export class RequestFormComponent implements OnInit {
     if ((this.checkOtherType() == true) && (this.description != '')) {
       val['desOfOtherType'] = this.description;
 
+      console.log(val);
+
       this.uService.addewAppointment(val, this.files.length == 0 ? null : this.files[0]);
 
 
 
     }
     else {
+      console.log(val);
+
       this.uService.addewAppointment(val, this.files.length == 0 ? null : this.files[0]);
 
     }

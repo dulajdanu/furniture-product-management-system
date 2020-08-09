@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit {
 
 
 
+  typesCount: number[] = [0, 0,]; //this is used when showing the types graph
+  typesFieldsInDoc: string[] = ['custom', 'single'];
+
+
   public lineChartData: ChartDataSets[] = [
     { data: this.appointmentsCount, label: 'Number of rejected appointments' },
     {
@@ -67,6 +71,27 @@ export class HomeComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [];
+
+
+
+
+  public lineChartDataforTypes: ChartDataSets[] = [
+    { data: this.typesCount, label: 'Number of types' },
+
+  ];
+  public lineChartLabelsforTypes: Label[] = ['Custom', 'Single',];
+  // public lineChartOptions: (ChartOptions & { annotation: any }) = {
+  //   responsive: true,
+  // };
+  public lineChartColorsforTypes: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(0,0,255,0.3)',
+    },
+  ];
+  public lineChartLegendforTypes = true;
+  public lineChartTypeforTypes = 'bar';
+  public lineChartPluginsforTypes = [];
 
 
 
@@ -180,8 +205,27 @@ export class HomeComponent implements OnInit {
         }
 
       }
-      this.fetchingDataCompleted = true;
+      // this.fetchingDataCompleted = true;
     });
+
+
+    this.afs.collection("reports").doc("OrderTypes").collection(this.datePipe.transform(Date.now(), 'yyyy')).doc("report").valueChanges().subscribe(res => {
+      console.log(res);
+      for (let index = 0; index < this.typesFieldsInDoc.length; index++) {
+        if (res[this.typesFieldsInDoc[index]] != null) {
+          this.typesCount[index] = res[this.typesFieldsInDoc[index]];
+          console.log("inside if ")
+
+        }
+
+      }
+      this.fetchingDataCompleted = true;
+      console.log(this.typesCount);
+    });
+
+
+
+
 
   }
 

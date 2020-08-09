@@ -53,7 +53,7 @@ export class UserService {
     return this.appointments;
   }
 
-  async addewAppointment(val, imageUp) {
+  async addewAppointment(data, imageUp) {
 
 
     // let date: Date = val['dateAdded'];
@@ -62,8 +62,8 @@ export class UserService {
     // let formatDate = pipe.transform(date, 'MM-dd-y');
 
     if (imageUp == null) {
-      await this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
-        this.afs.collection('appointments').doc(res.id).set(val).then(res => {
+      await this.afs.collection('users').doc(this.email).collection('appointments').add(data).then(res => {
+        this.afs.collection('appointments').doc(res.id).set(data).then(res => {
 
           let val = {
             'totalRequests': firestore.FieldValue.increment(1),
@@ -75,6 +75,26 @@ export class UserService {
             }).then(res => {
               console.log("field value of month increased");
             });
+
+
+          let val2 = {};
+          if (data['checkTypes'].length >= 1) {
+            val2['custom'] = firestore.FieldValue.increment(1);
+
+
+
+
+          } else {
+            val2['single'] = firestore.FieldValue.increment(1);
+          }
+
+          this.afs.collection("reports").doc("OrderTypes").set({}, { merge: true });
+          this.afs.collection("reports").doc("OrderTypes").collection(this.datePipe.transform(Date.now(), 'yyyy')).doc("report").set(val2, { merge: true }).catch(res => {
+            console.log(res);
+          }).then(res => {
+            console.log("field value of month increased");
+          });
+
           window.location.reload();
         }).catch(res => {
           this.showToast('danger', res);
@@ -102,9 +122,9 @@ export class UserService {
           this.downloadURL = fileRef.getDownloadURL();
           this.downloadURL.subscribe(res => {
             console.log(res);
-            val['image'] = res;
-            this.afs.collection('users').doc(this.email).collection('appointments').add(val).then(res => {
-              this.afs.collection('appointments').doc(res.id).set(val).then(res => {
+            data['image'] = res;
+            this.afs.collection('users').doc(this.email).collection('appointments').add(data).then(res => {
+              this.afs.collection('appointments').doc(res.id).set(data).then(res => {
                 let val = {
                   'totalRequests': firestore.FieldValue.increment(1),
 

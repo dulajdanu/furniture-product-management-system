@@ -23,6 +23,16 @@
                 [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
                 [plugins]="lineChartPlugins">
             </canvas>
+
+
+
+        </div>
+
+        <div *ngIf="fetchingDataCompleted == true" style="height: 300px;width: 500px; display: block;">
+            <canvas baseChart width="150" height="80" [datasets]="lineChartDataforTypes"
+                [labels]="lineChartLabelsforTypes" [colors]="lineChartColorsforTypes" [legend]="lineChartLegendforTypes"
+                [chartType]="lineChartTypeforTypes" [plugins]="lineChartPluginsforTypes">
+            </canvas>
         </div>
 
         <nb-card *ngIf="numberOfOrders != 0;else orders" status="primary">
