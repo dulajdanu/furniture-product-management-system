@@ -41,6 +41,8 @@ import { InventoryUsageComponent } from './inventory-usage/inventory-usage.compo
 import { OrderTypePredictionComponent } from './order-type-prediction/order-type-prediction.component';
 import { RejectJobReportComponent } from './reject-job-report/reject-job-report.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
+import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent, ReportsComponent, InventoryUsageComponent, OrderTypePredictionComponent, RejectJobReportComponent, AddStaffComponent],
@@ -73,7 +75,8 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
     NbProgressBarModule,
     NgxDropzoneModule,
     NbCalendarModule,
-    NbListModule
+    NbListModule,
+    ChartsModule
 
 
   ]

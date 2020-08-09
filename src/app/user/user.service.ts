@@ -157,6 +157,17 @@ export class UserService {
       window.location.reload();
 
     });
+
+    let val = {
+      'total': firestore.FieldValue.increment(1),
+
+    }
+    val[this.stringCountFieldVal] = firestore.FieldValue.increment(1),
+
+
+      this.afs.collection('reports').doc('AcceptedReport').set({}, { merge: true });
+    this.afs.collection('reports').doc('AcceptedReport').collection(this.datePipe.transform(Date.now(), 'yyyy')).doc('report').set(val, { merge: true });
+
   }
 
   requestAnotherEstimate(orderID: string, clientEmail: string, feedBack: string) {
@@ -202,11 +213,21 @@ export class UserService {
 
     this.afs.collection('reports').doc('RejectedReport').set({}, { merge: true });
 
+
     this.afs.collection('reports').doc('RejectedReport').collection(this.dateTodayString).add({
       'id': orderID,
       'email': clientEmail,
       'feedback': feedBack
-    })
+    });
+
+    let val = {
+      'total': firestore.FieldValue.increment(1),
+
+    }
+    val[this.stringCountFieldVal] = firestore.FieldValue.increment(1),
+
+
+      this.afs.collection('reports').doc('RejectedReport').collection(this.datePipe.transform(Date.now(), 'yyyy')).doc('report').set(val, { merge: true });
   }
 
 

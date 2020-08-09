@@ -16,6 +16,15 @@
 
     <nb-layout-column class="colored-column-success">
 
+
+        <div *ngIf="fetchingDataCompleted == true" style="height: 300px;width: 500px; display: block;">
+
+            <canvas baseChart width="150" height="80" [datasets]="lineChartData" [labels]="lineChartLabels"
+                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+            </canvas>
+        </div>
+
         <nb-card *ngIf="numberOfOrders != 0;else orders" status="primary">
             <nb-card-header> Current appointments </nb-card-header>
 
