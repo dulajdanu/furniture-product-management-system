@@ -19,6 +19,9 @@ import {
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
+  NbLayoutModule,
+  NbActionsModule,
+  NbContextMenuModule,
 } from '@nebular/theme';
 import { AngularFireModule, } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -33,10 +36,11 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { OngoingOrdersComponent } from './manager/ongoing-orders/ongoing-orders.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ChartsModule } from 'ng2-charts';
+import { MainPageComponent } from './main-page/main-page.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MainPageComponent],
   providers: [
     { provide: BUCKET, useValue: 'furniture-webapp.appspot.com' }
   ],
@@ -67,7 +71,12 @@ import { ChartsModule } from 'ng2-charts';
     AngularFireStorageModule,
     Ng2SmartTableModule,
     NgxDropzoneModule,
-    ChartsModule
+    ChartsModule,
+    NbLayoutModule,
+    NbActionsModule,
+    NbMenuModule.forRoot(),
+    NbContextMenuModule,
+
 
 
 
