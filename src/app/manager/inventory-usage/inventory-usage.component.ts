@@ -125,10 +125,17 @@ export class InventoryUsageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.inventorySub.unsubscribe();
+    if (this.inventorySub != null) {
+      this.inventorySub.unsubscribe();
+
+    }
   }
 
   getReports() {
+    this.itemsInReport = [];
+    this.inventoryUsageReports = null;
+
+
     let customRow: CustomRow = {
       id: "",
       name: "",
