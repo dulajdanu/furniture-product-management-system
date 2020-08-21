@@ -17,7 +17,7 @@ export class ReportsComponent implements OnInit {
 
 
 
-  reportTypes: Array<string> = ['Inventory Usage', 'Order Type Prediction', 'Reject Job Report'];
+  reportTypes: Array<string> = ['Inventory Usage', 'Reject Job Report'];
 
   selectedReportDetails;
   is_there_ongoingAppointments: boolean = false; //to find whethere there are pending appointmnets

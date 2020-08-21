@@ -1,7 +1,7 @@
 <nb-layout>
-    <nb-layout-header>
+    <nb-layout-header style="background-color: #808080;">
         <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
-        <h4>welcome</h4>
+        <h4>A+ Your Future Dream Furniture</h4>
 
         <div style="position: absolute; right: 30px;">
             <nb-user (click)="load()" style="display: inline-block;" name="{{Mail}}"></nb-user>
@@ -9,7 +9,7 @@
         </div>
 
     </nb-layout-header>
-    <nb-sidebar state=" compacted">
+    <nb-sidebar state=" compacted" style="background-color: #808080;">
         <nb-menu [items]="items"></nb-menu>
 
     </nb-sidebar>
@@ -40,10 +40,10 @@
             <ngx-inventory-usage></ngx-inventory-usage>
 
         </div>
-        <div *ngIf="selectedReport == 'Order Type Prediction'">
+        <!-- <div *ngIf="selectedReport == 'Order Type Prediction'">
             <ngx-order-type-prediction></ngx-order-type-prediction>
 
-        </div>
+        </div> -->
 
         <div *ngIf="selectedReport == 'Reject Job Report'">
             <ngx-reject-job-report></ngx-reject-job-report>
