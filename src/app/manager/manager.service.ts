@@ -143,12 +143,14 @@ export class ManagerService {
     return this.appointments;
   }
 
-  sendEstimate(val, orderDetails, total, labourCost, dateOfCompletion) {
+  sendEstimate(val, orderDetails, total, labourCost, dateOfCompletion, profitPercentage: number) {
     console.log(val);
     console.log(orderDetails);
     this.afs.collection('appointments').doc(orderDetails['id']).update({
       'status': 3,
       'labourCost': labourCost,
+      'totalCost': total,
+      'profitPercentage': profitPercentage,
       'dateOfCompletion': dateOfCompletion
     }).then(res => { }).catch(res => {
       this.showToast('danger', res);

@@ -25,6 +25,39 @@
             </nb-card-header>
             <nb-card-body>
 
+                <div *ngIf="appointmentData != null" style="display: block;">
+                    <nb-card-header style="display: block;">Client Email :
+                        {{appointmentData['email']}}
+                    </nb-card-header>
+                    <nb-card-header style="display: block;">Appointment Confirmed by Clerk :
+                        {{appointmentData['confirmedBy']}}
+                    </nb-card-header>
+                    <!-- <nb-card-header style="display: block;">Date fixed for the appointment :
+                        {{appointmentData['dateFortheAppointment']}}
+                    </nb-card-header> -->
+                    <nb-card-header style="display: block;">Date of completion for the appointment :
+                        {{appointmentData['dateOfCompletion']}}
+                    </nb-card-header>
+                    <nb-card-header style="display: block;">Client Email :
+                        {{appointmentData['email']}}
+                    </nb-card-header>
+                    <nb-card-header style="display: block;">Description added by the client :
+                        {{appointmentData['descriptionOfOrder']}}
+                    </nb-card-header>
+
+                    <nb-card-header style="display: block;">Labour Cost added by the Manager: Rs
+                        {{appointmentData['labourCost']}}
+                    </nb-card-header>
+                    <nb-card-header style="display: block;">Total Cost added by the Manager: Rs
+                        {{appointmentData['totalCost']}}
+                    </nb-card-header>
+                    <nb-card-header style="display: block;">Profit Percentage added by the Manager : Rs
+                        {{appointmentData['profitPercentage']}}
+                    </nb-card-header>
+
+
+
+                </div>
 
             </nb-card-body>
         </nb-card>

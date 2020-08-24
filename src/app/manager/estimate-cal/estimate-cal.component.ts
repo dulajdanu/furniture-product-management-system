@@ -43,6 +43,7 @@ export class EstimateCalComponent implements OnInit {
   pipe = new DatePipe('en-US'); // Use your own locale
   appointmentSub: Subscription;
   appointmentSub2: Subscription;
+  profitPercentageCalculated: number = 0;
 
   //  formatDate = pipe.transform(date, 'MM-dd-y');
 
@@ -180,7 +181,7 @@ export class EstimateCalComponent implements OnInit {
   sendEstimate() {
     // console.log(this.rows);
     // console.log('add all items to stock');
-    this.managerService.sendEstimate(this.rows, this.selectedOrderDetails, this.totalValue, this.labourCost, this.pipe.transform(this.dateOfCompletion));
+    this.managerService.sendEstimate(this.rows, this.selectedOrderDetails, this.totalValue, this.labourCost, this.pipe.transform(this.dateOfCompletion), this.profitPercentageCalculated,);
     // this.itemName = "";
     // this.itemId = "";
     // this.itemQty = 0;
@@ -232,6 +233,8 @@ export class EstimateCalComponent implements OnInit {
 
   addProfitPercentage() {
     //this function is used to add profit percentage to total
+    this.profitPercentageCalculated = this.totalValue / 100 * this.profitPercentage;
+
     this.totalValue = this.totalValue + this.totalValue / 100 * this.profitPercentage;
   }
 
