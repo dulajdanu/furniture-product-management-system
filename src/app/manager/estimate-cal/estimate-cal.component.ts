@@ -361,6 +361,12 @@ export class EstimateCalComponent implements OnInit {
       link: '/manager/add-staff'
 
     },
+    {
+      title: 'Search Appointments',
+      icon: 'search-outline',
+      link: '/manager/search'
+
+    },
   ];
 
   showDetails() {

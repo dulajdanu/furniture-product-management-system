@@ -135,6 +135,12 @@ export class ReportsComponent implements OnInit {
       link: '/manager/add-staff'
 
     },
+    {
+      title: 'Search Appointments',
+      icon: 'search-outline',
+      link: '/manager/search'
+
+    },
 
   ];
 

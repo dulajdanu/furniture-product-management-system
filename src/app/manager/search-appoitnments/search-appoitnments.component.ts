@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-
-import { NbSidebarService, NbToastrService, NbMenuItem } from '@nebular/theme';
+import { NbSidebarService, NbMenuItem } from '@nebular/theme';
 import { AuthService } from '../../auth/auth.service';
-import { Router } from '@angular/router';
-import { ManagerService } from '../manager.service';
+import { NbSearchService } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-add-staff',
-  templateUrl: './add-staff.component.html',
-  styleUrls: ['./add-staff.component.scss']
+  selector: 'ngx-search-appoitnments',
+  templateUrl: './search-appoitnments.component.html',
+  styleUrls: ['./search-appoitnments.component.scss']
 })
-export class AddStaffComponent implements OnInit {
+export class SearchAppoitnmentsComponent implements OnInit {
 
 
   Mail;
   linearMode = true;
+  value = '';
 
-  staffEmail: string;
-  staffPassword;
-  staffFullname;
-  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService) {
-
+  constructor(private sidebarService: NbSidebarService, private authService: AuthService, private searchService: NbSearchService) {
     this.Mail = localStorage.getItem('email');
 
+    this.searchService.onSearchSubmit()
+      .subscribe((data: any) => {
+        this.value = data.term;
+
+        console.log(this.value);
+
+      })
+
   }
+
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -33,11 +37,10 @@ export class AddStaffComponent implements OnInit {
     this.sidebarService.toggle(true);
     return false;
   }
-  ngOnInit(): void {
-    // this.getAppointments();
-    // this.userService.getAppointments().subscribe().unsubscribe();
 
+  ngOnInit(): void {
   }
+
   items: NbMenuItem[] = [
     {
       title: 'Home',
@@ -86,14 +89,5 @@ export class AddStaffComponent implements OnInit {
 
   }
 
-  createAccount() {
-    // this.staffEmail.includes('@')
-    console.log('create new worker account');
-    this.managerService.createNewStaffAccount(this.staffEmail, this.staffFullname, this.staffPassword);
-    this.staffPassword = null;
-    this.staffFullname = null;
-    this.staffEmail = null;
-  }
 
 }
-

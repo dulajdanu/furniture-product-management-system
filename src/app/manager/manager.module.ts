@@ -25,7 +25,8 @@ import {
   NbStepperModule,
   NbProgressBarModule,
   NbCalendarModule,
-  NbListModule
+  NbListModule,
+  NbSearchModule
 } from '@nebular/theme';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -42,10 +43,11 @@ import { OrderTypePredictionComponent } from './order-type-prediction/order-type
 import { RejectJobReportComponent } from './reject-job-report/reject-job-report.component';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ChartsModule } from 'ng2-charts';
+import { SearchAppoitnmentsComponent } from './search-appoitnments/search-appoitnments.component';
 
 
 @NgModule({
-  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent, ReportsComponent, InventoryUsageComponent, OrderTypePredictionComponent, RejectJobReportComponent, AddStaffComponent],
+  declarations: [ManagerComponent, HomeComponent, OrderComponent, EstimateCalComponent, OngoingOrdersComponent, ReportsComponent, InventoryUsageComponent, OrderTypePredictionComponent, RejectJobReportComponent, AddStaffComponent, SearchAppoitnmentsComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,
@@ -76,7 +78,8 @@ import { ChartsModule } from 'ng2-charts';
     NgxDropzoneModule,
     NbCalendarModule,
     NbListModule,
-    ChartsModule
+    ChartsModule,
+    NbSearchModule
 
 
   ]

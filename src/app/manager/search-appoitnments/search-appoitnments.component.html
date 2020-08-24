@@ -1,0 +1,35 @@
+<nb-layout>
+    <nb-layout-header style="background-color: #808080;">
+        <a href="#" (click)="toggle()"><i class="nb-menu"></i></a>
+        <h4>A+ Your Future Dream Furniture</h4>
+
+        <div style="position: absolute; right: 30px;">
+            <nb-user (click)="load()" style="display: inline-block;" name="{{Mail}}"></nb-user>
+
+        </div>
+
+    </nb-layout-header>
+    <nb-sidebar state=" compacted" style="background-color: #808080;">
+        <nb-menu [items]="items"></nb-menu>
+
+    </nb-sidebar>
+    <nb-layout-column class="colored-column-success">
+        <nb-card>
+            <nb-card-header>
+                <h6>Search Appointment</h6>
+
+            </nb-card-header>
+            <nb-card-header>
+                <nb-search type="column-curtain"></nb-search>
+
+            </nb-card-header>
+            <nb-card-body>
+
+
+            </nb-card-body>
+        </nb-card>
+
+    </nb-layout-column>
+
+
+</nb-layout>
