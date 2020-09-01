@@ -9,7 +9,7 @@
         </div>
 
     </nb-layout-header>
-    <nb-sidebar state=" compacted" style="background-color: #808080;">
+    <nb-sidebar state="compacted" style="background-color: #808080;">
         <nb-menu [items]="items"></nb-menu>
 
     </nb-sidebar>
@@ -19,14 +19,15 @@
                 <h6>Add new Staff Members</h6>
             </nb-card-header>
             <nb-card-body>
-                <input style="display: block;" nbInput placeholder="Enter staff account email" [(ngModel)]="staffEmail">
+                <input style="width: 300px; display: block;" nbInput placeholder="Enter staff account email"
+                    [(ngModel)]="staffEmail">
 
-                <input style="margin-top: 20px;display: block;" nbInput placeholder="Enter staff account full name"
-                    [(ngModel)]="staffFullname">
+                <input style="width: 300px; margin-top: 20px;display: block;" nbInput
+                    placeholder="Enter staff account full name" [(ngModel)]="staffFullname">
 
 
-                <input nbInput style="margin-top: 20px;display:block ;" placeholder="Enter staff account password"
-                    [(ngModel)]="staffPassword">
+                <input nbInput style="width: 300px; margin-top: 20px;display:block ;"
+                    placeholder="Enter staff account password" [(ngModel)]="staffPassword">
 
                 <button style="margin-top: 20px;" nbButton status="primary" (click)="createAccount()"
                     [disabled]='staffEmail == null || staffPassword ==null || staffFullname ==null|| !staffEmail.includes("@")'>Create
