@@ -150,6 +150,7 @@ export class InventoryUsageComponent implements OnInit {
       this.inventoryUsageReports = res;
       console.log(this.inventoryUsageReports);
       res.forEach(element => {
+        console.log(element);
         if (element["status"] != "itemAdded") {
           element["val"].forEach(el => {
 
@@ -158,7 +159,7 @@ export class InventoryUsageComponent implements OnInit {
             if (this.checkValueExistence(el["ID"])) {
               //if this is true it means the value is in the list so we have to increate the count
               this.itemsInReport.forEach(elementIn => {
-                if (elementIn.name == el["ID"]) {
+                if (elementIn.id == el["ID"]) {
                   // elementIn.quantity = elementIn.quantity + el["Quantity"]
                   if (element["status"] == "stockAdded") {
                     elementIn.stockAdded = elementIn.stockAdded + el["Quantity"]

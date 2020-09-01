@@ -54,36 +54,36 @@ export class ReportsComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService, private authService: AuthService, private router: Router, private toastrService: NbToastrService, private managerService: ManagerService) {
 
     this.Mail = localStorage.getItem('email');
-    this.appointmentSub = this.managerService.getAppointments().subscribe(res => {
-      // console.log(res);
-      // console.log('inside subscribe');
-      if (res.length == 0) {
-        this.numberOfOrders = 0;
-      }
-      else {
-        this.ongoing_Appointments = []; //clear the arrays before adding elements
-        this.is_there_ongoingAppointments = false;
-        this.numberOfOrders = res.length;
-        res.forEach(element => {
-          // console.log(element);
+    // // this.appointmentSub = this.managerService.getAppointments().subscribe(res => {
+    // //   // console.log(res);
+    // //   // console.log('inside subscribe');
+    // //   if (res.length == 0) {
+    // //     this.numberOfOrders = 0;
+    // //   }
+    // //   else {
+    // //     this.ongoing_Appointments = []; //clear the arrays before adding elements
+    // //     this.is_there_ongoingAppointments = false;
+    // //     this.numberOfOrders = res.length;
+    // //     res.forEach(element => {
+    // //       // console.log(element);
 
-          if (element['status'] == 5) {
-            this.ongoing_Appointments.push(element); //if there is a pending appointment push it to the pending appointments array
-          }
+    // //       if (element['status'] == 5) {
+    // //         this.ongoing_Appointments.push(element); //if there is a pending appointment push it to the pending appointments array
+    // //       }
 
-        });
-        if (this.ongoing_Appointments.length != 0) {
-          this.is_there_ongoingAppointments = true; //checking the pending appointments array is empty or not
-          this.no_of_ongoing = this.ongoing_Appointments.length;
-        }
+    // //     });
+    // //     if (this.ongoing_Appointments.length != 0) {
+    // //       this.is_there_ongoingAppointments = true; //checking the pending appointments array is empty or not
+    // //       this.no_of_ongoing = this.ongoing_Appointments.length;
+    // //     }
 
-      }
+    // //   }
 
-      console.log(this.ongoing_Appointments);
-      // console.log(this.is_there_newAppointments);
-      // console.log(this.activeAppointments);
-      // console.log(this.newAppointments);
-    });
+    // //   console.log(this.ongoing_Appointments);
+    // //   // console.log(this.is_there_newAppointments);
+    //   // console.log(this.activeAppointments);
+    //   // console.log(this.newAppointments);
+    // });
   }
 
   toggle() {
@@ -96,7 +96,7 @@ export class ReportsComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    this.appointmentSub.unsubscribe();
+    // this.appointmentSub.unsubscribe();
     if (this.appointmentSub2 != null) {
       this.appointmentSub2.unsubscribe();
 
@@ -149,24 +149,24 @@ export class ReportsComponent implements OnInit {
     this.authService.SignOut();
 
   }
-  showDetails(order) {
-    // console.log(order);
-    this.selectedReportDetails = order;
-    console.log(this.selectedReportDetails);
-    this.getDataAboutOrderProgress(order['id']);
-  }
+  // showDetails(order) {
+  //   // console.log(order);
+  //   this.selectedReportDetails = order;
+  //   console.log(this.selectedReportDetails);
+  //   // this.getDataAboutOrderProgress(order['id']);
+  // }
 
 
 
-  getDataAboutOrderProgress(id: string) {
-    console.log('get data about order progress');
-    this.appointmentSub2 = this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
-      this.progressDetails = res;
-      console.log(this.progressDetails);
-      this.userFeedback = this.progressDetails['userFeedback'];
+  // getDataAboutOrderProgress(id: string) {
+  //   console.log('get data about order progress');
+  //   this.appointmentSub2 = this.managerService.getProgressOfaOrder(id).valueChanges().subscribe(res => {
+  //     this.progressDetails = res;
+  //     console.log(this.progressDetails);
+  //     this.userFeedback = this.progressDetails['userFeedback'];
 
-    })
-  }
+  //   })
+  // }
 
 
 }
