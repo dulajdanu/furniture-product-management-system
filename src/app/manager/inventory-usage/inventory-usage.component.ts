@@ -98,10 +98,10 @@ export class InventoryUsageComponent implements OnInit {
         title: 'ID',
         filter: false
       },
-      name: {
-        title: 'Name',
-        filter: false
-      },
+      // name: {
+      //   title: 'Name',
+      //   filter: false
+      // },
       // quantity: {
       //   title: 'Quantity',
       //   filter: false

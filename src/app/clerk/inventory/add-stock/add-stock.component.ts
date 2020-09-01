@@ -51,7 +51,7 @@ export class AddStockComponent implements OnInit {
   itemName: string = '';
   itemQty: number = 0;
 
-  headers = ["ID", "Name", "Quantity"];
+  headers = ["ID", "Quantity"];
 
   rows = [
 

@@ -44,9 +44,14 @@
 
             </nb-select>
         </div>
+        <!-- 
+        <div *ngIf="getAvailability()">
+
+        </div> -->
         <div style="padding: 5px;">
-            <button (click)="RemoveItem()" nbButton status="primary"
-                [disabled]="itemId == '' ||  itemQty ==0 ||  selectedOrderId == null">Add </button>
+            <button (click)="getAvailability()" nbButton status="primary"
+                [disabled]="itemId == '' ||  itemQty ==0 ||  selectedOrderId == null ">Add
+            </button>
         </div>
 
 

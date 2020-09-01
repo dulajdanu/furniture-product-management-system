@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbMenuItem, NbSidebarService, NbToastrService } from '@nebular/theme';
+import { NbMenuItem, NbSidebarService, NbToastrService, NbComponentStatus } from '@nebular/theme';
 import { AuthService } from '../../../auth/auth.service';
 import { ClerkService } from '../../clerk.service';
 import { Router } from '@angular/router';
@@ -68,6 +68,7 @@ export class RemoveStockComponent implements OnInit {
   }
 
   itemsAdded = []; //items added by user to add to stock
+  canRemoved: boolean = false; //this is used to refer whether the item can be removed or not
 
   itemsObservable: Observable<Item[]>;
   itemsofInventory: Item[];
@@ -78,7 +79,7 @@ export class RemoveStockComponent implements OnInit {
   itemName: string = '';
   itemQty: number = 0;
 
-  headers = ["ID", "Name", "Quantity", "OrderID"];
+  headers = ["ID", "Quantity", "OrderID"];
 
   rows = [
 
@@ -234,7 +235,34 @@ export class RemoveStockComponent implements OnInit {
     this.selectedOrderId = null;
   }
 
-  Re
+  getAvailability() {
+    if (this.itemsofInventory != null) {
+      this.itemsofInventory.forEach(element => {
+        if (element.id == this.itemId) {
+          if (this.itemQty <= element.quantity) {
+            console.log("item qty is less than or equal to quantity in the inventory");
+            // this.canRemoved = true;
+            // return true;
+            this.RemoveItem();
+
+          } else {
+            console.log("item qty is greater than  quantity in the inventory");
+            this.showToast("danger", "Item Quantity is greater than the item Quantity in the inventory");
+
+            // return false;
+
+          }
+
+        }
+
+      });
+
+    }
+  }
+
+  showToast(status: NbComponentStatus, message: string) { //function used to show toast messages
+    this.toastrService.show(status, message, { status });
+  }
 
 
 
