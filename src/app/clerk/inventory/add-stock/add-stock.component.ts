@@ -189,11 +189,11 @@ export class AddStockComponent implements OnInit {
     // console.log(this.itemQty);
     this.rows.push({
       'ID': this.itemId,
-      'Name': this.itemName,
+      // 'Name': this.itemName,
       'Quantity': Number(this.itemQty)
     });
 
-    this.itemName = "";
+    // this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;
 
@@ -202,7 +202,7 @@ export class AddStockComponent implements OnInit {
   AddAllitemsToStock() {
     console.log('add all items to stock');
     this.inventoryService.addNewStock(this.rows, this.clerkMail);
-    this.itemName = "";
+    // this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;
     this.rows = [];

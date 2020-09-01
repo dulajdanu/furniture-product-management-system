@@ -171,7 +171,7 @@ export interface Item {
 
 export interface ItemStock { //this interface is used when adding new stock to the inventory
   'ID': string,
-  'Name': string,
+  // 'Name': string,
   'Quantity': number,
   'OrderID': string
 }

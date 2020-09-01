@@ -212,12 +212,12 @@ export class RemoveStockComponent implements OnInit {
     // console.log(this.itemQty);
     this.rows.push({
       'ID': this.itemId,
-      'Name': this.itemName,
+      // 'Name': this.itemName,
       'Quantity': Number(this.itemQty),
       'OrderID': this.selectedOrderId
     });
 
-    this.itemName = "";
+    // this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;
     this.selectedOrderId = null;
@@ -227,7 +227,7 @@ export class RemoveStockComponent implements OnInit {
   RemoveAllitemsToStock() { //this function is used to add all the items in the list to the database
     console.log('add all items to stock');
     this.inventoryService.removeStock(this.rows);
-    this.itemName = "";
+    // this.itemName = "";
     this.itemId = "";
     this.itemQty = 0;
     this.rows = [];
